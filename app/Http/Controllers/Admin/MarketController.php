@@ -11,10 +11,12 @@ class MarketController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index():View
+    public function index(Request $request):View
     {
+        $pageSize = $request->input('pageSize');
+        if(empty($pageSize)) $pageSize=15;
         return view('admin/markets.index',[
-            'markets'=>Market::paginate(5),
+            'markets'=>Market::orderByDesc('updated_at')->paginate($pageSize),
         ]);
     }
 
