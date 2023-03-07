@@ -24,7 +24,7 @@
                         Market Position
                     </label>
                 </div>
-                <div class="md:w-2/3">
+                <div class="md:w-2/3 text-black">
                     <input name="position" placeholder="{{ __('Please put market\'s position') }}"
                         class="p-2 text-lg block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                         value="{{ old('position',$market->position) }}">
