@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\Models\Admin\Market;
+use App\Models\Admin\Pastoral;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
-class MarketController extends Controller
+class PastoralController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,19 +15,19 @@ class MarketController extends Controller
     {
         $pageSize = $request->input('pageSize');
         if(empty($pageSize)) $pageSize=15;
-        return view('admin/markets.index',[
-            'markets'=>Market::orderByDesc('created_at')->paginate($pageSize),
+        return view('admin/pastorals.index',[
+            'pastorals'=>Pastoral::orderByDesc('created_at')->paginate($pageSize),
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Market $market):View
+    public function create(Pastoral $pastoral):View
     {
         //
-        return view('admin/markets.create',[
-            'market'=>$market,
+        return view('admin/pastorals.create',[
+            'pastoral'=>$pastoral,
         ]);
     }
 
@@ -42,8 +42,8 @@ class MarketController extends Controller
             'position'=>'required|string|max:255',
             'note'=>'required|string|max:255',
         ]);
-        $market=Market::create($validated);
-        return redirect(route('markets.index'));
+        $pastoral=Pastoral::create($validated);
+        return redirect(route('pastorals.index'));
 
     }
 
@@ -58,40 +58,40 @@ class MarketController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Market $market):View
+    public function edit(Pastoral $pastoral):View
     {
         //
-       // $this->authorize('update',$market);
-        return view('admin/markets.edit',[
-            'market'=>$market,
+       // $this->authorize('update',$pastoral);
+        return view('admin/pastorals.edit',[
+            'pastoral'=>$pastoral,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Market $market):RedirectResponse
+    public function update(Request $request, Pastoral $pastoral):RedirectResponse
     {
         //
-      //  $this->authorize('update',$market);
+      //  $this->authorize('update',$pastoral);
         $validated = $request->validate([
             'name'=>'required|string|max:255',
             'position'=>'required|string|max:255',
             'note'=>'required|string|max:255',
         ]);
-        $market->update($validated);
-        return redirect(route('markets.index'));
+        $pastoral->update($validated);
+        return redirect(route('pastorals.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Market $market)
+    public function destroy(Pastoral $pastoral)
     {
         //
-       /// $this->authorize('delete',$market);
-        $market->delete();
-        return redirect(route('markets.index'));
+       /// $this->authorize('delete',$pastoral);
+        $pastoral->delete();
+        return redirect(route('pastorals.index'));
     }
     
 }

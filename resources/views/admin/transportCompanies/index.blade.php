@@ -1,16 +1,16 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 ">
-        <h2 class="text-center text-3xl font-bold mt-4 mb-4">市場情報リスト</h2>
+        <h2 class="text-center text-3xl font-bold mt-4 mb-4">運送会社リスト</h2>
         <div class="flex justify-between items-center">
             <div class="">
-            合計:{{$markets->total()}}
+            合計:{{$transportCompanies->total()}}
             </div>
             <div class="flex justify-end items-center">
-                <form action="{{route('markets.index')}}" method="get" class="">
+                <form action="{{route('transportCompanies.index')}}" method="get" class="">
                     @csrf
                     @method('get')
                     @php
-                    $pageSize = $markets->perPage();
+                    $pageSize = $transportCompanies->perPage();
                     @endphp
                     <div>
                         <label for="pageSize">ページごとの行</label>
@@ -49,35 +49,35 @@
                             </thead>
                             <tbody>
                                 @php
-                                $counter =($markets->currentPage()-1)*$pageSize +1;
+                                $counter =($transportCompanies->currentPage()-1)*$pageSize +1;
                                 @endphp
-                                @foreach ($markets as $market)
+                                @foreach ($transportCompanies as $transportCompany)
                                 <tr
                                     class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-200 dark:hover:bg-neutral-400">
                                     <td class="whitespace-nowrap px-6 py-2 font-medium w-10">
                                         <span class="text-gray-800 break-all">{{ $counter++;}}</span>
                                     </td>
                                     <td class="whitespace-nowrap px-6 py-2 font-medium w-36">
-                                        <span class="text-gray-800 break-all">{{ $market->name }}</span>
+                                        <span class="text-gray-800 break-all">{{ $transportCompany->name }}</span>
                                     </td>
                                     <td class="hitespace-nowrap px-6 py-2 font-medium w-40">
-                                        <span class="text-gray-800 break-all">{{ $market->position }}</span>
+                                        <span class="text-gray-800 break-all">{{ $transportCompany->position }}</span>
                                     </td>
                                     <td class="whitespace-nowrap px-6 py-2 font-medium w-40 ">
-                                        <span class="text-gray-800 break-all">{{ $market->note }}</span>
+                                        <span class="text-gray-800 break-all">{{ $transportCompany->note }}</span>
                                     </td>
                                     <td class="whitespace-nowrap px-6 py-2 font-medium w-40 ">
                                         <small
-                                            class="ml-2 break-all text-gray-600">{{ $market->created_at->format('j M Y, g:i a') }}</small>
+                                            class="ml-2 break-all text-gray-600">{{ $transportCompany->created_at->format('j M Y, g:i a') }}</small>
                                     </td>
                                     <td class="whitespace-nowrap px-6 py-2 font-medium w-10">
-                                        <a href="{{route('markets.edit', $market)}}" class="p-2"><i class="fa fa-check"
+                                        <a href="{{route('transportCompanies.edit', $transportCompany)}}" class="p-2"><i class="fa fa-check"
                                                 style="color: rgb(121, 121, 121)"></i></a>
-                                        <form method="POST" id="deleteForm" action="{{ route('markets.destroy', $market) }}"
+                                        <form method="POST" id="deleteForm" action="{{ route('transportCompanies.destroy', $transportCompany) }}"
                                             class="inline-block p-2">
                                             @csrf
                                             @method('delete')
-                                            <a href="" onclick="deleteFunction()">
+                                            <a href="route('transportCompanies.destroy', $transportCompany)" onclick="deleteFunction()">
                                                 <i class="fa fa-remove" style="color:rgb(121, 121, 121)"></i>
                                             </a>
                                             <script>
@@ -101,6 +101,6 @@
                 </div>
             </div>
         </div>
-        {{$markets->appends("pageSize",$pageSize)}}
+        {{$transportCompanies->appends("pageSize",$pageSize)}}
 
 </x-app-layout>

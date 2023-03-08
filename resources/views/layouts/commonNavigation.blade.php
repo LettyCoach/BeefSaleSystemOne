@@ -15,23 +15,8 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('chirps.index')" :active="request()->routeIs('chirps.index')">
-                        {{ __('Chirps') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('markets.index')" :active="request()->routeIs('markets.index')">
-                        {{ __('Market') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('transportCompanies.index')" :active="request()->routeIs('transportCompanies.index')">
-                        {{ __('TransportCompany') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('pastorals.index')" :active="request()->routeIs('pastorals.index')">
-                        {{ __('Pastoral') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('slaughterHouses.index')" :active="request()->routeIs('slaughterHouses.index')">
-                        {{ __('SlaughterHouse') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('parts.index')" :active="request()->routeIs('parts.index')">
-                        {{ __('Part') }}
+                    <x-nav-link :href="route('purchases.index')" :active="request()->routeIs('purchases.index')">
+                        {{ __('Purchase') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -88,23 +73,8 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('chirps.index')" :active="request()->routeIs('chirps.index')">
-                {{ __('Chirps') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('markets.index')" :active="request()->routeIs('markets.index')">
-                {{ __('Market') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('transportCompanies.index')" :active="request()->routeIs('transportCompanies.index')">
-                {{ __('TransportCompany') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('pastorals.index')" :active="request()->routeIs('pastorals.index')">
-                {{ __('Pastoral') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('slaughterHouses.index')" :active="request()->routeIs('slaughterHouses.index')">
-                {{ __('SlaughterHouse') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('parts.index')" :active="request()->routeIs('parts.index')">
-                {{ __('Part') }}
+            <x-responsive-nav-link :href="route('purchases.index')" :active="request()->routeIs('purchases.index')">
+                {{ __('Purchases') }}
             </x-responsive-nav-link>
         </div>
 
