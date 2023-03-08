@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\Models\Admin\Market;
+use App\Models\Admin\Part;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
-class MarketController extends Controller
+class PartController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,19 +15,19 @@ class MarketController extends Controller
     {
         $pageSize = $request->input('pageSize');
         if(empty($pageSize)) $pageSize=15;
-        return view('admin/markets.index',[
-            'markets'=>Market::orderByDesc('created_at')->paginate($pageSize),
+        return view('admin/parts.index',[
+            'parts'=>Part::orderByDesc('created_at')->paginate($pageSize),
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Market $market):View
+    public function create(Part $part):View
     {
         //
-        return view('admin/markets.create',[
-            'market'=>$market,
+        return view('admin/parts.create',[
+            'part'=>$part,
         ]);
     }
 
@@ -39,11 +39,9 @@ class MarketController extends Controller
          //
          $validated = $request->validate([
             'name'=>'required|string|max:255',
-            'position'=>'required|string|max:255',
-            'note'=>'required|string|max:255',
         ]);
-        $market=Market::create($validated);
-        return redirect(route('markets.index'));
+        $part=Part::create($validated);
+        return redirect(route('parts.index'));
 
     }
 
@@ -58,40 +56,38 @@ class MarketController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Market $market):View
+    public function edit(Part $part):View
     {
         //
-       // $this->authorize('update',$market);
-        return view('admin/markets.edit',[
-            'market'=>$market,
+       // $this->authorize('update',$part);
+        return view('admin/parts.edit',[
+            'part'=>$part,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Market $market):RedirectResponse
+    public function update(Request $request, Part $part):RedirectResponse
     {
         //
-      //  $this->authorize('update',$market);
+      //  $this->authorize('update',$part);
         $validated = $request->validate([
             'name'=>'required|string|max:255',
-            'position'=>'required|string|max:255',
-            'note'=>'required|string|max:255',
         ]);
-        $market->update($validated);
-        return redirect(route('markets.index'));
+        $part->update($validated);
+        return redirect(route('parts.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Market $market)
+    public function destroy(Part $part)
     {
         //
-       /// $this->authorize('delete',$market);
-        $market->delete();
-        return redirect(route('markets.index'));
+       /// $this->authorize('delete',$part);
+        $part->delete();
+        return redirect(route('parts.index'));
     }
     
 }

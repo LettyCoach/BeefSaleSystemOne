@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\Models\Admin\Market;
+
+use App\Models\Admin\SlaughterHouse;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
-class MarketController extends Controller
+
+class SlaughterHouseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,19 +17,19 @@ class MarketController extends Controller
     {
         $pageSize = $request->input('pageSize');
         if(empty($pageSize)) $pageSize=15;
-        return view('admin/markets.index',[
-            'markets'=>Market::orderByDesc('created_at')->paginate($pageSize),
+        return view('admin/slaughterHouses.index',[
+            'slaughterHouses'=>SlaughterHouse::orderByDesc('created_at')->paginate($pageSize),
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Market $market):View
+    public function create(SlaughterHouse $slaughterHouse):View
     {
         //
-        return view('admin/markets.create',[
-            'market'=>$market,
+        return view('admin/slaughterHouses.create',[
+            'slaughterHouse'=>$slaughterHouse,
         ]);
     }
 
@@ -42,8 +44,8 @@ class MarketController extends Controller
             'position'=>'required|string|max:255',
             'note'=>'required|string|max:255',
         ]);
-        $market=Market::create($validated);
-        return redirect(route('markets.index'));
+        $slaughterHouse=SlaughterHouse::create($validated);
+        return redirect(route('slaughterHouses.index'));
 
     }
 
@@ -58,40 +60,40 @@ class MarketController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Market $market):View
+    public function edit(SlaughterHouse $slaughterHouse):View
     {
         //
-       // $this->authorize('update',$market);
-        return view('admin/markets.edit',[
-            'market'=>$market,
+       // $this->authorize('update',$slaughterHouse);
+        return view('admin/slaughterHouses.edit',[
+            'slaughterHouse'=>$slaughterHouse,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Market $market):RedirectResponse
+    public function update(Request $request, SlaughterHouse $slaughterHouse):RedirectResponse
     {
         //
-      //  $this->authorize('update',$market);
+      //  $this->authorize('update',$slaughterHouse);
         $validated = $request->validate([
             'name'=>'required|string|max:255',
             'position'=>'required|string|max:255',
             'note'=>'required|string|max:255',
         ]);
-        $market->update($validated);
-        return redirect(route('markets.index'));
+        $slaughterHouse->update($validated);
+        return redirect(route('slaughterHouses.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Market $market)
+    public function destroy(SlaughterHouse $slaughterHouse)
     {
         //
-       /// $this->authorize('delete',$market);
-        $market->delete();
-        return redirect(route('markets.index'));
+       /// $this->authorize('delete',$slaughterHouse);
+        $slaughterHouse->delete();
+        return redirect(route('slaughterHouses.index'));
     }
     
 }
