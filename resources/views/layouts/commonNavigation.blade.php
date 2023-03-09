@@ -3,12 +3,12 @@
         <div class="menu-item">
             <a href="/">ホーム</a>
             <a href="{{ route('purchases.index') }}">仕入</a>
-            <a href="">仕入運送</a>
-            <a href="{{ route('pastorals.index') }}">肥育</a>
-            <a href="{{ route('slaughterHouses.index') }}">出荷指示</a>
+            <a href="{{ route('transports.index') }}">仕入運送</a>
+            <a href="">肥育</a>
+            <a href="">出荷指示</a>
             <a href="">出荷運搬</a>
-            <a href="{{ route('parts.index') }}">屠殺</a>
-            <a href="{{ route('parts.index') }}">精肉管理</a>
+            <a href="">屠殺</a>
+            <a href="">精肉管理</a>
             @auth
             <a href="/logout">ログアウト</a>
             @else

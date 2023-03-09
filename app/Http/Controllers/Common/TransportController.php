@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Common;
-
+use App\Models\Admin\TransportCompany;
+use App\Models\Common\Ox;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,9 @@ class TransportController extends Controller
      */
     public function index()
     {
-        //
+       
+        $transportCompanies = TransportCompany::all();
+        return view('common/transports.index',['transportCompanies'=>$transportCompanies]);
     }
 
     /**
@@ -28,16 +31,23 @@ class TransportController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
 
+        
+    }
+    public function list(){
+        $transportCompany = TransportCompany::find(8);      
+        
+        return view('common/transports.list',['transportCompany'=>$transportCompany]);
+    }
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        
+        
     }
+
 
     /**
      * Show the form for editing the specified resource.
