@@ -25,7 +25,7 @@
 
                 </form>
                 <div class="m-2 rounded-md">
-                    <x-primary-button class="p-2 text-xl">{{ __('添加') }}</x-primary-button>
+                    <x-primary-button><a href="{{ route('parts.create') }}" class="hover:no-underline text-white">{{ __('添加') }}</a></x-primary-button> 
                 </div>
 
             </div>

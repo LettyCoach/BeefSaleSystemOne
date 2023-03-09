@@ -39,8 +39,6 @@ Route::resource('/admin/parts',PartController::class)->only(['index','store','cr
 Route::resource('/common/purchases',PurchaseController::class)->only(['index','store','create','edit','update','destroy'])->middleware(['auth','verified']);
 
 
-
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
