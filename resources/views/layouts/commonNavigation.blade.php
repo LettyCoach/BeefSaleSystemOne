@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('purchases.index')" :active="request()->routeIs('purchases.index')">
                         {{ __('Purchase') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('transports.index')" :active="request()->routeIs('transports.index')">
+                        {{ __('Transports') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -75,6 +78,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('purchases.index')" :active="request()->routeIs('purchases.index')">
                 {{ __('Purchases') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('transports.index')" :active="request()->routeIs('transports.index')">
+                {{ __('Transports') }}
             </x-responsive-nav-link>
         </div>
 
