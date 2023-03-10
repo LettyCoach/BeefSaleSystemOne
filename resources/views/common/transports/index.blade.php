@@ -129,32 +129,29 @@
     </div>
 
     <script>
-      $(document).ready(function () {  
+        $(document).ready(function () {  
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-      
-    $.ajax({         
-        url: "{{ route('transports.list')}}",
-        type: "POST",
-        // data:
-       // dataType: 'json',
-        success: function (data) {
-            $('#content').html(data);
-          //  alert(data);
-        
-        },
-        error: function (data) {
-            console.log('Error:', data);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             
-        }
-    })();  
-
-  });
-   
-  
-</script>
+            $.ajax({         
+                url: "{{ route('transports.list')}}",
+                type: "POST",
+                // data:
+            // dataType: 'json',
+                success: function (data) {
+                    $('#content').html(data);
+                //  alert(data);
+                
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                    
+                }
+            })();
+        });
+    </script>
 @endsection
