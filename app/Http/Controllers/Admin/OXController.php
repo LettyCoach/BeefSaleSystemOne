@@ -1,22 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Common;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Common\Ox;
-use App\Models\Admin\Pastoral;
+use App\Models\Admin\OX;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class FattenController extends Controller
+class OXController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $oxen = Ox::all();
-        $Pastorals = Pastoral::all();
-        return view('common/fattens.index',['oxen'=>$oxen, 'Pastorals' => $Pastorals]);
+        //
     }
 
     /**
@@ -65,5 +62,32 @@ class FattenController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function select(Request $request) {
+        $id = $request->id;
+        $ox = OX::find($id);
+        return $ox;
+    }
+
+    public function saveAppendInfo(Request $request) {
+        $id = $request->oxId;
+        $appendInfo = $request->appendInfo;
+        $ox = OX::find($id);
+        $ox->appendInfo = $appendInfo;
+        $ox->save();
+        return "OK";
+    }
+
+    public function SelectByPastoralId(Request $request) {
+        $pastoralId = $request->pastoralId;
+        if($pastoralId == 0) {
+            $oxs = OX::all();
+        }
+        else {
+            $oxs = OX::where('pastoral_id', $pastoralId)->get();
+        }
+
+        return view('common/fattens.list',['oxs'=>$oxs]);
     }
 }
