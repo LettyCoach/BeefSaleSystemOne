@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers\Common;
 
-use App\Models\Common\Ox;
-use App\Models\Admin\Pastoral;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class FattenController extends Controller
+class ShipController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $oxen = Ox::orderByDesc('created_at')->paginate(5);
-        $Pastorals = Pastoral::all();
-        return view('common/fattens.index',['oxen'=>$oxen, 'Pastorals' => $Pastorals]);
+        
     }
 
     /**

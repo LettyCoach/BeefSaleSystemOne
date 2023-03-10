@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\Common\TransportController;
 use App\Http\Controllers\Common\FattenController;
+use App\Http\Controllers\Common\ShipController;
 use App\Http\Controllers\Common\PurchaseController;
 use App\Http\Controllers\Admin\OXController;
 use App\Http\Controllers\Admin\PartController;
@@ -46,6 +47,7 @@ Route::resource('/common/transports',TransportController::class)->only(['index',
 Route::resource('/common/purchases',PurchaseController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
 Route::post('/common/transports',[TransportController::class,'list'])->name('transports.list')->middleware(['auth','verified']);
 Route::resource('/common/fatten',FattenController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
+Route::resource('/common/ship',ShipController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
 
 
 Route::middleware('auth')->group(function () {
