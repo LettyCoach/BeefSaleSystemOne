@@ -1,6 +1,6 @@
 function descriptionModal(id) {
     var sex;
-    $.get( "../admin/oxs/select", {
+    $.get( "../common/oxs/select", {
         'id': id,
     }, function(data) {
         if(data['sex'] == 0) { sex = "雌"; }
@@ -23,7 +23,7 @@ function closeModal() {
 function saveAppendInfo() {
     var oxId = $("#oxId").html();
     var appendInfo = $("#appendInfo").val();
-    $.get("../admin/oxs/saveAppendInfo", {
+    $.get("../common/oxs/saveAppendInfo", {
         "oxId": oxId,
         "appendInfo": appendInfo
     }, function(data){
@@ -35,7 +35,7 @@ function saveAppendInfo() {
 
 function selectPastoral() {
     var pastoralId = $("#selectPastoral").val();
-    $.get('../admin/oxs/bypastoralId', {
+    $.get('../common/oxs/bypastoralId', {
         "pastoralId": pastoralId
     }, function(data){
         $("#FattenData").html(data);
