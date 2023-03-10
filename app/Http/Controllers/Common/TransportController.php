@@ -34,10 +34,33 @@ class TransportController extends Controller
 
         
     }
-    public function list(){
-        $transportCompany = TransportCompany::find(8);      
+    public function list(Request $request){
+        $company_id = $request->input('SelectCompany');
+        $statu = $request->input('statu');
+        $loadDate = $request->input('loadDate');
+        $unloadDate = $request->input('unloadDate');
+        $ox_id = $request->input('ox_id');
         
-        return view('common/transports.list',['transportCompany'=>$transportCompany]);
+        if(isset($ox_id) && ($unloadDate == '1900-01-01')){
+            $unloadDate = NULL;
+            Ox::where('id',$ox_id)->update(['unloadDate'=>$unloadDate]);
+        }else if(isset($ox_id) && ($loadDate == '1900-01-01')){
+            $loadDate = NULL;
+            Ox::where('id',$ox_id)->update(['loadDate'=>$loadDate]);
+        }else if(isset($ox_id) && isset($loadDate)){
+            Ox::where('id',$ox_id)->update(['loadDate'=>$loadDate]);
+        }else if(isset($ox_id) && isset($unloadDate)){
+            Ox::where('id',$ox_id)->update(['unloadDate'=>$unloadDate]);
+        }else{
+            if($statu == 2){
+                $oxen =TransportCompany::find($company_id)->oxen()->where('loadDate','<>',NULL)->get(); 
+            }elseif($statu == 1){
+                $oxen = TransportCompany::find($company_id)->oxen()->where('loadDate','=',NULL)->get();
+            }else{
+                $oxen = TransportCompany::find($company_id)->oxen;
+            }
+        }
+        return view('common/transports.list',['oxen'=>$oxen]);
     }
     /**
      * Display the specified resource.

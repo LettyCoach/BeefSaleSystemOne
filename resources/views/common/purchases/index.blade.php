@@ -1,6 +1,6 @@
 @extends('layouts.commonUser')
 @section('content')
-<div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 ">
+<div class="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8 ">
         <h2 class="text-center text-3xl font-bold mt-4 mb-4">仕入リスト</h2>
        
         @if($message = Session::get('updateSuccess'))
@@ -23,25 +23,38 @@
             </div>
         @endif
         
-        <div class="flex justify-between items-center">
-            <div class="">
-            
-            </div>
-            <div class="flex justify-end items-center">
+            <div class="flex justify-between items-center">
+                <form action="{{route('purchases.index')}}" method="get" class="">
+                    @csrf
+                    @method('get')
+                   
+                    @php
+                    $pageSize = $oxen->perPage();
+                    @endphp
+                    <div>
+                        <label for="pageSize">ページごとの行</label>
+                        <select name="pageSize" id="pageSize" class="text-xs"
+                            onchange="event.preventDefault(); this.closest('form').submit();">
+                            <option value="15" @if($pageSize==15 ) selected @endif>15</option>
+                            <option value="20" @if($pageSize==20) selected @endif>20</option>
+                            <option value="30" @if($pageSize==30) selected @endif>30</option>
+                            <option value="50" @if($pageSize==50) selected @endif>50</option>
+                        </select>
+                    </div>
+
+                </form>
                 <div class="rounded-md">
                     <x-primary-button><a href="{{ route('purchases.create') }}" class="hover:no-underline text-white">{{ __('添加') }}</a></x-primary-button>
                     <!-- <i class="fa fa-plus" style="color:white"></i> -->
                 </div>
 
             </div>
-        </div>
-        
-
+            
         <div class="flex flex-col">
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                     <div class="overflow-hidden">
-                        <table class="min-w-full table-fixed text-left text-sm font-light">
+                        <table class="max-w-6xl m-auto table-fixed text-left text-sm font-light">
                             <thead class="border-b font-medium dark:border-neutral-200">
                                 <tr>
                                     <th scope="col" class="px-6 py-4 ">番号</th>
@@ -75,6 +88,10 @@
                                     <td class="whitespace-nowrap px-6 py-2 font-medium  ">
                                         <span class="text-gray-800 break-all">{{$ox->birthday}}</span>
                                     </td>
+                                    <td class="whitespace-nowrap px-6 py-2 font-medium  ">
+                                        <small
+                                            class="ml-2 break-all text-gray-600">@if($ox->sex==1) 雄 @else 雌 @endif</small>
+                                    </td>
                                     <td class="whitespace-nowrap px-6 py-2 font-medium ">
                                         <span class="text-gray-800 break-all">{{$ox->market->name}}</span>
                                     </td>
@@ -87,10 +104,7 @@
                                     <td class="whitespace-nowrap px-6 py-2 font-medium  ">
                                         <span class="text-gray-800 break-all">{{$ox->purchasePrice}}</span>
                                     </td>
-                                    <td class="whitespace-nowrap px-6 py-2 font-medium  ">
-                                        <small
-                                            class="ml-2 break-all text-gray-600">@if($ox->sex==1) 雄 @else 雌 @endif</small>
-                                    </td>
+                                    
                                     <td class="whitespace-nowrap px-6 py-2 font-medium w-10">
                                         <a href="{{route('purchases.edit', $ox)}}" class="p-2"><i class="fa fa-check"
                                                 style="color: rgb(121, 121, 121)"></i></a>
@@ -118,10 +132,11 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{$oxen->appends("pageSize",$pageSize)}}
                     </div>
                 </div>
             </div>
         </div>
         
-
+</div>       
 @endsection
