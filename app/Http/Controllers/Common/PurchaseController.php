@@ -15,11 +15,14 @@ class PurchaseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $oxen = Ox::all();
-        return view('common/purchases.index',['oxen'=>$oxen]);
+        
+        $pageSize = $request->input('pageSize');
+        if(empty($pageSize)) $pageSize=15;
+        return view('common/purchases.index',[
+            'oxen'=>Ox::orderByDesc('created_at')->paginate($pageSize)],
+        );
     }
 
     /**
