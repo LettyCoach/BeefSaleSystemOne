@@ -3,7 +3,7 @@ use App\Http\Controllers\Common\TransportController;
 use App\Http\Controllers\Common\FattenController;
 use App\Http\Controllers\Common\ShipController;
 use App\Http\Controllers\Common\PurchaseController;
-use App\Http\Controllers\Admin\OXController;
+use App\Http\Controllers\Common\OXController;
 use App\Http\Controllers\Admin\PartController;
 use App\Http\Controllers\Admin\MarketController;
 use App\Http\Controllers\Admin\SlaughterHouseController;
@@ -39,9 +39,9 @@ Route::resource('/admin/transportCompanies',TransportCompanyController::class)->
 Route::resource('/admin/slaughterHouses',SlaughterHouseController::class)->only(['index','store','create','edit','update','destroy'])->middleware(['auth','verified']);
 Route::resource('/admin/parts',PartController::class)->only(['index','store','create','edit','update','destroy'])->middleware(['auth','verified']);
 // Route::resource('/admin/oxs',OXController::class)->middleware(['auth','verified']);
-Route::get('/admin/oxs/select', [OXController::class, 'select'])->middleware(['auth','verified']);
-Route::get('/admin/oxs/saveAppendInfo', [OXController::class, 'saveAppendInfo'])->middleware(['auth','verified']);
-Route::get('/admin/oxs/bypastoralId', [OXController::class, 'SelectByPastoralId'])->middleware(['auth','verified']);
+Route::get('/common/oxs/select', [OXController::class, 'select'])->middleware(['auth','verified']);
+Route::get('/common/oxs/saveAppendInfo', [OXController::class, 'saveAppendInfo'])->middleware(['auth','verified']);
+Route::get('/common/oxs/bypastoralId', [OXController::class, 'SelectByPastoralId'])->middleware(['auth','verified']);
 
 Route::resource('/common/transports',TransportController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
 Route::resource('/common/purchases',PurchaseController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);

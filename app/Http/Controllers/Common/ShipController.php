@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Common;
 
+use App\Models\Admin\Pastoral;
+use App\Models\Admin\OX;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
