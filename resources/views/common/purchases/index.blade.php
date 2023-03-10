@@ -1,6 +1,6 @@
 @extends('layouts.commonUser')
 @section('content')
-<div class="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8 ">
+<div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 ">
         <h2 class="text-center text-3xl font-bold mt-4 mb-4">仕入リスト</h2>
        
         @if($message = Session::get('updateSuccess'))
@@ -23,7 +23,7 @@
             </div>
         @endif
         
-            <div class="flex justify-between items-center">
+            <div class="max-w-7xl flex justify-between items-center">
                 <form action="{{route('purchases.index')}}" method="get" class="">
                     @csrf
                     @method('get')
@@ -54,7 +54,7 @@
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                     <div class="overflow-hidden">
-                        <table class="max-w-6xl m-auto table-fixed text-left text-sm font-light">
+                        <table class="w-full m-auto text-left text-sm font-light">
                             <thead class="border-b font-medium dark:border-neutral-200">
                                 <tr>
                                     <th scope="col" class="px-6 py-4 ">番号</th>
