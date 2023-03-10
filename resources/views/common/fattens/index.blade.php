@@ -81,6 +81,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="px-4 pt-4">
+                        {{ $oxen->links() }}
+                    </div>
                 </div>
             </div>
         </div>
