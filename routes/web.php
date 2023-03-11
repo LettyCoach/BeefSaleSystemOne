@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\Common\TransportToSlaughterHouseController;
 use App\Http\Controllers\Common\TransportController;
 use App\Http\Controllers\Common\FattenController;
 use App\Http\Controllers\Common\ShipController;
@@ -48,8 +49,8 @@ Route::resource('/common/purchases',PurchaseController::class)->only(['index','s
 Route::post('/common/transports',[TransportController::class,'list'])->name('transports.list')->middleware(['auth','verified']);
 Route::resource('/common/fatten',FattenController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
 Route::resource('/common/ship',ShipController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
-
-
+Route::resource('/common/transportToSlaughterHouses',TransportToSlaughterHouseController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
+Route::post('/common/transportToSlaughterHouses',[TransportToSlaughterHouseController::class,'list'])->name('transportToSlaughterHouses.list')->middleware(['auth','verified']);
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

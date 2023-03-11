@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Admin\Market;
 use App\Models\Admin\TransportCompany;
 use App\Models\Admin\Pastoral;
+use App\Models\Admin\SlaughterHouse;
 
 class Ox extends Model
 {
@@ -46,5 +47,9 @@ class Ox extends Model
     public function slaughterTransportCompany(): BelongsTo
     {
         return $this->belongsTo(TransportCompany::class ,'slaughterTransport_Company_id');
+    }
+    public function slaughterHouse(): BelongsTo
+    {
+        return $this->belongsTo(SlaughterHouse::class ,'slaughterHouse_id');
     }
 }

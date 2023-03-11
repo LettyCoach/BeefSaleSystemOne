@@ -40,6 +40,10 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('transport_companies')
                 ->onUpdate('cascade');
+            $table->foreignId('slaughterHouse_id')
+                ->nullable()
+                ->constrained('slaughter_houses')
+                ->onUpdate('cascade');
             $table->date('acceptedDateSlaughterHouse')->nullable();
             $table->decimal('acceptedWeight',11,2)->nullable();
             $table->integer('acceptedLevel')->nullable();

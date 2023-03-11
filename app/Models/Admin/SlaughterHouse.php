@@ -13,5 +13,9 @@ class SlaughterHouse extends Model
         'position',
         'note',
     ];
+    public function oxen(): HasMany
+    {
+        return $this->hasMany(Ox::class,'slaughterHouse_id');
+    }
     
 }
