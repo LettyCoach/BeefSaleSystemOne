@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Common;
 
 use App\Models\Admin\TransportCompany;
 use App\Models\Admin\SlaughterHouse;
+use App\Models\Admin\Pastoral;
 use App\Models\Common\Ox;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -15,10 +16,11 @@ class ShipController extends Controller
      */
     public function index()
     {
-        $oxen = Ox::orderByDesc('created_at')->paginate(10);
         $TransportCompanies = TransportCompany::all();
+        $Pastorals = Pastoral::all();
         $SlaughterHouses = SlaughterHouse::all();
-        return view('common.ships.index',['oxen'=>$oxen, 'TransportCompanies' => $TransportCompanies, 'SlaughterHouses' => $SlaughterHouses]);
+        $todayDate = date('Y-m-d');
+        return view('common.ships.index',['TransportCompanies' => $TransportCompanies, 'Pastorals' => $Pastorals, 'SlaughterHouses' => $SlaughterHouses, 'todayDate'=>$todayDate]);
     }
 
     /**
@@ -40,9 +42,36 @@ class ShipController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        //
+        $pastoralId = $request->pastoralId;
+        $transportCompanyId = $request->transportCompanyId;
+        
+        if($pastoralId == 0 && $transportCompanyId ==0) {
+            $oxen = Ox::whereNotNull('exportDate')->paginate(10);
+        }
+
+        if($pastoralId != 0 && $transportCompanyId == 0) {
+            $oxen = Ox::whereNotNull('exportDate')
+                ->where('pastoral_id', $pastoralId)
+                ->paginate(10);
+        }
+
+        if($pastoralId == 0 && $transportCompanyId != 0) {
+            $oxen = Ox::whereNotNull('exportDate')
+                ->where('slaughterTransport_Company_id', $transportCompanyId)
+                ->paginate(10);
+        }
+
+        if($pastoralId != 0 && $transportCompanyId != 0) {
+            $oxen = Ox::whereNotNull('exportDate')
+                ->where('pastoral_id', $pastoralId)
+                ->where('slaughterTransport_Company_id', $transportCompanyId)
+                ->paginate(10);
+        }
+
+        return view('common.ships.list',['oxen'=>$oxen]);
+        
     }
 
     /**

@@ -90,4 +90,23 @@ class OXController extends Controller
 
         return view('common/fattens.list',['oxs'=>$oxs]);
     }
+
+    public function getOxRegisterNumberListByPastoral(Request $request) {
+        $pastoralId = $request->pastoralId;
+        $oxen = Ox::where('pastoral_id', $pastoralId)->where('exportDate', NULL)->get();
+        if(count($oxen) == 0) {
+            return "<option value='0'>なし</option>";
+        }
+        return view('common.ships.OxRegisterNumberListByPastoral', ['oxen' => $oxen]);
+    }
+
+    public function getOxNameById(Request $request) {
+        $oxId = $request->oxId;
+        if($oxId == 0) {
+            return "なし";
+        }
+        $oxen = Ox::where('id', $oxId)->get();
+        $oxName = $oxen[0]->name;
+        return $oxName;
+    }
 }

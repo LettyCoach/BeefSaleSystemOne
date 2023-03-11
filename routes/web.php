@@ -45,6 +45,8 @@ Route::resource('/admin/parts',PartController::class)->only(['index','store','cr
 Route::get('/common/oxs/select', [OXController::class, 'select'])->middleware(['auth','verified']);
 Route::get('/common/oxs/saveAppendInfo', [OXController::class, 'saveAppendInfo'])->middleware(['auth','verified']);
 Route::get('/common/oxs/bypastoralId', [OXController::class, 'SelectByPastoralId'])->middleware(['auth','verified']);
+Route::get('/common/oxs/getOxRegisterNumberListByPastoral', [OXController::class, 'getOxRegisterNumberListByPastoral'])->middleware(['auth','verified']);
+Route::get('/common/oxs/getOxNameById', [OXController::class, 'getOxNameById'])->middleware(['auth','verified']);
 
 Route::resource('/common/transports',TransportController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
 Route::resource('/common/purchases',PurchaseController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
