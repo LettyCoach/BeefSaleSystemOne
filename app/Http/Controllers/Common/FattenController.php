@@ -14,7 +14,7 @@ class FattenController extends Controller
      */
     public function index()
     {
-        $oxen = Ox::orderByDesc('created_at')->paginate(5);
+        $oxen = Ox::orderByDesc('created_at')->paginate(10);
         $Pastorals = Pastoral::all();
         return view('common/fattens.index',['oxen'=>$oxen, 'Pastorals' => $Pastorals]);
     }

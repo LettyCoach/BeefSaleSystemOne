@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Common;
 
-use App\Models\Admin\OX;
+use App\Models\Common\Ox;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -66,14 +66,14 @@ class OXController extends Controller
 
     public function select(Request $request) {
         $id = $request->id;
-        $ox = OX::find($id);
+        $ox = Ox::find($id);
         return $ox;
     }
 
     public function saveAppendInfo(Request $request) {
         $id = $request->oxId;
         $appendInfo = $request->appendInfo;
-        $ox = OX::find($id);
+        $ox = Ox::find($id);
         $ox->appendInfo = $appendInfo;
         $ox->save();
         return "OK";
@@ -82,10 +82,10 @@ class OXController extends Controller
     public function SelectByPastoralId(Request $request) {
         $pastoralId = $request->pastoralId;
         if($pastoralId == 0) {
-            $oxs = OX::all();
+            $oxs = Ox::all();
         }
         else {
-            $oxs = OX::where('pastoral_id', $pastoralId)->get();
+            $oxs = Ox::where('pastoral_id', $pastoralId)->get();
         }
 
         return view('common/fattens.list',['oxs'=>$oxs]);

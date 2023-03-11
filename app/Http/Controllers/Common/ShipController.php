@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Common;
 
+use App\Models\Admin\TransportCompany;
+use App\Models\Admin\SlaughterHouse;
+use App\Models\Common\Ox;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -12,7 +15,10 @@ class ShipController extends Controller
      */
     public function index()
     {
-        
+        $oxen = Ox::orderByDesc('created_at')->paginate(10);
+        $TransportCompanies = TransportCompany::all();
+        $SlaughterHouses = SlaughterHouse::all();
+        return view('common.ships.index',['oxen'=>$oxen, 'TransportCompanies' => $TransportCompanies, 'SlaughterHouses' => $SlaughterHouses]);
     }
 
     /**

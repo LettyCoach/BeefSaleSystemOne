@@ -1,5 +1,5 @@
 <div class="myHeader h-24 flex items-center">
-    <div class="max-w-7xl container flex justify-between items-center">
+    <div class="container max-w-7xl flex justify-between items-center">
         <div class="myLogo">
             <a href="/dashboard">
                 <img src="{{ asset('./assets/img/common/logo.png') }}" alt="" class="w-16">
