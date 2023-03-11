@@ -40,7 +40,7 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('transport_companies')
                 ->onUpdate('cascade');
-            $table->foreignId('slaughterHouses_id')
+            $table->foreignId('slaughterHouse_id')
                 ->nullable()
                 ->constrained('slaughter_houses')
                 ->onUpdate('cascade');

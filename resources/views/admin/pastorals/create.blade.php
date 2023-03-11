@@ -12,7 +12,7 @@
                     </label>
                 </div>
                 <div class="md:w-5/6">
-                    <input name="name" placeholder="{{__('Please put pastoral\'s name')}}" class="p-2 text-lg block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                    <input name="name" class="p-2 text-lg block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                         value="{{old('name',$pastoral->name)}}">
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
@@ -25,7 +25,7 @@
                     </label>
                 </div>
                 <div class="md:w-5/6">
-                    <input name="position" placeholder="{{ __('Please put pastoral\'s position') }}"
+                    <input name="position" 
                         class="p-2 text-lg block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                         value="{{ old('position',$pastoral->position) }}">
                     <x-input-error :messages="$errors->get('position')" class="mt-2" />
@@ -39,7 +39,7 @@
                     </label>
                 </div>
                 <div class="md:w-5/6">
-                    <textarea name="note" placeholder="{{ __('note') }}"
+                    <textarea name="note"
                         class=" text-lg block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">{{ old('note',$pastoral->note) }}</textarea>
                     <x-input-error :messages="$errors->get('note')" class="mt-2" />
                 </div>

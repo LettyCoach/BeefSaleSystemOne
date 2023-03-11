@@ -24,6 +24,7 @@
 </div>
 <div class="max-w-6xl m-auto flex flex-col mt-6 justify-center" id="content">
     
+
 </div>
 <script>
    $.ajaxSetup({
@@ -31,16 +32,9 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    function register(id){
-        if($('#loadDate'+id).val() == ""){
-         
-            return ;
-        }
-            
-        if(confirm("登録してもよろしいですか？") == true){
-            
-                $.post(
-                "{{ route('transports.list')}}",
+    function register(id){                      
+            $.post(
+                "{{ route('transportToSlaughterHouses.list')}}",
                 $('#loadDateForm'+id).serialize(),
                 function( data ){
                     alert(data)
@@ -51,18 +45,13 @@
             .fail(function( jqXhr, textStatus, errorThrown ){
                     console.log( errorThrown );
             });
-            selectCompany();
-            alert("正常に登録されました。")
-        }else{
-            return;
-        }
-        
+            selectCompany(); 
     }
     function cancel(id){
         if (confirm("登録を取り消しますか?") == true) {
             $.post(
-                    "{{ route('transports.list')}}",
-                    {'ox_id':id,'loadDate':'1900-01-01'},
+                    "{{ route('transportToSlaughterHouses.list')}}",
+                    {'ox_id':id,'acceptedDateSlaughterHouse':'1900-01-01'},
                     function( data ){
                         $('#content').html( data );
                     },
@@ -78,58 +67,11 @@
         }
     }
     
-    function unloadDateregister(id){
-        if($('#unloadDate'+id).val() == ""){
-         
-            return ;
-        }
-            
-        if(confirm("登録してもよろしいですか？") == true){
-            
-                $.post(
-                "{{ route('transports.list')}}",
-                $('#unloadDateForm'+id).serialize(),
-                function( data ){
-                    alert(data)
-                    $('#content').html( data );
-                },
-
-            )
-            .fail(function( jqXhr, textStatus, errorThrown ){
-                    console.log( errorThrown );
-            });
-            selectCompany();
-            alert("正常に登録されました。")
-        }else{
-            return;
-        }
-        
-    }
-    function unloadDatecancel(id){
-        if (confirm("登録を取り消しますか?") == true) {
-            $.post(
-                    "{{ route('transports.list')}}",
-                    {'ox_id':id,'unloadDate':'1900-01-01'},
-                    function( data ){
-                        $('#content').html( data );
-                    },
-
-                )
-                .fail(function( jqXhr, textStatus, errorThrown ){
-                        console.log( errorThrown );
-                });
-                selectCompany();
-                alert("登録はキャンセルされました。")
-        } else {
-            return;
-        }
-    }
     function selectCompany(){
 
         $.post(
-           "{{ route('transports.list')}}",
+           "{{ route('transportToSlaughterHouses.list')}}",
             $('#navForm').serialize(),
-            //data:"SelectCompany=8 & statu=1",
             function(data) {
                 $('#content').html(data);
 
@@ -142,9 +84,8 @@
     function status(){
       
         $.post(
-           "{{ route('transports.list')}}",
+           "{{ route('transportToSlaughterHouses.list')}}",
             $('#navForm').serialize(),
-            //data:"SelectCompany=8 & statu=1",
             function(data) {
                 $('#content').html(data);
             }
@@ -155,7 +96,7 @@
     }
     function initFunction(){
         $.post(
-            "{{ route('transports.list')}}",
+            "{{ route('transportToSlaughterHouses.list')}}",
             $('#navForm').serialize(),
             function(data) {
                 $('#content').html(data);
