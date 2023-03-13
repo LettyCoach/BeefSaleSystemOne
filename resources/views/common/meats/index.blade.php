@@ -73,25 +73,24 @@
                                 </td>
 
                                 <td class="whitespace-nowrap px-6 py-2 font-medium w-10">
-                                    <x-primary-button><a href="javascript:;openMeatModal({{ $ox->id }})"
-                                            class="hover:no-underline text-white">{{ __('登録') }}</a></x-primary-button>
-                                    <x-primary-button>
-                                        <a href="{{route('meats.show', $ox->id)}}" class="hover:no-underline text-white">詳細</i></a>
-                                    </x-primary-button>
-                                    <form method="POST" id="deleteForm" action="{{route('meats.destroy',$ox->id)}}"
+                                    <a href="javascript:;openMeatModal({{ $ox->id }})"><i class="p-2 fa fa-floppy-o text-green-700" aria-hidden="true"></i></a>
+                                    
+                                        <a href="{{route('meats.show', $ox->id)}}" ><i class="p-2 fa fa-info text-green-700" aria-hidden="true"></i></a>
+
+                                    <form method="POST" id="deleteForm{{$ox->id}}" action="{{route('meats.destroy',$ox->id)}}"
                                         class="inline-block p-2">
                                         @csrf
                                         @method('delete')
-                                        <!-- <input type="hidden" name="ox" value="{{$ox->id}}"> -->
-                                        <x-primary-button>
-                                        <a href="" onclick="deleteFunction()" class="hover:no-underline text-white">削除</i></a>
-                                        </x-primary-button>
+                                       
+                                        
+                                        <a  onclick="deleteFunction({{$ox->id}})" ><i class="p-2 fas fa-trash text-red-700"></i></a>
+                                        
                                         <script>
-                                        function deleteFunction() {
+                                        function deleteFunction(id) {
                                             let text = "本当に削除しますか?";
                                             if (confirm(text) == true) {
                                                 event.preventDefault();
-                                                document.getElementById('deleteForm').submit();
+                                                document.getElementById('deleteForm'+id).submit();
                                             } else
                                                 event.preventDefault();
                                         }

@@ -122,8 +122,8 @@
             <div class="md:w-1/3"></div>
             <div class="md:w-2/3">
                 <div class="mt-4 space-x-2">
-                    <x-primary-button>{{ __('Save') }}</x-primary-button>
-                    <a href="{{ route('purchases.index') }}">{{ __('Cancel') }}</a>
+                    <x-primary-button>{{ __('セーブ') }}</x-primary-button>
+                    <x-primary-button><a href="{{ route('purchases.index') }}" class="hover:no-underline text-white">{{ __('キャンセル') }}</a></x-primary-button>
                 </div>
             </div>
         </div>

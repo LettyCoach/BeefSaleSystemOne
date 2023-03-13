@@ -94,8 +94,9 @@ class MeatController extends Controller
      */
     public function destroy(int $id)
     {
-          dd($id);
-        // Meat::where('ox_id', $id)->delete();
+          
+        Meat::where('ox_id', $id)->delete();
+        Ox::find($id)->delete();
         return redirect(route('meats.index'));
     }
     
