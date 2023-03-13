@@ -26,8 +26,8 @@
                     <option @if($ox->slaughterFinishedDate == NULL) selected @endif>未</option>
                 </select>
             </td>
-            <td><input type="text" class="w-16 text-xs" value="{{$ox->acceptedWeight}}" id="acceptedWeight{{$ox->id}}"></td>
-            <td><input type="text" class="w-16 text-xs" value="{{$ox->acceptedLevel}}" id="acceptedLevel{{$ox->id}}"></td>
+            <td><input type="text" class="w-16 text-xs"  value="{{$ox->acceptedWeight}}" id="acceptedWeight{{$ox->id}}"  @if($ox->slaughterFinishedDate != NULL) disabled @else @endif></td>
+            <td><input type="text" class="w-16 text-xs"  value="{{$ox->acceptedLevel}}" id="acceptedLevel{{$ox->id}}"  @if($ox->slaughterFinishedDate != NULL) disabled @else @endif></td>
             <td>{{$ox->registerNumber}}</td>
             <td>{{$ox->name}}</td>
             <td>{{$ox->birthday}}</td>
@@ -36,7 +36,7 @@
                 <form method="post" id="slaughterFinishedDateForm{{$ox->id}}" name="slaughterFinishedDateForm{{$ox->id}}">
                     @csrf
                     <input type="hidden" name="ox_id" value="{{$ox->id}}">
-                    <input type="date" name="slaughterFinishedDate" id="slaughterFinishedDate{{$ox->id}}" class="text-xs" value="{{$ox->slaughterFinishedDate}}">
+                    <input type="date" name="slaughterFinishedDate" id="slaughterFinishedDate{{$ox->id}}" class="text-xs" value="{{$ox->slaughterFinishedDate}}" @if($ox->slaughterFinishedDate != NULL) disabled @else @endif>
 
 
                 </form>

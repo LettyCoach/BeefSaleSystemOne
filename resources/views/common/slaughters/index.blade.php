@@ -35,6 +35,21 @@
             var slaughterFinishedDate = $('#slaughterFinishedDate'+id).val();
             var acceptedWeight = $('#acceptedWeight'+id).val();
             var acceptedLevel = $('#acceptedLevel'+id).val();
+            if($('#acceptedWeight'+id).val()=="")
+            {
+                alert("重量を設定してください。")
+                return ;
+            }
+            if($('#acceptedLevel'+id).val()=="")
+            {
+                alert("格付を設定してください")
+                return ;
+            }   
+            if($('#slaughterFinishedDate'+id).val()=="")
+            {
+                alert("日付を設定してください。")
+                return ;
+            }   
             $.post(
                 "{{ route('slaughters.list')}}",
                 {
