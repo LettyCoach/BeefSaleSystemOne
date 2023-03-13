@@ -106,14 +106,13 @@
                                     </td>
                                     
                                     <td class="whitespace-nowrap px-6 py-2 font-medium w-10">
-                                        <a href="{{route('purchases.edit', $ox)}}" class="p-2"><i class="fa fa-check"
-                                                style="color: rgb(121, 121, 121)"></i></a>
+                                        <a href="{{route('purchases.edit', $ox)}}" class="p-2"><i class="p-2 fas fa-edit text-green-700" aria-hidden="true"></i></i></a>
                                         <form method="POST" id="deleteForm" action="{{route('purchases.destroy',$ox->id)}}"
                                             class="inline-block p-2">
                                             @csrf
                                             @method('delete')
                                             <a href="" onclick="deleteFunction()">
-                                                <i class="fa fa-remove" style="color:rgb(121, 121, 121)"></i>
+                                            <i class="p-2 fas fa-trash text-red-700" aria-hidden="true"></i>
                                             </a>
                                             <script>
                                                 function deleteFunction() {
