@@ -1,5 +1,6 @@
 @extends('layouts.commonUser')
 @section('content')
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 ">
         <h2 class="text-center text-3xl font-bold mt-4 mb-4">仕入リスト</h2>
        
@@ -66,7 +67,8 @@
                                     <th scope="col" class="px-6 py-4 ">運送会社</th>
                                     <th scope="col" class="px-6 py-4 ">搬送先</th>
                                     <th scope="col" class="px-6 py-4 ">購入金額</th>
-                                    <th scope="col" class="px-6 py-4 ">活動</th>
+                                    <th scope="col" class="py-4 ">編集</th>
+                                    <th scope="col" class="py-4 ">削除</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -89,8 +91,8 @@
                                         <span class="text-gray-800 break-all">{{$ox->birthday}}</span>
                                     </td>
                                     <td class="whitespace-nowrap px-6 py-2 font-medium  ">
-                                        <small
-                                            class="ml-2 break-all text-gray-600">@if($ox->sex==1) 雄 @else 雌 @endif</small>
+                                        <span
+                                            class="ml-2 break-all text-gray-600">@if($ox->sex==1) 雄 @else 雌 @endif</span>
                                     </td>
                                     <td class="whitespace-nowrap px-6 py-2 font-medium ">
                                         <span class="text-gray-800 break-all">{{$ox->market->name}}</span>
@@ -105,15 +107,17 @@
                                         <span class="text-gray-800 break-all">{{$ox->purchasePrice}}</span>
                                     </td>
                                     
-                                    <td class="whitespace-nowrap px-6 py-2 font-medium w-10">
-                                        <a href="{{route('purchases.edit', $ox)}}" class="p-2"><i class="fa fa-check"
-                                                style="color: rgb(121, 121, 121)"></i></a>
+                                    <td class="whitespace-nowrap py-2 font-medium w-10">
+                                        <a href="{{route('purchases.edit', $ox)}}"><i class="p-2 fas fa-edit text-green-700"></i></a>
+                                    </td>
+
+                                    <td class="whitespace-nowrap py-2 font-medium w-10">
                                         <form method="POST" id="deleteForm" action="{{route('purchases.destroy',$ox->id)}}"
-                                            class="inline-block p-2">
+                                            class="inline-block">
                                             @csrf
                                             @method('delete')
                                             <a href="" onclick="deleteFunction()">
-                                                <i class="fa fa-remove" style="color:rgb(121, 121, 121)"></i>
+                                                <i class="p-2 fas fa-trash text-red-700"></i>
                                             </a>
                                             <script>
                                                 function deleteFunction() {
@@ -126,7 +130,6 @@
                                                 }
                                                 </script>
                                         </form>
-                                        
                                     </td>
                                 </tr>
                                 @endforeach
