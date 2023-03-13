@@ -11,4 +11,8 @@ class Part extends Model
     protected $fillable = [
         'name',
     ];
+    public function meats(): HasMany
+    {
+        return $this->hasMany(Meat::class);
+    }
 }

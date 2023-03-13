@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models\Common;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -8,6 +9,8 @@ use App\Models\Admin\Market;
 use App\Models\Admin\TransportCompany;
 use App\Models\Admin\Pastoral;
 use App\Models\Admin\SlaughterHouse;
+use App\Models\Common\Meat;
+
 
 class Ox extends Model
 {
@@ -51,5 +54,9 @@ class Ox extends Model
     public function slaughterHouse(): BelongsTo
     {
         return $this->belongsTo(SlaughterHouse::class ,'slaughterHouse_id');
+    }
+    public function meats(): HasMany
+    {
+        return $this->hasMany(Meat::class,'ox_id');
     }
 }

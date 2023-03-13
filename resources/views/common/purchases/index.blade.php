@@ -107,17 +107,14 @@
                                         <span class="text-gray-800 break-all">{{$ox->purchasePrice}}</span>
                                     </td>
                                     
-                                    <td class="whitespace-nowrap py-2 font-medium w-10">
-                                        <a href="{{route('purchases.edit', $ox)}}"><i class="p-2 fas fa-edit text-green-700"></i></a>
-                                    </td>
-
-                                    <td class="whitespace-nowrap py-2 font-medium w-10">
+                                    <td class="whitespace-nowrap px-6 py-2 font-medium w-10">
+                                        <a href="{{route('purchases.edit', $ox)}}" class="p-2"><i class="p-2 fas fa-edit text-green-700" aria-hidden="true"></i></i></a>
                                         <form method="POST" id="deleteForm" action="{{route('purchases.destroy',$ox->id)}}"
                                             class="inline-block">
                                             @csrf
                                             @method('delete')
                                             <a href="" onclick="deleteFunction()">
-                                                <i class="p-2 fas fa-trash text-red-700"></i>
+                                            <i class="p-2 fas fa-trash text-red-700" aria-hidden="true"></i>
                                             </a>
                                             <script>
                                                 function deleteFunction() {
