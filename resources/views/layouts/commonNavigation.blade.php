@@ -14,7 +14,7 @@
                 <a class="p-3" href="{{ route('ship.index') }}">出荷指示</a>
                 <a class="p-3" href="{{route('transportToSlaughterHouses.index')}}">出荷運搬</a>
                 <a class="p-3" href="{{route('slaughters.index')}}">屠殺</a>
-                <a class="p-3" href="">精肉管理</a>
+                <a class="p-3" href="{{route('meats.index')}}">精肉管理</a>
                 @auth
                 <a class="pr-0" href="/logout">ログアウト</a>
                 @else

@@ -50,8 +50,8 @@ class SlaughterController extends Controller
         
         if(isset($ox_id) && ($slaughterFinishedDate == '1900-01-01')){
             $slaughterFinishedDate = NULL;
-            $acceptedWeight = 0;
-            $acceptedLevel = 0;
+            $acceptedWeight = NULL;
+            $acceptedLevel = NULL;
             Ox::where('id',$ox_id)->update([
                 'slaughterFinishedDate'=>$slaughterFinishedDate,
                 'acceptedWeight'=>$acceptedWeight,

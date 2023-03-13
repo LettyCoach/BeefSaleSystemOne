@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\Common\MeatController;
 use App\Http\Controllers\Common\SlaughterController;
 use App\Http\Controllers\Common\TransportToSlaughterHouseController;
 use App\Http\Controllers\Common\TransportController;
@@ -57,6 +57,7 @@ Route::resource('/common/transportToSlaughterHouses',TransportToSlaughterHouseCo
 Route::post('/common/transportToSlaughterHouses',[TransportToSlaughterHouseController::class,'list'])->name('transportToSlaughterHouses.list')->middleware(['auth','verified']);
 Route::resource('/common/slaughters',SlaughterController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
 Route::post('/common/slaughters',[SlaughterController::class,'list'])->name('slaughters.list')->middleware(['auth','verified']);
+Route::resource('/common/meats',MeatController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
