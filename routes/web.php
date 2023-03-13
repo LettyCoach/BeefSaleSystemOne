@@ -4,6 +4,7 @@ use App\Http\Controllers\Common\TransportController;
 use App\Http\Controllers\Common\FattenController;
 use App\Http\Controllers\Common\ShipController;
 use App\Http\Controllers\Common\PurchaseController;
+use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\Common\OXController;
 use App\Http\Controllers\Admin\PartController;
 use App\Http\Controllers\Admin\MarketController;
@@ -45,12 +46,14 @@ Route::get('/common/oxs/saveAppendInfo', [OXController::class, 'saveAppendInfo']
 Route::get('/common/oxs/bypastoralId', [OXController::class, 'SelectByPastoralId'])->middleware(['auth','verified']);
 Route::get('/common/oxs/getOxRegisterNumberListByPastoral', [OXController::class, 'getOxRegisterNumberListByPastoral'])->middleware(['auth','verified']);
 Route::get('/common/oxs/getOxNameById', [OXController::class, 'getOxNameById'])->middleware(['auth','verified']);
+Route::get('/common/oxs/getOxById', [OXController::class, 'getOxById'])->middleware(['auth','verified']);
 
 Route::resource('/common/transports',TransportController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
 Route::resource('/common/purchases',PurchaseController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
 Route::post('/common/transports',[TransportController::class,'list'])->name('transports.list')->middleware(['auth','verified']);
 Route::resource('/common/fatten',FattenController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
-Route::resource('/common/ship',ShipController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
+Route::resource('/common/ship',ShipController::class)->only(['index','store','show','create','edit','update'])->middleware(['auth','verified']);
+Route::get('/common/shipDestroy', [ShipController::class, 'destroy'])->middleware(['auth','verified']);
 Route::resource('/common/transportToSlaughterHouses',TransportToSlaughterHouseController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
 Route::post('/common/transportToSlaughterHouses',[TransportToSlaughterHouseController::class,'list'])->name('transportToSlaughterHouses.list')->middleware(['auth','verified']);
 Route::middleware('auth')->group(function () {

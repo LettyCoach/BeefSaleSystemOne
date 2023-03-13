@@ -4,47 +4,47 @@
             <table class="min-w-full table-fixed text-left text-sm font-light">
                 <thead class="border-b font-medium dark:border-neutral-200">
                     <tr>
-                        <th scope="col" class="px-6 py-4 ">個体識別番号</th>
-                        <th scope="col" class="px-6 py-4 ">和牛登録名</th>
-                        <th scope="col" class="px-6 py-4 ">生年月日</th>
-                        <th scope="col" class="px-6 py-4 ">性別</th>
-                        <th scope="col" class="px-6 py-4 ">牧場</th>
-                        <th scope="col" class="px-6 py-4 ">運送会社</th>
-                        <th scope="col" class="px-6 py-4 ">行き先</th>
-                        <th scope="col" class="px-6 py-4 ">編集</th>
-                        <th scope="col" class="px-6 py-4 ">削除</th>
+                        <th scope="col" class="px-2 py-4">個体識別番号</th>
+                        <th scope="col" class="px-2 py-4">和牛登録名</th>
+                        <th scope="col" class="px-2 py-4">生年月日</th>
+                        <th scope="col" class="px-2 py-4">性別</th>
+                        <th scope="col" class="px-2 py-4">牧場</th>
+                        <th scope="col" class="px-2 py-4">運送会社</th>
+                        <th scope="col" class="px-2 py-4">行き先</th>
+                        <th scope="col" class="py-4">編集</th>
+                        <th scope="col" class="py-4">削除</th>
                     </tr>
                 </thead>
                 <tbody>
                 @foreach ($oxen as $ox)
                     <tr
                         class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-200 dark:hover:bg-neutral-400">
-                        <td class="whitespace-nowrap px-6 py-2 font-medium ">
+                        <td class="whitespace-nowrap px-2 py-2 font-medium">
                             <span class="text-gray-800 break-all">{{$ox->registerNumber}}</span>
                         </td>
-                        <td class="whitespace-nowrap px-6 py-2 font-medium ">
+                        <td class="whitespace-nowrap px-2 py-2 font-medium">
                             <span class="text-gray-800 break-all">{{$ox->name}}</span>
                         </td>
-                        <td class="hitespace-nowrap px-6 py-2 font-medium ">
+                        <td class="hitespace-nowrap px-2 py-2 font-medium">
                             <span class="text-gray-800 break-all">{{$ox->birthday}}</span>
                         </td>
-                        <td class="whitespace-nowrap px-6 py-2 font-medium  ">
+                        <td class="whitespace-nowrap px-2 py-2 font-medium">
                             <span class="ml-2 break-all text-gray-600">@if($ox->sex==1) 雄 @else 雌 @endif</span>
                         </td>
-                        <td class="whitespace-nowrap px-6 py-2 font-medium  ">
+                        <td class="whitespace-nowrap px-2 py-2 font-medium">
                             {{$ox->pastoral->name}}
                         </td>
-                        <td class="whitespace-nowrap px-6 py-2 font-medium  ">
+                        <td class="whitespace-nowrap px-2 py-2 font-medium">
                             {{$ox->slaughterTransportCompany->name}}
                         </td>
-                        <td class="whitespace-nowrap px-6 py-2 font-medium  ">
+                        <td class="whitespace-nowrap px-2 py-2 font-medium">
                             {{$ox->slaughterHouse->name}}
                         </td>
-                        <td class="whitespace-nowrap px-6 py-2 font-medium  ">
-                            <a href="">Edit</a>
+                        <td class="whitespace-nowrap py-2 font-medium">
+                            <a class="" href="javascript:;editShip({{ $ox->id }})"><i class="p-2 fas fa-edit text-green-700"></i></a>
                         </td>
-                        <td class="whitespace-nowrap px-6 py-2 font-medium  ">
-                            <a href="">Delete</a>
+                        <td class="whitespace-nowrap py-2 font-medium">
+                            <a class="" href="javascript:;deleteShip({{ $ox->id }})"><i class="p-2 fas fa-trash text-red-700"></i></a>
                         </td>
                     </tr>
                 @endforeach

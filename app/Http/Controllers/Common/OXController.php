@@ -109,4 +109,11 @@ class OXController extends Controller
         $oxName = $oxen[0]->name;
         return $oxName;
     }
+
+    public function getOxById(Request $request) {
+        $oxId = $request->oxId;
+
+        $ox = Ox::find($oxId);
+        return $ox;
+    }
 }

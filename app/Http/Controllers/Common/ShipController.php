@@ -36,7 +36,20 @@ class ShipController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $transportCompanyId = $request->transportCompanyId;
+        $oxId = $request->oxId;
+        $exportDate = $request->exportDate;
+        $slaughterHouseId = $request->slaughterHouseId;
+
+        $ox = Ox::find($oxId);
+
+        $ox->slaughterTransport_Company_id = $transportCompanyId;
+        $ox->exportDate = $exportDate;
+        $ox->slaughterHouse_id = $slaughterHouseId;
+
+        $ox->save();
+
+        return "OK";
     }
 
     /**
@@ -93,8 +106,17 @@ class ShipController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $oxId = $request->oxId;
+        $ox = Ox::find($oxId);
+
+        $ox->exportDate = NULL;
+        $ox->slaughterTransport_Company_id = NULL;
+        $ox->slaughterHouse_id = NULL;
+
+        $ox->save();
+
+        return "OK";
     }
 }
