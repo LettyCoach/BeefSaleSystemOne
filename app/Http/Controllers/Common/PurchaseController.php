@@ -48,7 +48,7 @@ class PurchaseController extends Controller
         $validateData = $request->all();
 
         if(Ox::where('registerNumber',$validateData['registerNumber'])->count() == 1){
-            return back()->with('info','registerNumber Duplicate');
+            return back()->with('info','個人識別番号が重複しています。');
         }else{
             $ox = Ox::create([
                 'name' => $validateData['name'],
@@ -61,7 +61,7 @@ class PurchaseController extends Controller
                 'purchasePrice' =>(float)$validateData['purchasePrice'],
                 'purchaseDate'=>date('Y/m/d H:i:s'),
             ]);
-            return redirect(route('purchases.index'))->with('registerSuccess','Register Success');;
+            return redirect(route('purchases.index'))->with('registerSuccess','正確に登録されました。');;
         }
          
     }
@@ -98,7 +98,7 @@ class PurchaseController extends Controller
             'purchasePrice'=>'required|decimal:0,2',
         ]);
         if(Ox::where('registerNumber',$validateData['registerNumber'])->count() == 1){       
-            return back()->with('info','registerNumber Duplicate');
+            return back()->with('info','個人識別番号が重複しています。');
         }else{
             Ox::where('id', $ox_id)       
             ->update([
@@ -112,7 +112,7 @@ class PurchaseController extends Controller
                 'purchasePrice' =>(float)$validateData['purchasePrice'],
                 'purchaseDate'=>date('Y/m/d H:i:s'),
             ]);
-            return redirect(route('purchases.index'))->with('updateSuccess',"Update Success");
+            return redirect(route('purchases.index'))->with('updateSuccess',"正確に更新されました。");
         }
         
     }
@@ -124,6 +124,6 @@ class PurchaseController extends Controller
     {
        
         $deleted = Ox::where('id', $ox_id)->delete();
-        return redirect(route('purchases.index'))->with('deleteSuccess',"Delete Success");
+        return redirect(route('purchases.index'))->with('deleteSuccess',"正確に削除されました。");
     }
 }
