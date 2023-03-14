@@ -1,5 +1,7 @@
 @extends('layouts.commonUser')
 @section('content')
+<h2 class="text-center text-3xl font-bold mt-4 mb-4">運送（買った牛を運び込みと積み下ろしの報告）</h2>
+<div class="max-w-6xl mx-auto flex justify-center navbar">
 
 <div class="panel mt-5 pt-5" style="margin:0 50px">
     <h2 class="text-center font-bold mt-5 fw-bold">仕入リスト</h2>
@@ -160,6 +162,46 @@
         }); 
     }
     initFunction();
-
+    
+        function verifyFunction(){
+            var date = new Date();
+            var month = (date.getMonth()+1)<10 ? '0'+(date.getMonth()+1): (date.getMonth()+1)
+            var day = date.getDate()<10 ? '0'+date.getDate() :date.getDate()
+	        var current_date = date.getFullYear()+"-"+month+"-"+day;
+            var select_date = $('#loadDate').val();
+            if(select_date > current_date){
+                toastr.warning('日付入力時にエラーが発生しました。<br>もう一度お試しください。');
+                event.preventDefault();
+                return;
+            }
+        }
+    
 </script>
+
+<link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="{{ asset('assets/js/common/ship.js') }}"></script>
+
+    <script>
+        $(document).ready(function () {
+            toastr.options = {
+                'closeButton': true,
+                'debug': false,
+                'newestOnTop': false,
+                'progressBar': false,
+                'positionClass': 'toast-top-right',
+                'preventDuplicates': false,
+                'showDuration': '1000',
+                'hideDuration': '1000',
+                'timeOut': '5000',
+                'extendedTimeOut': '1000',
+                'showEasing': 'swing',
+                'hideEasing': 'linear',
+                'showMethod': 'fadeIn',
+                'hideMethod': 'fadeOut',
+            }
+        });
+    </script>
 @endsection

@@ -1,3 +1,22 @@
+<<<<<<< HEAD
+<table class="w-full m-auto text-left text-sm font-light">
+                            <thead class="border-b font-medium dark:border-neutral-200">
+        <th scope="col" class="px-6 py-4 ">No</th>
+        <th scope="col" class="px-6 py-4 ">ステータス</th>
+        <th scope="col" class="px-6 py-4 ">個体識別番号</th>
+        <th scope="col" class="px-6 py-4 ">和牛登録名</th>
+        <th scope="col" class="px-6 py-4 ">生年月日</th>
+        <th scope="col" class="px-6 py-4 ">性別</th>
+        <th scope="col" class="px-6 py-4 ">登録日</th>
+        <th scope="col" class="px-6 py-4 ">登録</th>
+        <th scope="col" class="px-6 py-4 ">キャンセル</th>
+    </thead>
+    <tbody class="text-center">
+        @php
+        $counter = 1;
+        @endphp
+        @foreach($oxen as $ox)
+=======
 <style>
     table.dataTable thead .sorting:after,
     table.dataTable thead .sorting:before,
@@ -12,6 +31,7 @@
         bottom: .5em;
     }
 </style>
+>>>>>>> c6aa147844b4673357094789e3c48910e3b7ebf3
 
 <link rel="stylesheet" href="{{ asset('assets/css/components/datatable.css')}}">
 

@@ -1,7 +1,7 @@
 @extends('layouts.commonUser')
 @section('content')
-
-<div class="max-w-6xl mx-auto py-12 flex justify-center navbar">
+<h2 class="text-center text-3xl font-bold mt-4 mb-4">屠殺（牛の価格の報告）</h2>
+<div class="max-w-6xl mx-auto flex justify-center navbar">
     <form action="navForm" id="navForm" method="post" class="flex">
         @csrf
         <div class="">
