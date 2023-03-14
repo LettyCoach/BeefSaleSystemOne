@@ -1,6 +1,6 @@
 <x-app-layout>
-    <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 ">
-        <h2 class="text-center text-3xl font-bold mt-4 mb-4">市場情報リスト</h2>
+    <div class="mw-100 mx-auto p-4 sm:p-6 lg:p-8 ">
+        <h2 class="text-center text-3xl font-bold mt-xl-5 mb-4">市場情報リスト</h2>
         <div class="flex justify-between items-center">
             <div class="">
             合計:{{$markets->total()}}
@@ -32,7 +32,7 @@
         </div>
         
 
-        <div class="flex flex-col">
+        <div class="d-flex flex-col">
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                     <div class="overflow-hidden">

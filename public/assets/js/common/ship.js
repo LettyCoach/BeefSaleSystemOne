@@ -1,10 +1,5 @@
 getShipList();
 
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
 function getShipList() {
     var pastoralId = $("#pastoralId").val();
     var transportCompanyId = $("#transportCompanyId").val();
