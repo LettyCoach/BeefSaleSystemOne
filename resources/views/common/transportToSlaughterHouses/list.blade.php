@@ -1,14 +1,14 @@
-<table class="w-full">
-    <thead class="text-xl text-center mb-4 border-b dark:border-neutral-500">
-        <th>No</th>
-        <th>ステータス</th>
-        <th>個体識別番号</th>
-        <th>和牛登録名</th>
-        <th>生年月日</th>
-        <th>性別</th>
-        <th>登録日</th>
-        <th>登録</th>
-        <th>キャンセル</th>
+<table class="w-full m-auto text-left text-sm font-light">
+                            <thead class="border-b font-medium dark:border-neutral-200">
+        <th scope="col" class="px-6 py-4 ">No</th>
+        <th scope="col" class="px-6 py-4 ">ステータス</th>
+        <th scope="col" class="px-6 py-4 ">個体識別番号</th>
+        <th scope="col" class="px-6 py-4 ">和牛登録名</th>
+        <th scope="col" class="px-6 py-4 ">生年月日</th>
+        <th scope="col" class="px-6 py-4 ">性別</th>
+        <th scope="col" class="px-6 py-4 ">登録日</th>
+        <th scope="col" class="px-6 py-4 ">登録</th>
+        <th scope="col" class="px-6 py-4 ">キャンセル</th>
     </thead>
     <tbody class="text-center">
         @php

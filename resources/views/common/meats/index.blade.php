@@ -1,7 +1,7 @@
 @extends('layouts.commonUser')
 @section('content')
 <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 ">
-    <h2 class="text-center text-3xl font-bold mt-4 mb-4">仕入リスト</h2>
+    <h2 class="text-center text-3xl font-bold mt-4 mb-4">精肉管理（牛の選択と価格の入力)</h2>
 
     @if($message = Session::get('updateSuccess'))
     <div class="alert alert-info alert-block">
@@ -45,7 +45,9 @@
                                 <th scope="col" class="px-6 py-4 ">和牛登録名</th>
                                 <th scope="col" class="px-6 py-4 ">生年月日</th>
                                 <th scope="col" class="px-6 py-4 ">性別</th>
-                                <th scope="col" class="px-6 py-4 ">活動</th>
+                                <th scope="col" class="py-4 w-10">登録</th>
+                                <th scope="col" class="py-4 w-10">詳細</th>
+                                <th scope="col" class="py-4 w-10">削除</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -71,12 +73,13 @@
                                     <small class="ml-2 break-all text-gray-600">@if($ox->sex==1) 雄 @else 雌
                                         @endif</small>
                                 </td>
-
-                                <td class="whitespace-nowrap px-6 py-2 font-medium w-10">
-                                    <a href="javascript:;openMeatModal({{ $ox->id }})"><i class="p-2 fa fa-floppy-o text-green-700" aria-hidden="true"></i></a>
-                                    
-                                        <a href="{{route('meats.show', $ox->id)}}" ><i class="p-2 fa fa-info text-green-700" aria-hidden="true"></i></a>
-
+                                <td  class="whitespace-nowrap py-2 font-medium text-center">
+                                <a href="javascript:;openMeatModal({{ $ox->id }})"><i class="p-2 fa fa-floppy-o text-green-700" aria-hidden="true"></i></a>
+                                </td>
+                                <td  class="whitespace-nowrap  py-2 font-medium text-center ">
+                                <a href="{{route('meats.show', $ox->id)}}" ><i class="p-2 fa fa-info text-green-700" aria-hidden="true"></i></a>
+                                </td >
+                                <td class="whitespace-nowrap py-2 font-medium w-10">
                                     <form method="POST" id="deleteForm{{$ox->id}}" action="{{route('meats.destroy',$ox->id)}}"
                                         class="inline-block p-2">
                                         @csrf

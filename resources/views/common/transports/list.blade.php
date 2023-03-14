@@ -1,15 +1,15 @@
-<table class="w-full">
-    <thead class="text-xl text-center mb-4 border-b dark:border-neutral-500">
-        <th>No</th>
-        <th>積載</th>
-        <th>行き先</th>
-        <th>個体識別番号</th>
-        <th>和牛登録名</th>
-        <th>生年月日</th>
-        <th>性別</th>
-        <th>登録日</th>
-        <th>登録</th>
-        <th>キャンセル</th>
+<table class="w-full m-auto text-left text-sm font-light">
+                            <thead class="border-b font-medium dark:border-neutral-200">
+        <th  scope="col" class="px-6 py-4 ">No</th>
+        <th scope="col" class="px-6 py-4 ">積載</th>
+        <th scope="col" class="px-6 py-4 ">行き先</th>
+        <th scope="col" class="px-6 py-4 ">個体識別番号</th>
+        <th scope="col" class="px-6 py-4 ">和牛登録名</th>
+        <th scope="col" class="px-6 py-4 ">生年月日</th>
+        <th scope="col" class="px-6 py-4 ">性別</th>
+        <th scope="col" class="px-6 py-4 ">登録日</th>
+        <th scope="col" class="px-6 py-4 ">登録</th>
+        <th scope="col" class="px-6 py-4 ">キャンセル</th>
     </thead>
     <tbody class="text-center">
         @php
@@ -34,7 +34,7 @@
                 <form method="post" id="loadDateForm{{$ox->id}}" name="loadDateForm{{$ox->id}}">
                     @csrf
                     <input type="hidden" name="ox_id" value="{{$ox->id}}">
-                    <input type="date" name="loadDate" id="loadDate{{$ox->id}}" class="text-xs" value="{{$ox->loadDate}}">
+                    <input type="date" id = "loadDate" name="loadDate" id="loadDate{{$ox->id}}" class="text-xs" value="{{$ox->loadDate}}">
 
 
                 </form>
@@ -53,18 +53,18 @@
 
 
 
-<table class="w-full mt-20">
-    <thead class="text-xl text-center mb-4 border-b dark:border-neutral-500">
-        <th>No</th>
-        <th>積み下ろし</th>
-        <th>行き先</th>
-        <th>個体識別番号</th>
-        <th>和牛登録名</th>
-        <th>生年月日</th>
-        <th>性別</th>
-        <th>登録日</th>
-        <th>登録</th>
-        <th>キャンセル</th>
+<table class="w-full m-auto text-left text-sm font-light">
+                            <thead class="border-b font-medium dark:border-neutral-200">
+        <th scope="col" class="px-6 py-4 ">No</th>
+        <th scope="col" class="px-6 py-4 ">積み下ろし</th>
+        <th scope="col" class="px-6 py-4 ">行き先</th>
+        <th scope="col" class="px-6 py-4 ">個体識別番号</th>
+        <th scope="col" class="px-6 py-4 ">和牛登録名</th>
+        <th scope="col" class="px-6 py-4 ">生年月日</th>
+        <th scope="col" class="px-6 py-4 ">性別</th>
+        <th scope="col" class="px-6 py-4 ">登録日</th>
+        <th scope="col" class="px-6 py-4 ">登録</th>
+        <th scope="col" class="px-6 py-4 ">キャンセル</th>
     </thead>
     <tbody class="text-center">
         @php

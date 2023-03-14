@@ -1,4 +1,5 @@
-<?php
+<?php                    
+use App\Http\Controllers\PaginationController;
 use App\Http\Controllers\Common\MeatController;
 use App\Http\Controllers\Common\SlaughterController;
 use App\Http\Controllers\Common\TransportToSlaughterHouseController;
@@ -67,5 +68,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
+Route::get('/pagination', [PaginationController::class, 'index'])->name('pagination.index');
+Route::get('pagination/fetch_data', [PaginationController::class, 'fetch_data'])->name('pagination.fetch_data');
 require __DIR__.'/auth.php';
