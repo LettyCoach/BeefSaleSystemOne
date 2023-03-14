@@ -1,7 +1,8 @@
 @extends('layouts.commonUser')
 @section('content')
 
-<div class="max-w-6xl mx-auto py-12 flex justify-center navbar">
+<div class="mt-5 pt-5" style="margin:0 50px">
+    <h2 class="text-center font-bold mt-5 fw-bold">仕入リスト</h2>
     <form action="navForm" id="navForm" method="post" class="flex">
         @csrf
         <div class="">
@@ -12,19 +13,9 @@
                 @endforeach
             </select>
         </div>
-        <!-- <div class="ml-4">
-            <label for="Statu">活動</label>
-            <select name="statu" id="statu" onchange="status()">
-                <option value="0">全て</option>
-                <option value="1">未</option>
-                <option value="2">完了</option>
-            </select>
-        </div> -->
     </form>
 </div>
-<div class="max-w-6xl m-auto flex flex-col mt-6 justify-center" id="content">
-    
-
+<div class="" id="content">
 </div>
 <script>
    $.ajaxSetup({
