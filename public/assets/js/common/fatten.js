@@ -11,7 +11,10 @@ function descriptionModal(id) {
         $("#oxBirth").val(data['birthday']);
         $("#oxSex").val(sex);
         $("#appendInfo").val(data['appendInfo']);
-        $("#modal").fadeIn();
+        // $("#modal").fadeIn();
+        var myModal = new bootstrap.Modal(document.getElementById("modal"), {});
+        myModal.show();
+
     });
 }
 
