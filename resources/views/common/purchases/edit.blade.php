@@ -6,13 +6,6 @@
         <div class="card card-outline-secondary">
             <div class="card-header">
                 <h3 class="mb-0 text-center fw-bold">編集</h3>
-                <!-- @if($message = Session::get('info'))
-                <div class="alert alert-info alert-block">
-                    <button type="button" class="close" data-dismiss="alert"><i class="fa fa-remove"
-                            style="color:rgb(121, 121, 121)"></i></button>
-                    <strong>{{$message}}</strong>
-                </div>
-                @endif -->
             </div>
             <div class="card-body">
  
@@ -23,20 +16,24 @@
                         <label class="col-lg-3 col-form-label form-control-label">個体識別番号</label>
                         <div class="col-lg-9">
                             <input class="form-control" type="text" id="inline-registerNumber" name="registerNumber"  value="{{old('registerNumber',$ox->registerNumber)}}">
-                          
+                            @error('registerNumber')<div class="text-danger">{{ $message }}</div>@enderror
+                            @if($message = Session::get('info'))
+                            <div class="text-danger">{{$message}}</div>
+                            @endif
                         </div>
                     </div>
                     <div class="form-group row p-2">
                         <label class="col-lg-3 col-form-label form-control-label">和牛登録名</label>
                         <div class="col-lg-9">
                             <input class="form-control" type="text" name="name" id="inline-name" value="{{old('name',$ox->name)}}">
-                          
+                            @error('name')<div class="text-danger">{{ $message }}</div>@enderror
                         </div>
                     </div>
                     <div class="form-group row p-2">
                         <label class="col-lg-3 col-form-label form-control-label">生年月日</label>
                         <div class="col-lg-9">
                             <input class="form-control" type="date" name="birthday" id="inline-birthday" value="{{old('birthday',$ox->birthday)}}">
+                            @error('birthday')<div class="text-danger">{{ $message }}</div>@enderror
                         </div>
                     </div>
                     <div class="form-group row p-2">
@@ -85,12 +82,14 @@
                         <label class="col-lg-3 col-form-label form-control-label">購入金額</label>
                         <div class="col-lg-9">
                             <input class="form-control" id="inline-purchasePrice" type="text" name="purchasePrice" value="{{$ox->purchasePrice}}">
+                            @error('purchasePrice')<div class="text-danger">{{ $message }}</div>@enderror
+
                         </div>
                     </div>
                     <div class="form-group row p-2 d-flex flex-content-center">
                         <label class="col-lg-3 col-form-label form-control-label"></label>
                         <div class="col-lg-9">
-                            <button type="button" class="btn btn-primary" onclick="Submit()"><i class="fa fa-save"></i> セーブ</button>
+                            <button type="submit" class="btn btn-primary" onclick="Submit()"><i class="fa fa-save"></i> セーブ</button>
                             <a href="{{ route('purchases.index') }}" class="btn btn-secondary"><i class="fa fa-rotate-left"></i> 取消</a>
                         </div>
                     </div>
@@ -100,12 +99,4 @@
     </div>
 </div>
 
-<script>
-    function Submit() {
-        
-        // return;
-        $("#EditForm").submit();
-        toastr.success("{{ $message }}");
-    }
-</script>
 @endsection

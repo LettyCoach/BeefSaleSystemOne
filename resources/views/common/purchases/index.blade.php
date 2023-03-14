@@ -22,25 +22,23 @@
 <div class="mx-auto p-4 pt-5 mt-5">
     <h2 class="text-center font-bold mt-5 fw-bold">仕入リスト</h2>
     @if($message = Session::get('updateSuccess'))
-    <div class="alert alert-info alert-block">
-        <button type="button" class="close" data-dismiss="alert"><i class="fa fa-remove"
-                style="color:rgb(121, 121, 121)"></i></button>
+    <div class="alert alert-success alert-dismissible container mx-auto">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         <strong>{{$message}}</strong>
     </div>
     @endif @if($message = Session::get('registerSuccess'))
-    <div class="alert alert-info alert-block">
-        <button type="button" class="close" data-dismiss="alert"><i class="fa fa-remove"
-                style="color:rgb(121, 121, 121)"></i></button>
+    <div class="alert alert-success alert-dismissible container mx-auto">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         <strong>{{$message}}</strong>
     </div>
     @endif @if($message = Session::get('deleteSuccess'))
-    <div class="alert alert-info alert-block">
-        <button type="button" class="close" data-dismiss="alert"><i class="fa fa-remove"
-                style="color:rgb(121, 121, 121)"></i></button>
+    <div class="alert alert-success alert-dismissible container mx-autoss">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         <strong>{{$message}}</strong>
     </div>
     @endif
-    <div class="panel panel-primary" style="margin: 50px;">
+    
+    <div class="panel panel-primary container mx-auto" style="margin: 50px;">
         <div class="panel-heading">
             <div class="d-flex justify-content-end items-center mb-2">
                 <div class="rounded-md">
@@ -52,19 +50,19 @@
             <div style="width: 100%; padding-left: -10px;">
                 <div class="table-responsive">
                     <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0"  style="min-width: 1200px; overflow-x: scroll; width:100%">
-                        <thead>
+                        <thead >
                             <tr>
-                                <th>番号</th>
-                                <th>個体識別番号</th>
-                                <th>和牛登録名</th>
-                                <th>生年月日</th>
-                                <th>性別</th>
-                                <th>購入場所</th>
-                                <th>運送会社</th>
-                                <th>搬送先</th>
-                                <th>購入金額</th>
-                                <th>編集</th>
-                                <th>削除</th>
+                                <th class="text-center">番号</th>
+                                <th class="text-center">個体識別番号</th>
+                                <th class="text-center">和牛登録名</th>
+                                <th class="text-center">生年月日</th>
+                                <th class="text-center">性別</th>
+                                <th class="text-center">購入場所</th>
+                                <th class="text-center">運送会社</th>
+                                <th class="text-center">搬送先</th>
+                                <th class="text-center">購入金額</th>
+                                <th class="text-center">編集</th>
+                                <th class="text-center">削除</th>
                             </tr>
                         </thead>
                         <tbody>
