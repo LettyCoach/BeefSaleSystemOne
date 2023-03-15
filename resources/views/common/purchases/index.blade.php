@@ -38,7 +38,7 @@
     </div>
     @endif
     
-    <div class="container panel panel-primary container mx-auto" style="margin: 50px;">
+    <div class="panel panel-primary container mx-auto">
         <div class="panel-heading">
             <div class="d-flex justify-content-end items-center mb-2">
                 <div class="rounded-md">
@@ -71,41 +71,41 @@
                             @endphp
                             @foreach ($oxen as $ox)
                             <tr>
-                                <td>
+                                <td class="text-center">
                                     <span class="text-gray-800 break-all">{{$counter++}}</span>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <span class="text-gray-800 break-all">{{$ox->registerNumber}}</span>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <span class="text-gray-800 break-all">{{$ox->name}}</span>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <span class="text-gray-800 break-all">{{$ox->birthday}}</span>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <span class="ml-2 break-all text-gray-600">@if($ox->sex==1) 雄 @else 雌
                                         @endif</span>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <span class="text-gray-800 break-all">{{$ox->market->name}}</span>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <span class="text-gray-800 break-all">{{$ox->purchaseTransportCompany->name}}</span>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <span class="text-gray-800 break-all">{{$ox->pastoral->name}}</span>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <span class="text-gray-800 break-all">{{$ox->purchasePrice}}</span>
                                 </td>
 
-                                <td>
+                                <td class="text-center">
                                     <a href="{{route('purchases.edit', $ox)}}" class="p-2 text-center">
                                         <i class="fas fa-edit text-green-700" aria-hidden="true"></i>
                                     </a>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <form method="POST" id="deleteForm" action="{{route('purchases.destroy',$ox->id)}}">
                                         @csrf
                                         @method('delete')

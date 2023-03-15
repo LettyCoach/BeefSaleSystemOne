@@ -55,14 +55,14 @@ class SlaughterController extends Controller
             Ox::where('id',$ox_id)->update([
                 'slaughterFinishedDate'=>$slaughterFinishedDate,
                 'acceptedWeight'=>$acceptedWeight,
-                'acceptedLevel'=>$acceptedLevel
+                'acceptedLevel'=>$acceptedLevel,
             ]);
         }else if(isset($ox_id) && isset($slaughterFinishedDate)){
             
             Ox::where('id',$ox_id)->update([
                 'slaughterFinishedDate'=>$slaughterFinishedDate,
                 'acceptedWeight'=>$acceptedWeight,
-                'acceptedLevel'=>$acceptedLevel
+                'acceptedLevel'=>$acceptedLevel,
             ]);
         }else{
             if($statu == 2){
