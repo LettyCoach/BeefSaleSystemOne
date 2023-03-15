@@ -42,7 +42,7 @@
                     <div class="form-group row p-2">
                         <label class="col-lg-3 col-form-label form-control-label">性別</label>
                         <div class="col-lg-9">
-                            <select id="sex" name="sex" class="form-control">
+                            <select id="sex" name="sex" class="form-select">
                                 <option value="1" selected>雄</option>
                                 <option value="0">雌</option>
                             </select>
@@ -51,7 +51,7 @@
                     <div class="form-group row p-2">
                         <label class="col-lg-3 col-form-label form-control-label">購入場所</label>
                         <div class="col-lg-9">
-                            <select id="market_id" name="market_id" class="form-control">
+                            <select id="market_id" name="market_id" class="form-select">
                                 @foreach($markets as $market)
                                 <option value="{{$market->id}}">{{$market->name}}</option>
                                 @endforeach
@@ -62,7 +62,7 @@
                         <label class="col-lg-3 col-form-label form-control-label">運送会社</label>
                         <div class="col-lg-9">
                             <select id="purchaseTransport_Company_id" name="purchaseTransport_Company_id"
-                                class="form-control">
+                                class="form-select">
                                 @foreach($transportCompanies as $transportCompany)
                                 <option value="{{$transportCompany->id}}">{{$transportCompany->name}}</option>
                                 @endforeach
@@ -72,7 +72,7 @@
                     <div class="form-group row p-2">
                         <label class="col-lg-3 col-form-label form-control-label">搬送先</label>
                         <div class="col-lg-9">
-                            <select id="pastoral_id" name="pastoral_id" class="form-control">
+                            <select id="pastoral_id" name="pastoral_id" class="form-select">
                                 @foreach($pastorals as $pastoral)
                                 <option value="{{$pastoral->id}}">{{$pastoral->name}}</option>
                                 @endforeach
