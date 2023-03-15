@@ -87,7 +87,7 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" style="background-color: #6ea924; border: 0;" onclick="saveAppendInfo()"><i class="fa fa-save"></i> セーブ</button>
+                <button type="button" class="btn btn-success" style="background-color: #6ea924; border: 0;" onclick="saveAppendInfo()"><i class="fa fa-check"></i> セーブ</button>
                 <button type="button" class="btn btn-light" data-bs-dismiss="modal"><i class="fa fa-times"></i> 閉じる</button>
             </div>
 

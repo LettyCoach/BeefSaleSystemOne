@@ -33,7 +33,7 @@
                                 <th class="text-center">性別</th>
                                 <th class="text-center">登録日</th>
                                 <th class="text-center">登録</th>
-                                <th class="text-center">取り消す</th>
+                                <th class="text-center">取消</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,7 +54,7 @@
                                 <td class="text-center" class="p-1">
                                     <form method="post" id="loadDateForm{{$ox->id}}" name="loadDateForm{{$ox->id}}">
                                         @csrf
-                                        <input type="hidden" name="ox_id" value="{{$ox->id}}">
+                                        <input type="hidden" name="ox_id" id="ox_id{{$ox->id}}" value="{{$ox->id}}">
                                         <input type="date" class="loadDate" name="loadDate" id="loadDate{{$ox->id}}" class="text-xs" value="{{$ox->loadDate}}">
 
 
@@ -64,7 +64,7 @@
                                 
                                 <td class="text-center"><a id="register{{$ox->id}}" href="javascript:;register({{$ox->id}})"  @if($ox->loadDate != NULL) disabled @endif>登録</a>  
                                 </td>
-                                <td class="text-center"><a id="cancel{{$ox->id}}" href="javascript:;cancel({{$ox->id}})"  @if($ox->loadDate == NULL) disabled @endif>取り消す</a>
+                                <td class="text-center"><a id="cancel{{$ox->id}}" href="javascript:;cancel({{$ox->id}})"  @if($ox->loadDate == NULL) disabled @endif>取消</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -91,7 +91,7 @@
                                 <th class="text-center">性別</th>
                                 <th class="text-center">登録日</th>
                                 <th class="text-center">登録</th>
-                                <th class="text-center">取り消す</th> 
+                                <th class="text-center">取消</th> 
                             </tr>
                         </thead>
                         <tbody>
@@ -118,7 +118,7 @@
                                 </td>
                                 <td class="text-center"><a id="unloadDateregister{{$ox->id}}" href="javascript:;unloadDateregister({{$ox->id}})"  @if($ox->unloadDate != NULL) disabled @endif>登録</a>  
                                 </td>
-                                <td class="text-center"><a id="unloadDatecancel{{$ox->id}}" href="javascript:;unloadDatecancel({{$ox->id}})"  @if($ox->unloadDate == NULL) disabled @endif>取り消す</a>
+                                <td class="text-center"><a id="unloadDatecancel{{$ox->id}}" href="javascript:;unloadDatecancel({{$ox->id}})"  @if($ox->unloadDate == NULL) disabled @endif>取消</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -133,7 +133,7 @@
 <script src="{{ asset('assets/js/components/datatable.js') }}"></script>
 <script>
     $(document).ready(function () {
-      
+        $('#dtBasicExample').DataTable();
         $('#dtBasicExample1').DataTable();
         $('.dataTables_length').addClass('bs-select');
 
