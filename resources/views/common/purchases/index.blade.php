@@ -109,19 +109,9 @@
                                     <form method="POST" id="deleteForm" action="{{route('purchases.destroy',$ox->id)}}">
                                         @csrf
                                         @method('delete')
-                                        <a href="" onclick="deleteFunction()" class="p-2 mx-auto">
+                                        <a href="javascript:;showConfirmModal()" class="p-2 mx-auto">
                                             <i class="fas fa-trash" aria-hidden="true"></i>
                                         </a>
-                                        <script>
-                                            function deleteFunction() {
-                                                let text = "本当に削除しますか?";
-                                                if (confirm(text) == true) {
-                                                    event.preventDefault();
-                                                    document.getElementById('deleteForm').submit();
-                                                } else
-                                                    event.preventDefault();
-                                            }
-                                        </script>
                                     </form>
                                 </td>
                             </tr>
@@ -129,6 +119,25 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div id="oxIdConfirmModal" class="d-none"></div>
+                <h5 class="modal-title" id="staticBackdropLabel">削除を確認する</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h2 class="text-center">本当に削除しますか？</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;" onclick="trashPurchase()"><i class="fas fa-check"></i> いいよ</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> 取消</button>
             </div>
         </div>
     </div>
@@ -153,6 +162,13 @@
         var yyyy = today.getFullYear();
         today = yyyy + '-' + mm + '-' + dd;
         return today;
+    }
+    function showConfirmModal() {
+        $('#confirmModal').modal('show');
+    }
+
+    function trashPurchase() {
+        $('#deleteForm').submit();
     }
 </script>
 @endsection

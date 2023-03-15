@@ -82,7 +82,7 @@ class OXController extends Controller
     public function SelectByPastoralId(Request $request) {
         $pastoralId = $request->pastoralId;
         if($pastoralId == 0) {
-            $oxs = Ox::all();
+            $oxs = Ox::whereNotNull('unloadDate')->get();
         }
         else {
             $oxs = Ox::where('pastoral_id', $pastoralId)->get();
