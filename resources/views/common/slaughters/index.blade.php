@@ -1,7 +1,7 @@
 @extends('layouts.commonUser')
 @section('content')
-<h2 class="text-center text-3xl font-bold mt-4 mb-4">屠殺（牛の価格の報告）</h2>
-<div class="max-w-6xl mx-auto flex justify-center navbar">
+<div class="mt-5 pt-5 container mx-auto">
+    <h2 class="text-center pt-5">屠殺（牛の価格の報告）</h2>
     <form action="navForm" id="navForm" method="post" class="flex">
         @csrf
         <div class="">
@@ -12,18 +12,9 @@
                 @endforeach
             </select>
         </div>
-        <!-- <div class="ml-4">
-            <label for="Statu">活動</label>
-            <select name="statu" id="statu" onchange="status()">
-                <option value="0">全て</option>
-                <option value="1">未</option>
-                <option value="2">完了</option>
-            </select>
-        </div> -->
     </form>
 </div>
-<div class="max-w-6xl m-auto flex flex-col mt-6 justify-center" id="content">
-    
+<div class="mt-2 mb-4" id="content">
 </div>
 <script>
    $.ajaxSetup({

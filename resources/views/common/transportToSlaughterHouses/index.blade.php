@@ -1,9 +1,9 @@
 @extends('layouts.commonUser')
 @section('content')
 
-<div class="mt-5 pt-5" style="margin:0 50px">
-    <h2 class="text-center font-bold mt-5 fw-bold">仕入リスト</h2>
-    <form action="navForm" id="navForm" method="post" class="flex">
+<div class="container mx-auto mt-5 pt-5">
+    <h2 class="mt-5 text-center mb-4">運搬（運送済みの牛の報告）</h2>
+    <form action="navForm" id="navForm" method="post" class="text-center mb-2">
         @csrf
         <div class="">
             <label for="SelectCompany">運送会社選択</label>

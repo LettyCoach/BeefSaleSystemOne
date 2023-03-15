@@ -20,7 +20,6 @@ class MeatController extends Controller
             'oxen'=>Ox::where('slaughterFinishedDate','<>',NULL)->get(),
             'parts'=>Part::all(),
             'partsCount'=>Part::all()->max(),
-            
         ]);
     }
 
