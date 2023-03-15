@@ -20,7 +20,7 @@
 
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <div class="mx-auto p-4 pt-5 mt-5">
-    <h2 class="text-center font-bold mt-5 fw-bold">仕入リスト</h2>
+    <h2 class="text-center mt-5 fw-bold">仕入リスト</h2>
     @if($message = Session::get('updateSuccess'))
     <div class="alert alert-success alert-dismissible container mx-auto">
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -38,7 +38,7 @@
     </div>
     @endif
     
-    <div class="panel panel-primary container mx-auto">
+    <div class="panel panel-primary container mx-auto" style="min-height: 500px; overflow-y: auto">
         <div class="panel-heading">
             <div class="d-flex justify-content-end items-center mb-2">
                 <div class="rounded-md">
@@ -46,7 +46,7 @@
                 </div>
             </div>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" style="min-height: 500px; overflow-y: auto">
             <div style="width: 100%; padding-left: -10px;">
                 <div class="table-responsive">
                     <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0"  style="min-width: 1200px; overflow-x: scroll; width:100%">

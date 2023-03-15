@@ -13,11 +13,9 @@ class TransportCompanyController extends Controller
      */
     public function index(Request $request):View
     {
-        //
-        $pageSize = $request->input('pageSize');
-        if(empty($pageSize)) $pageSize=15;
+       
         return view('admin/transportCompanies.index',[
-            'transportCompanies'=>TransportCompany::orderByDesc('created_at')->paginate($pageSize),
+            'transportCompanies'=>TransportCompany::orderByDesc('created_at')->get(),
         ]);
     }
 
