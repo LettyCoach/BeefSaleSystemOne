@@ -24,7 +24,7 @@
                     <div class="m-auto">
                     <div class="mt-4 space-x-2">
                     <x-primary-button>{{ __('セーブ') }}</x-primary-button>
-                    <x-primary-button><a href="{{ route('parts.index') }}" class="hover:no-underline text-white">{{ __('キャンセル') }}</a></x-primary-button>
+                    <x-primary-button><a href="{{ route('parts.index') }}" class="hover:no-underline text-white">{{ __('取消') }}</a></x-primary-button>
                     </div>
                     </div>
 
