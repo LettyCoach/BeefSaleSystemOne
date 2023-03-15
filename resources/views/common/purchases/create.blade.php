@@ -90,7 +90,7 @@
                     <div class="form-group row p-2 d-flex flex-content-center">
                         <label class="col-lg-3 col-form-label form-control-label"></label>
                         <div class="col-lg-9">
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> セーブ</button>
+                            <button type="submit" class="btn btn-primary" style="background-color: #6ea924; border: 0;"><i class="fa fa-check"></i> セーブ</button>
                             <a href="{{ route('purchases.index') }}" class="btn btn-secondary"><i
                                     class="fa fa-rotate-left"></i> 取消</a>
                         </div>

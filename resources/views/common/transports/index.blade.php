@@ -44,8 +44,9 @@
             .fail(function( jqXhr, textStatus, errorThrown ){
                     console.log( errorThrown );
             });
-            selectCompany();
+            
             alert("正常に登録されました。")
+            selectCompany();
         }else{
             return;
         }
@@ -91,8 +92,8 @@
             .fail(function( jqXhr, textStatus, errorThrown ){
                     console.log( errorThrown );
             });
-            selectCompany();
             alert("正常に登録されました。")
+            selectCompany();
         }else{
             return;
         }
@@ -111,8 +112,8 @@
                 .fail(function( jqXhr, textStatus, errorThrown ){
                         console.log( errorThrown );
                 });
-                selectCompany();
                 alert("登録はキャンセルされました。")
+                selectCompany();
         } else {
             return;
         }
