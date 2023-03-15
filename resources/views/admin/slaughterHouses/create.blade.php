@@ -19,9 +19,20 @@
                 <textarea class="form-control" name="note" id="note" placeholder="">{{ old('note',$slaughterHouse->note) }}</textarea>
                 @error('note')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
+<<<<<<< HEAD
+            <div class="md:flex md:items-center">
+                
+                
+                    <div class="m-auto">
+                        <x-primary-button>{{ __('セーブ') }}</x-primary-button>
+                        <x-primary-button><a href="{{ route('slaughterHouses.index') }}" class="hover:no-underline text-white">{{ __('取消') }}</a></x-primary-button>
+                    </div>
+                
+=======
             <div class="row d-flex justify-content-center">
                 <button type="submit" class="col-1  btn btn-primary mx-2">セーブ</button>
                 <a href="{{ route('slaughterHouses.index') }}" class="col-1  btn btn-secondary mx-2">取消</a>
+>>>>>>> e9fe6a7d417723ff2d3029718bc0954aca47c144
             </div>
             
         </form>

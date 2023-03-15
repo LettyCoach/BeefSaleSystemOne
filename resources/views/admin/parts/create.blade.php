@@ -14,6 +14,19 @@
                 <a href="{{ route('parts.index') }}" class="col-1  btn btn-secondary mx-2">取消</a>
             </div>
             
+<<<<<<< HEAD
+            <div class="md:flex md:items-center">
+              
+                    <div class="m-auto">
+                    <div class="mt-4 space-x-2">
+                    <x-primary-button>{{ __('セーブ') }}</x-primary-button>
+                    <x-primary-button><a href="{{ route('parts.index') }}" class="hover:no-underline text-white">{{ __('取消') }}</a></x-primary-button>
+                    </div>
+                    </div>
+
+            </div>
+=======
+>>>>>>> e9fe6a7d417723ff2d3029718bc0954aca47c144
         </form>
     </div>
 </x-app-layout>

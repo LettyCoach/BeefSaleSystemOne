@@ -33,7 +33,7 @@ table.dataTable thead .sorting_desc_disabled:before {
                             <th class="text-center">性別</th>
                             <th class="text-center">登録日</th>
                             <th class="text-center">登録</th>
-                            <th class="text-center">キャンセル</th>
+                            <th class="text-center">取消</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -65,7 +65,7 @@ table.dataTable thead .sorting_desc_disabled:before {
                                         @if($ox->loadDate != NULL) disabled @endif>登録</a>
                                 </td>
                                 <td><a id="cancel{{$ox->id}}" href="javascript:;cancel({{$ox->id}})" @if($ox->loadDate
-                                        == NULL) disabled @endif>キャンセル</a>
+                                        == NULL) disabled @endif>取消</a>
                                 </td>
 
                         </tr>
