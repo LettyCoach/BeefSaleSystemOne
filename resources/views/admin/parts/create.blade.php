@@ -1,24 +1,20 @@
-@extends('layouts.commonUser')
-@section('content')
-    <div class="max-w-lg shadow-lg mx-auto p-4 sm:p-6 lg:p-8">
-        <h2 class="text-center text-3xl font-bold mb-5">部位情報登録</h2>
-        <form method="POST" action="{{ route('parts.store') }}" class="max-w-2xl">
-            @csrf
+<x-app-layout>
+    <div class="container mt-5 pt-5"  style="min-height: 600px; overflow-y: auto">
+        <h2 class="pt-5 text-center fw-bold">部位情報登録</h2>
+        <form method="POST" action="{{ route('parts.store') }}">
+        @csrf
             @method('post')
-            <div class="md:flex md:items-center mb-6">
-                <div class="md:w-1/6">
-                    <label class="block text-left text-gray-900 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                        for="inline-full-name">
-                        部位名
-                    </label>
-                </div>
-                <div class="md:w-5/6">
-                    <input name="name" class="p-2 text-lg block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                        value="{{old('name',$part->name)}}">
-                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                </div>
+            <div class="row mb-3 mt-3">
+                <label for="name">部位名:</label>
+                <input type="name" class="form-control" id="name" placeholder="" name="name" value="{{old('name',$part->name)}}">
+                @error('name')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
+            <div class="row d-flex justify-content-center">
+                <button type="submit" class="col-1  btn btn-primary mx-2">セーブ</button>
+                <a href="{{ route('parts.index') }}" class="col-1  btn btn-secondary mx-2">取消</a>
             </div>
             
+<<<<<<< HEAD
             <div class="md:flex md:items-center">
               
                     <div class="m-auto">
@@ -29,6 +25,8 @@
                     </div>
 
             </div>
+=======
+>>>>>>> e9fe6a7d417723ff2d3029718bc0954aca47c144
         </form>
     </div>
-@endsection
+</x-app-layout>

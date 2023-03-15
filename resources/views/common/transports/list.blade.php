@@ -17,7 +17,7 @@
 
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <div class="mx-auto">
-    <div class="panel panel-primary my-4">
+    <div class="panel panel-primary my-4" style="min-height: 500px; overflow-y: auto">
         <div class="panel-body">
             <div style="width: 100%; padding-left: -10px;">
                 <div class="table-responsive">

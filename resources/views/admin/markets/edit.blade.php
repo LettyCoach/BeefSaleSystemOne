@@ -1,57 +1,29 @@
 <x-app-layout>
-    <div class="max-w-lg shadow-lg mx-auto p-4 sm:p-6 lg:p-8">
-        <h2 class="text-center text-3xl font-bold mb-5">市場情報アップデート</h2>
-        <form method="POST" action="{{ route('markets.update', $market) }}" class="max-w-2xl">
-            @csrf
+    <div class="container mt-5 pt-5"  style="min-height: 600px; overflow-y: auto">
+        <h2 class="pt-5 text-center fw-bold">市場情報アップデート</h2>
+        <form method="POST" action="{{ route('markets.update', $market) }}">
+        @csrf
             @method('patch')
-            <div class="md:flex md:items-center mb-6">
-                <div class="md:w-1/6">
-                    <label class="block text-left text-gray-900 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                        for="inline-full-name">
-                        名前
-                    </label>
-                </div>
-                <div class="md:w-5/6">
-                    <input name="name" class="p-2 text-lg block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                        value="{{old('name',$market->name)}}">
-                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                </div>
+            <div class="row mb-3 mt-3">
+                <label for="name">名前:</label>
+                <input type="name" class="form-control" id="name" placeholder=""  name="name" value="{{old('name',$market->name)}}">
+                @error('name')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
-            <div class="md:flex md:items-center mb-6">
-                <div class="md:w-1/6">
-                    <label class="block text-left text-gray-900 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                        for="inline-password">
-                        場所
-                    </label>
-                </div>
-                <div class="md:w-5/6">
-                    <input name="position" 
-                        class="p-2 text-lg block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                        value="{{ old('position',$market->position) }}">
-                    <x-input-error :messages="$errors->get('position')" class="mt-2" />
-                </div>
+            <div class="row mb-3">
+                <label for="position">場所:</label>
+                <input type="text" class="form-control" id="position" placeholder="" name="position" value="{{ old('position',$market->position) }}">
+                @error('position')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
-            <div class="md:flex md:items-center mb-6">
-                <div class="md:w-1/6">
-                    <label class="block text-left text-gray-900 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                        for="inline-password">
-                        メモ
-                    </label>
-                </div>
-                <div class="md:w-5/6">
-                    <textarea name="note" 
-                        class=" text-lg block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">{{ old('note',$market->note) }}</textarea>
-                    <x-input-error :messages="$errors->get('note')" class="mt-2" />
-                </div>
+            <div class="row mb-3">
+                <label for="note">メモ:</label>
+                <textarea class="form-control" name="note" id="note" placeholder="">{{ old('note',$market->note) }}</textarea>
+                @error('note')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
-            <div class="md:flex md:items-center">
-                <div class="m-auto">
-                    <div class="mt-4 space-x-2">
-                        <x-primary-button>{{ __('アップデート') }}</x-primary-button>
-                        <x-primary-button><a href="{{ route('markets.index') }}" class="hover:no-underline text-white">{{ __('キャンセル') }}</a></x-primary-button>
-                    </div>
-                </div>
+            <div class="row d-flex justify-content-center">
+                <button type="submit" class="col-2  btn btn-primary mx-2">アップデート</button>
+                <a href="{{ route('markets.index') }}" class="col-2  btn btn-secondary mx-2">取消</a>
             </div>
+            
         </form>
     </div>
 </x-app-layout>

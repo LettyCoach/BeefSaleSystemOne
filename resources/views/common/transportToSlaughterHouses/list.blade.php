@@ -17,7 +17,7 @@ table.dataTable thead .sorting_desc_disabled:before {
 
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-<div class="panel panel-primary container mx-auto mb-4">
+<div class="panel panel-primary container mx-auto mb-4" style="min-height: 500px; overflow-y: auto">
     <div class="panel-body">
         <div style="width: 100%; padding-left: -10px;">
             <div class="table-responsive">

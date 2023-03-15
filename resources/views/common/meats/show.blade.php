@@ -1,6 +1,6 @@
 @extends('layouts.commonUser')
 @section('content')
-<div class="container-sm mt-5 pt-5">
+<div class="container-sm mt-5 pt-5" style="min-height: 700px; overflow-y: auto">
     <h2 class="text-center mx-auto my-5">牛肉のディテール</h2>
     <div class="row mb-4">
         <div class="col-3">

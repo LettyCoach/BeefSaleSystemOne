@@ -13,10 +13,8 @@ class PartController extends Controller
      */
     public function index(Request $request):View
     {
-        $pageSize = $request->input('pageSize');
-        if(empty($pageSize)) $pageSize=15;
         return view('admin/parts.index',[
-            'parts'=>Part::orderByDesc('created_at')->paginate($pageSize),
+            'parts'=>Part::orderByDesc('created_at')->get(),
         ]);
     }
 
