@@ -100,11 +100,19 @@
         </div><!-- /form user info -->
     </div>
 </div>
-<!-- <script type="text/javascript">
+<script type="text/javascript">
     window.onload = function() {
-        var today = new Date().toLocaleString("en-US", { timeZone: "Asia/Tokyo" }).split(',')[0];
-        alert(today)
+        var today = getTodayDate();
         document.getElementById("inline-birthday").setAttribute('max', today);
-}
-</script> -->
+    }
+    function getTodayDate() {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        today = yyyy + '-' + mm + '-' + dd;
+        return today;
+    }
+</script>
+
 @endsection

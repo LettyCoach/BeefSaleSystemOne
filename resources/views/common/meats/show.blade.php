@@ -1,64 +1,85 @@
 @extends('layouts.commonUser')
 @section('content')
-<div class="container-sm mt-5 pt-5" style="min-height: 700px; overflow-y: auto">
-    <h2 class="text-center mx-auto my-5">牛肉のディテール</h2>
-    <div class="row mb-4">
-        <div class="col-3">
-            <label for="">個体識別番号</label>
-        </div>
-        <div class="col-9">
-            <input type="text" readonly id="oxRegisterNumber" class="w-100" value="{{$ox->registerNumber}}" disabled />
-        </div>
-    </div>
+<div class="justify-content-center mt-5 pt-5 mb-4">
+    <div class="col-md-6 mt-5 mx-auto">
+        <!-- form user info -->
+        <div class="card card-outline-secondary">
+            <div class="card-header">
+                <h3 class="mb-0 text-center">牛肉のディテール</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ route('purchases.store') }}" autocomplete="off" class="form" role="form">
+                    @csrf
+                    @method('post')
+                    <div class="form-group row p-2">
+                        <label class="col-lg-3 col-form-label form-control-label">個体識別番号</label>
+                        <div class="col-lg-9">
+                            <input type="text" class="form-control" readonly id="oxRegisterNumber" name="registerNumber"
+                                value="{{$ox->registerNumber}}" disabled />
+                            @error('registerNumber')<div class="text-danger">{{ $message }}</div>@enderror
+                            @if($message = Session::get('info'))
+                            <div class="text-danger">{{$message}}</div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="form-group row p-2">
+                        <label class="col-lg-3 col-form-label form-control-label">和牛登録名</label>
+                        <div class="col-lg-9">
+                            <input type="text" readonly id="name" class="form-control" value="{{$ox->name}}"
+                                disabled />
+                            @error('name')<div class="text-danger">{{ $message }}</div>@enderror
+                        </div>
+                    </div>
+                    <div class="form-group row p-2">
+                        <label class="col-lg-3 col-form-label form-control-label">生年月日</label>
+                        <div class="col-lg-9">
+                            <input type="text" name="birthday" readonly id="oxBirth" class="form-control" value="{{$ox->birthday}}"
+                                disabled />
+                            @error('birthday')<div class="text-danger">{{ $message }}</div>@enderror
+                        </div>
+                    </div>
+                    <div class="form-group row p-2">
+                        <label class="col-lg-3 col-form-label form-control-label">性別</label>
+                        <div class="col-lg-9">
+                            <input type="text" readonly id="oxSex" class="form-control" value=@if($ox->sex==1) 雄 @else 雌 @endif
+                            disabled />
+                        </div>
+                    </div>
+                    <div class="form-group row p-2">
+                        <div class="row mt-2">
+                            <p class="col-4 text-center">部位</p>
+                            <p class="col-4 text-center">重さ</p>
+                            <p class="col-4 text-center">値段</p>
+                        </div>
+                    </div>
+                    @php
+                    use App\Models\Admin\Part;
+                    @endphp
+                    @foreach($ox->meats as $meat)
+                    <div class="row mb-4 p-2">
+                        <div class="col">
+                            <input type="text" readonly name="PartName" class="form-control"
+                                value="{{Part::find($meat->part_id)->name}}" onkeydown="return false">
+                        </div>
+                        <div class="col">
+                            <input type="text" readonly value="{{$meat->weight}}" class="form-control">
+                        </div>
+                        <div class="col">
+                            <input type="text" readonly value="{{$meat->price}}" class="form-control">
+                        </div>
+                    </div>
+                    @endforeach
 
-    <div class="row mb-4">
-        <div class="col-3">
-            <label for="">和牛登録名</label>
-        </div>
-        <div class="col-9">
-            <input type="text" readonly id="oxName" class="w-100" value="{{$ox->name}}" disabled />
-        </div>
-    </div>
 
-    <div class="row mb-4">
-        <div class="col-3">
-            <label for="">生年月日</label>
-        </div>
-        <div class="col-9">
-            <input type="text" readonly id="oxBirth" class="w-100" value="{{$ox->birthday}}" disabled />
-        </div>
+                </form>
+                <div class="row mb-4 ">
+                    <div class="col-12 d-flex justify-content-center">
+                        <a href="{{route('meats.index')}}" class="btn btn-secondary mb-4 mx-auto"><i
+                                class="fa fa-rotate-left" aria-hidden="true"></i> バック</a>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /form user info -->
     </div>
-
-    <div class="row mb-4 ">
-        <div class="col-3">
-            <label for="">性別</label>
-        </div>
-        <div class="col-9">
-            <input type="text" readonly id="oxSex" class="w-100" value=@if($ox->sex==1) me @else female @endif disabled />
-        </div>
-    </div>
-    <div class="row mb-4">
-        <p class="col">部位</p>
-        <p class="col ml-2 mr-2">重さ</p>
-        <p class="col">値段</p>
-    </div>
-    @php
-    use App\Models\Admin\Part;
-    @endphp
-    @foreach($ox->meats as $meat)
-    <div class="row mb-4">
-        <div class="col">
-            <input type="text" readonly name="PartName" class="w-100" value="{{Part::find($meat->part_id)->name}}"
-                onkeydown="return false">
-        </div>
-        <div class="col">
-            <input type="text" readonly value="{{$meat->weight}}" class="w-100 ml-2 mr-2">
-        </div>
-        <div class="col">
-            <input type="text" readonly value="{{$meat->price}}" class="w-100">
-        </div>
- </div>
-    @endforeach
-    <a href="{{route('meats.index')}}" class="btn btn-primary mb-4">バック</a>
 </div>
 @endsection

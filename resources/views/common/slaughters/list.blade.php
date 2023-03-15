@@ -62,7 +62,7 @@
                                         name="slaughterFinishedDateForm{{$ox->id}}">
                                         @csrf
                                         <input type="hidden" name="ox_id" value="{{$ox->id}}">
-                                        <input type="date" name="slaughterFinishedDate" 
+                                        <input type="date" name="slaughterFinishedDate" class="slaughterFinishedDate"
                                             id="slaughterFinishedDate{{$ox->id}}" class="text-xs"
                                             value="{{$ox->slaughterFinishedDate}}" @if($ox->slaughterFinishedDate !=
                                         NULL) disabled @else @endif>
@@ -91,5 +91,20 @@
     $(document).ready(function () {
         $('#dtBasicExample').DataTable();
         $('.dataTables_length').addClass('bs-select');
+
+        var today = getTodayDate();
+        var length = document.getElementsByClassName("slaughterFinishedDate").length;
+        for(i = 0; i < length; i ++) {
+            document.getElementsByClassName("slaughterFinishedDate")[i].setAttribute('max', today);
+        }
+
+        function getTodayDate() {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+            today = yyyy + '-' + mm + '-' + dd;
+            return today;
+        }
     });
 </script>

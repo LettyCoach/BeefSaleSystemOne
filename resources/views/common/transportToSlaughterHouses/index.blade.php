@@ -3,11 +3,10 @@
 
 <div class="container mx-auto mt-5 pt-5">
     <h2 class="mt-5 text-center mb-4">運搬（運送済みの牛の報告）</h2>
-    <form action="navForm" id="navForm" method="post" class="text-center mb-2">
+    <form action="navForm" id="navForm" method="post" class="d-flex justify-content-end">
         @csrf
-        <div class="">
-            <label for="SelectCompany">運送会社選択</label>
-            <select name="SelectCompany" id="SelectCompany" onchange="selectCompany()">
+        <div class="rounded-md">
+            <select name="SelectCompany" id="SelectCompany" class="form-select mb-2" onchange="selectCompany()">
                 @foreach($transportCompanies as $transportCompany)
                 <option value="{{$transportCompany->id}}">{{$transportCompany->name}}</option>
                 @endforeach
@@ -99,5 +98,28 @@
     }
     initFunction();
 
+</script>
+
+<script>
+    $(document).ready(function () {
+      
+        $('#dtBasicExample1').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+
+        var today = getTodayDate();
+        var length = document.getElementsByClassName("acceptedDateSlaughterHouse").length;
+        for(i = 0; i < length; i ++) {
+            document.getElementsByClassName("acceptedDateSlaughterHouse")[i].setAttribute('max', today);
+        }
+
+        function getTodayDate() {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+            today = yyyy + '-' + mm + '-' + dd;
+            return today;
+        }
+    });
 </script>
 @endsection

@@ -2,11 +2,10 @@
 @section('content')
 <div class="mt-5 pt-5 container mx-auto">
     <h2 class="text-center pt-5 fw-bold">屠殺（牛の価格の報告）</h2>
-    <form action="navForm" id="navForm" method="post" class="flex">
+    <form action="navForm" id="navForm" method="post" class="d-flex justify-content-end">
         @csrf
-        <div class="">
-            <label for="SlaughterHouse">運送会社選択</label>
-            <select name="SlaughterHouse" id="SlaughterHouse" onchange="selectSlaughterHouses()">
+        <div class="rounded-md">
+            <select name="SlaughterHouse" id="SlaughterHouse" class="form-select mb-2" onchange="selectSlaughterHouses()">
                 @foreach($slaughterHouses as $slaughterHouse)
                 <option value="{{$slaughterHouse->id}}">{{$slaughterHouse->name}}</option>
                 @endforeach
@@ -124,6 +123,8 @@
         }); 
     }
     initFunction();
+
+    
 
 </script>
 @endsection

@@ -55,7 +55,7 @@
                                     <form method="post" id="loadDateForm{{$ox->id}}" name="loadDateForm{{$ox->id}}">
                                         @csrf
                                         <input type="hidden" name="ox_id" value="{{$ox->id}}">
-                                        <input type="date" name="loadDate" id="loadDate{{$ox->id}}" class="text-xs" value="{{$ox->loadDate}}">
+                                        <input type="date" class="loadDate" name="loadDate" id="loadDate{{$ox->id}}" class="text-xs" value="{{$ox->loadDate}}">
 
 
                                     </form>
@@ -113,7 +113,7 @@
                                     <form method="post" id="unloadDateForm{{$ox->id}}" name="unloadDateForm{{$ox->id}}">
                                         @csrf
                                         <input type="hidden" name="ox_id" value="{{$ox->id}}">
-                                        <input type="date" name="unloadDate" id="unloadDate{{$ox->id}}" class="text-xs" value="{{$ox->unloadDate}}">
+                                        <input type="date" class="unloadDate" name="unloadDate" id="unloadDate{{$ox->id}}" class="text-xs" value="{{$ox->unloadDate}}">
                                     </form>
                                 </td>
                                 <td class="text-center"><a id="unloadDateregister{{$ox->id}}" href="javascript:;unloadDateregister({{$ox->id}})"  @if($ox->unloadDate != NULL) disabled @endif>登録</a>  
@@ -133,8 +133,27 @@
 <script src="{{ asset('assets/js/components/datatable.js') }}"></script>
 <script>
     $(document).ready(function () {
-        $('#dtBasicExample').DataTable();
+      
         $('#dtBasicExample1').DataTable();
         $('.dataTables_length').addClass('bs-select');
+
+        var today = getTodayDate();
+        var length = document.getElementsByClassName("loadDate").length;
+        for(i = 0; i < length; i ++) {
+            document.getElementsByClassName("loadDate")[i].setAttribute('max', today);
+        }
+        length = document.getElementsByClassName("unloadDate").length;
+        for(i = 0; i < length; i ++) {
+            document.getElementsByClassName("unloadDate")[i].setAttribute('max', today);
+        }
+
+        function getTodayDate() {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+            today = yyyy + '-' + mm + '-' + dd;
+            return today;
+        }
     });
 </script>

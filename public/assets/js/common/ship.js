@@ -1,6 +1,9 @@
 $(document).ready(function () {
     $('#dtBasicExample').DataTable();
     $('.dataTables_length').addClass('bs-select');
+    var today = getTodayDate();
+    document.getElementById("exportDateAddShip").setAttribute('max', today);
+    document.getElementById("exportDateEditShip").setAttribute('max', today);
     getShipList();
 });
 

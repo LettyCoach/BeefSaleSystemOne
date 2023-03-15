@@ -19,7 +19,7 @@
     }
 </style>
 
-<div class="mx-auto p-4 pt-5 mt-5" style="min-height: 500px; overflow-y: auto">
+<div class="mx-auto p-4 pt-5 mt-5" >
     <h2 class="text-center font-bold mt-5 fw-bold">肥育（牛の生育状況の登録）</h2>
     <div class="container panel panel-primary mx-auto">
         <div class="panel-heading">

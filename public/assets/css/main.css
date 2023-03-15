@@ -1694,3 +1694,15 @@ section {
 .fa-trash:hover {
 	color: #f05656;
 }
+
+.btn {
+	border: 0;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+	border-radius: 50% !important;
+}
