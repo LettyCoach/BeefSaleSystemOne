@@ -13,10 +13,8 @@ class MarketController extends Controller
      */
     public function index(Request $request):View
     {
-        $pageSize = $request->input('pageSize');
-        if(empty($pageSize)) $pageSize=15;
         return view('admin/markets.index',[
-            'markets'=>Market::orderByDesc('created_at')->paginate($pageSize),
+            'markets'=>Market::orderByDesc('created_at')->get(),
         ]);
     }
 

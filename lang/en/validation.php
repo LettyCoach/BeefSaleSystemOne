@@ -172,13 +172,16 @@ return [
             'required' => '個人識別番号が必要です。',           
         ],
         'name' => [
-            'required' => '和牛登録名が求められます。。',
+            'required' => '名前が求められます。。',
         ],
         'birthday' => [
             'required' => '生年月日が必要です。',
         ],
         'purchasePrice' => [
             'required' => '購入金額が必要です。',
+        ],
+        'position' => [
+            'required' => '位置が必要です。',
         ],
 
     ],

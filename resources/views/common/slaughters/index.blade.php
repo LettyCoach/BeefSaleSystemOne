@@ -1,7 +1,7 @@
 @extends('layouts.commonUser')
 @section('content')
 <div class="mt-5 pt-5 container mx-auto">
-    <h2 class="text-center pt-5">屠殺（牛の価格の報告）</h2>
+    <h2 class="text-center pt-5 fw-bold">屠殺（牛の価格の報告）</h2>
     <form action="navForm" id="navForm" method="post" class="flex">
         @csrf
         <div class="">

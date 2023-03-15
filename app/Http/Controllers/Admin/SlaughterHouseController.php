@@ -15,10 +15,8 @@ class SlaughterHouseController extends Controller
      */
     public function index(Request $request):View
     {
-        $pageSize = $request->input('pageSize');
-        if(empty($pageSize)) $pageSize=15;
         return view('admin/slaughterHouses.index',[
-            'slaughterHouses'=>SlaughterHouse::orderByDesc('created_at')->paginate($pageSize),
+            'slaughterHouses'=>SlaughterHouse::orderByDesc('created_at')->get(),
         ]);
     }
 

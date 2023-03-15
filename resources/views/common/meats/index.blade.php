@@ -18,7 +18,7 @@ table.dataTable thead .sorting_desc_disabled:before {
 
 <link rel="stylesheet" href="{{ asset('assets/css/components/datatable.css')}}">
 <div class="container mx-auto mt-5 pt-5">
-    <h2 class="text-center pt-5">精肉管理（牛の選択と価格の入力)</h2>
+    <h2 class="text-center pt-5 fw-bold">精肉管理（牛の選択と価格の入力)</h2>
 
     @if($message = Session::get('updateSuccess'))
     <div class="alert alert-info alert-block">
@@ -39,7 +39,7 @@ table.dataTable thead .sorting_desc_disabled:before {
         <strong>{{$message}}</strong>
     </div>
     @endif
-    <div class="panel panel-primary my-4">
+    <div class="panel panel-primary my-4" style="min-height: 500px; overflow-y: auto">
         <div class="panel-body">
             <div style="width: 100%; padding-left: -10px;">
                 <div class="table-responsive">
@@ -93,7 +93,7 @@ table.dataTable thead .sorting_desc_disabled:before {
                                 </td>
                                 <td class="text-center">
                                     <form method="POST" id="deleteForm{{$ox->id}}"
-                                        action="{{route('meats.destroy',$ox->id)}}" class="inline-block p-2">
+                                        action="{{route('meats.destroy',$ox->id)}}" class="inline-block">
                                         @csrf
                                         @method('delete')
 

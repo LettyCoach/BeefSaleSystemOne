@@ -13,10 +13,8 @@ class PastoralController extends Controller
      */
     public function index(Request $request):View
     {
-        $pageSize = $request->input('pageSize');
-        if(empty($pageSize)) $pageSize=15;
         return view('admin/pastorals.index',[
-            'pastorals'=>Pastoral::orderByDesc('created_at')->paginate($pageSize),
+            'pastorals'=>Pastoral::orderByDesc('created_at')->get(),
         ]);
     }
 

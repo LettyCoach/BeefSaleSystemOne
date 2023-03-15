@@ -1,85 +1,76 @@
+
 <x-app-layout>
-    <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 ">
-        <h2 class="text-center text-3xl font-bold mt-4 mb-4">部位カットリスト</h2>
-        <div class="flex justify-between items-center">
-            <div class="">
-            合計:{{$parts->total()}}
-            </div>
-            <div class="flex justify-end items-center">
-                <form action="{{route('parts.index')}}" method="get" class="">
-                    @csrf
-                    @method('get')
-                    @php
-                    $pageSize = $parts->perPage();
-                    @endphp
-                    <div>
-                        <label for="pageSize">ページごとの行</label>
-                        <select name="pageSize" id="pageSize" class="text-xs"
-                            onchange="event.preventDefault(); this.closest('form').submit();">
-                            <option value="15" @if($pageSize==15 ) selected @endif>15</option>
-                            <option value="20" @if($pageSize==20) selected @endif>20</option>
-                            <option value="30" @if($pageSize==30) selected @endif>30</option>
-                            <option value="50" @if($pageSize==50) selected @endif>50</option>
-                        </select>
-                    </div>
-
-                </form>
-                <div class="m-2 rounded-md">
-                    <x-primary-button><a href="{{ route('parts.create') }}" class="hover:no-underline text-white">{{ __('添加') }}</a></x-primary-button> 
-                </div>
-
-            </div>
+    <div class="container mt-5 pt-5 mb-4">
+        <h2 class="text-center fw-bold pt-5">部位カットリスト</h2>
+        <div class="m-2 rounded-md d-flex justify-content-end">
+            <a href="{{ route('parts.create') }}" class="btn btn-primary">{{ __('添加') }}</a>
         </div>
-        
+        <style>
+        table.dataTable thead .sorting:after,
+        table.dataTable thead .sorting:before,
+        table.dataTable thead .sorting_asc:after,
+        table.dataTable thead .sorting_asc:before,
+        table.dataTable thead .sorting_asc_disabled:after,
+        table.dataTable thead .sorting_asc_disabled:before,
+        table.dataTable thead .sorting_desc:after,
+        table.dataTable thead .sorting_desc:before,
+        table.dataTable thead .sorting_desc_disabled:after,
+        table.dataTable thead .sorting_desc_disabled:before {
+            bottom: .5em;
+        }
+        </style>
 
-        <div class="flex flex-col">
-            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-                    <div class="overflow-hidden">
-                        <table class="min-w-full table-fixed text-left text-sm font-light">
-                            <thead class="border-b font-medium dark:border-neutral-200">
+        <link rel="stylesheet" href="{{ asset('assets/css/components/datatable.css')}}">
+        <div class="panel panel-primary container mx-auto"  style="min-height: 500px; overflow-y: auto">
+            <div class="panel-body">
+                <div style="width: 100%; padding-left: -10px;">
+                    <div class="table-responsive">
+                        <table id="dtBasicExample" class="table table-striped table-fixed table-bordered table-sm"
+                            cellspacing="0" style="min-width: 1200px; overflow-x: scroll; width:100%">
+                            <thead>
                                 <tr>
-                                    <th scope="col" class="px-6 py-4 w-32">番号</th>
-                                    <th scope="col" class="px-6 py-4 ">名前</th>
-                                    <th scope="col" class="px-6 py-4 w-10">活動</th>
+                                    <th class="text-center">No</th>
+                                    <th class="text-center">名前</th>
+                                    <th class="text-center">編集</th>
+                                    <th class="text-center">削除</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @php
-                                $counter =($parts->currentPage()-1)*$pageSize +1;
+                                $counter = 1;
                                 @endphp
                                 @foreach ($parts as $part)
-                                <tr
-                                    class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-200 dark:hover:bg-neutral-400">
-                                    <td class="whitespace-nowrap px-6 py-2 font-medium w-32">
+                                <tr>
+                                    <td class="text-center">
                                         <span class="text-gray-800 break-all">{{ $counter++;}}</span>
                                     </td>
-                                    <td class="whitespace-nowrap px-6 py-2 font-medium ">
+                                    <td class="text-center">
                                         <span class="text-gray-800 break-all">{{ $part->name }}</span>
                                     </td>
-                                    <td class="whitespace-nowrap px-6 py-2 font-medium w-10">
-                                        <a href="{{route('parts.edit', $part)}}" class="p-2"><i class="fa fa-check"
-                                                style="color: rgb(121, 121, 121)"></i></a>
-                                        <form method="POST" id="deleteForm" action="{{ route('parts.destroy', $part) }}"
-                                            class="inline-block p-2">
+                                    <td class="text-center">
+                                        <a href="{{route('parts.edit', $part)}}" class="p-2"><i class="fa fa-edit"></i></a>
+                                    </td>
+                                    <td class="text-center">
+                                        <form method="POST" id="deleteForm"
+                                            action="{{ route('parts.destroy', $part) }}" class="inline-block ">
                                             @csrf
                                             @method('delete')
-                                            <a href="route('parts.destroy', $part)" onclick="deleteFunction()">
-                                                <i class="fa fa-remove" style="color:rgb(121, 121, 121)"></i>
+                                            <a href="" onclick="deleteFunction()">
+                                                <i class="fa fa-trash" ></i>
                                             </a>
                                             <script>
-                                                function deleteFunction() {
+                                            function deleteFunction() {
                                                 let text = "本当に削除しますか?";
-                                                    if (confirm(text) == true) {
-                                                        event.preventDefault(); 
-                                                        document.getElementById('deleteForm').submit();
-                                                    }else
-                                                        event.preventDefault(); 
-                                                }
-                                                </script>
+                                                if (confirm(text) == true) {
+                                                    event.preventDefault();
+                                                    document.getElementById('deleteForm').submit();
+                                                } else
+                                                    event.preventDefault();
+                                            }
+                                            </script>
                                         </form>
-                                        
                                     </td>
+
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -88,6 +79,11 @@
                 </div>
             </div>
         </div>
-        {{$parts->appends("pageSize",$pageSize)}}
-
+        <script src="{{ asset('assets/js/components/datatable.js') }}"></script>
+        <script>
+        $(document).ready(function() {
+            $('#dtBasicExample').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+        });
+        </script>
 </x-app-layout>
