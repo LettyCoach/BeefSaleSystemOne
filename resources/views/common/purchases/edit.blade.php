@@ -89,7 +89,7 @@
                     <div class="form-group row p-2 d-flex flex-content-center">
                         <label class="col-lg-3 col-form-label form-control-label"></label>
                         <div class="col-lg-9">
-                            <button type="submit" class="btn btn-primary" onclick="Submit()"><i class="fa fa-save"></i> セーブ</button>
+                            <button type="submit" class="btn btn-primary" style="background-color: #6ea924; border: 0;" onclick="Submit()"><i class="fa fa-check"></i> セーブ</button>
                             <a href="{{ route('purchases.index') }}" class="btn btn-secondary"><i class="fa fa-rotate-left"></i> 取消</a>
                         </div>
                     </div>
@@ -98,5 +98,19 @@
         </div><!-- /form user info -->
     </div>
 </div>
+<script type="text/javascript">
+    window.onload = function() {
+        var today = getTodayDate();
+        document.getElementById("inline-birthday").setAttribute('max', today);
+    }
+    function getTodayDate() {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        today = yyyy + '-' + mm + '-' + dd;
+        return today;
+    }
+</script>
 
 @endsection

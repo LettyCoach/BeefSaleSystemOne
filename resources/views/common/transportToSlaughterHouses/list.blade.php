@@ -54,7 +54,7 @@ table.dataTable thead .sorting_desc_disabled:before {
                                     <form method="post" id="loadDateForm{{$ox->id}}" name="loadDateForm{{$ox->id}}">
                                         @csrf
                                         <input type="hidden" name="ox_id" value="{{$ox->id}}">
-                                        <input type="date" name="acceptedDateSlaughterHouse"
+                                        <input type="date" name="acceptedDateSlaughterHouse" class="acceptedDateSlaughterHouse"
                                             id="acceptedDateSlaughterHouse{{$ox->id}}"
                                             value="{{$ox->acceptedDateSlaughterHouse}}">
                                     </form>

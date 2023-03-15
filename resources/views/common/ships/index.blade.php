@@ -120,8 +120,8 @@
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" style="background-color: #6ea924; border: 0;"
-                    onclick="addShip()"><i class="fa fa-save"></i> セーブ</button>
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal"><i class="fa fa-times"></i>
+                    onclick="addShip()"><i class="fa fa-check"></i> セーブ</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i>
                     閉じる</button>
             </div>
 
@@ -191,8 +191,8 @@
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" style="background-color: #6ea924; border: 0;"
-                    onclick="updateShip()"><i class="fa fa-save"></i> セーブ</button>
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal"><i class="fa fa-times"></i>
+                    onclick="updateShip()"><i class="fa fa-check"></i> セーブ</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i>
                     閉じる</button>
             </div>
 
@@ -212,7 +212,7 @@
                 <h2 class="text-center">本当に削除しますか？</h2>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="trashShip()"><i class="fas fa-check"></i> いいよ</button>
+                <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;" onclick="trashShip()"><i class="fas fa-check"></i> いいよ</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> 取消</button>
             </div>
         </div>
@@ -221,9 +221,4 @@
 
 <script src="{{ asset('assets/js/common/ship.js') }}"></script>
 <script src="{{ asset('assets/js/components/datatable.js') }}"></script>
-
-<script>
-    $('#dtBasicExample').DataTable();
-    $('.dataTables_length').addClass('bs-select');
-</script>
 @endsection

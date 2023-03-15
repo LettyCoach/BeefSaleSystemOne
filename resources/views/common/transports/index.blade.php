@@ -1,12 +1,11 @@
 @extends('layouts.commonUser')
 @section('content')
-<div class="panel container mt-5 pt-5" >
+<div class="panel container mt-5 pt-5 " >
     <h2 class="text-center font-bold mt-5 fw-bold">積み込み</h2>
-    <form action="navForm" id="navForm" method="post" class="flex">
+    <form action="navForm" id="navForm" method="post" class="d-flex justify-content-end">
         @csrf
-        <div class="">
-            <label for="SelectCompany">運送会社選択</label>
-            <select name="SelectCompany" id="SelectCompany" onchange="selectCompany()">
+        <div class="rounded-md">
+            <select name="SelectCompany"  class="form-select" id="SelectCompany" onchange="selectCompany()">
                 @foreach($transportCompanies as $transportCompany)
                 <option value="{{$transportCompany->id}}">{{$transportCompany->name}}</option>
                 @endforeach
@@ -44,8 +43,9 @@
             .fail(function( jqXhr, textStatus, errorThrown ){
                     console.log( errorThrown );
             });
-            selectCompany();
+            
             alert("正常に登録されました。")
+            selectCompany();
         }else{
             return;
         }
@@ -64,8 +64,9 @@
                 .fail(function( jqXhr, textStatus, errorThrown ){
                         console.log( errorThrown );
                 });
-                selectCompany();
+                
                 alert("登録はキャンセルされました。")
+                selectCompany();
         } else {
             return;
         }
@@ -91,8 +92,9 @@
             .fail(function( jqXhr, textStatus, errorThrown ){
                     console.log( errorThrown );
             });
-            selectCompany();
+            
             alert("正常に登録されました。")
+            selectCompany();
         }else{
             return;
         }
@@ -111,8 +113,9 @@
                 .fail(function( jqXhr, textStatus, errorThrown ){
                         console.log( errorThrown );
                 });
-                selectCompany();
+                
                 alert("登録はキャンセルされました。")
+                selectCompany();
         } else {
             return;
         }

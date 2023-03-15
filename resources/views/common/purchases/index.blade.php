@@ -38,6 +38,8 @@
     </div>
     @endif
     
+    
+   
     <div class="panel panel-primary container mx-auto" style="min-height: 500px; overflow-y: auto">
         <div class="panel-heading">
             <div class="d-flex justify-content-end items-center mb-2">
@@ -140,5 +142,19 @@
         $('#dtBasicExample').DataTable();
         $('.dataTables_length').addClass('bs-select');
     });
+</script>
+<script type="text/javascript">
+    window.onload = function() {
+        var today = getTodayDate();
+        document.getElementById("inline-birthday").setAttribute('max', today);
+    }
+    function getTodayDate() {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        today = yyyy + '-' + mm + '-' + dd;
+        return today;
+    }
 </script>
 @endsection

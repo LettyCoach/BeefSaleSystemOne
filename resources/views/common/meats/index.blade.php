@@ -80,12 +80,12 @@ table.dataTable thead .sorting_desc_disabled:before {
                                     <span class="text-gray-800 break-all">{{$ox->birthday}}</span>
                                 </td>
                                 <td class="text-center">
-                                    <small class="ml-2 break-all text-gray-600">@if($ox->sex==1) 雄 @else 雌
-                                        @endif</small>
+                                    <span class="ml-2 break-all text-gray-600">@if($ox->sex==1) 雄 @else 雌
+                                        @endif</span>
                                 </td>
                                 <td class="text-center">
                                     <a href="javascript:;openMeatModal({{ $ox->id }})"><i
-                                            class="p-2 fa fa-floppy-o text-green-700" aria-hidden="true"></i></a>
+                                            class="p-2 fa fa-plus" aria-hidden="true"></i></a>
                                 </td>
                                 <td class="text-center">
                                     <a href="{{route('meats.show', $ox->id)}}"><i class="p-2 fa fa-info text-green-700"
@@ -93,13 +93,11 @@ table.dataTable thead .sorting_desc_disabled:before {
                                 </td>
                                 <td class="text-center">
                                     <form method="POST" id="deleteForm{{$ox->id}}"
-                                        action="{{route('meats.destroy',$ox->id)}}" class="inline-block">
+                                        action="{{route('meats.destroy',$ox->id)}}" class="inline-block" role="button">
                                         @csrf
                                         @method('delete')
-
-
                                         <a onclick="deleteFunction({{$ox->id}})"><i
-                                                class="p-2 fas fa-trash text-red-700"></i></a>
+                                                class="p-2 fas fa-trash"></i></a>
 
                                         <script>
                                         function deleteFunction(id) {
@@ -139,21 +137,21 @@ table.dataTable thead .sorting_desc_disabled:before {
                     <div class="row">
                         <div class="col">
                             <label for="">個体識別番号</label>
-                            <input type="text" id="oxRegisterId" class="w-full bg-gray-100 p-2 mt-2 mb-3" disabled />
+                            <input type="text" id="oxRegisterId" class="w-full form-control p-2 mt-2 mb-3" disabled />
                         </div>
                         <div class="col">
                             <label for="">和牛登録名</label>
-                            <input type="text" id="oxName" class="w-full bg-gray-100 p-2 mt-2 mb-3" disabled />
+                            <input type="text" id="oxName" class="w-full form-control p-2 mt-2 mb-3" disabled />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <label for="">生年月日</label>
-                            <input type="text" id="oxBirth" class="w-full bg-gray-100 p-2 mt-2 mb-3" disabled />
+                            <input type="text" id="oxBirth" class="w-full form-control p-2 mt-2 mb-3" disabled />
                         </div>
                         <div class="col">
                             <label for="">性別</label>
-                            <input type="text" id="oxSex" class="w-full bg-gray-100 p-2 mt-2 mb-3" disabled />
+                            <input type="text" id="oxSex" class="w-full form-control p-2 mt-2 mb-3" disabled />
                         </div>
                     </div>
 
@@ -176,14 +174,14 @@ table.dataTable thead .sorting_desc_disabled:before {
                             @foreach($parts as $part)
                             <div class="row mb-2">
                                 <div class="col">
-                                    <input type="text" size='12' name="PartName{{$part->id}}" class=""
+                                    <input type="text" size='12' name="PartName{{$part->id}}" class="form-control"
                                         value="{{$part->name}}" readonly>
                                 </div>
                                 <div class="col">
-                                    <input type="text" size='12' name="Weight{{$part->id}}" class="ml-2 mr-2">
+                                    <input type="text" size='12' name="Weight{{$part->id}}" class="form-control ml-2 mr-2">
                                 </div>
                                 <div class="col">
-                                    <input type="text" size='12' name="Price{{$part->id}}" class="">
+                                    <input type="text" size='12' name="Price{{$part->id}}" class="form-control">
                                 </div>
                             </div>
                             @endforeach
@@ -191,7 +189,7 @@ table.dataTable thead .sorting_desc_disabled:before {
                     </div>
                     <div class="row">
                         <div class="col d-flex justify-content-center ">
-                            <button type="button" class="btn btn-primary m-2" onclick="saveAppendInfo()"><i class="fas fa-plus"></i> セーブ</button>
+                            <button type="button" class="btn btn-primary m-2" style="background-color: #6ea924; border: 0;" onclick="saveAppendInfo()"><i class="fas fa-check"></i> セーブ</button>
                             <button type="button" class="btn btn-secondary m-2" onclick="closeModal()"><i class="fas fa-times"></i> 取消</button>
                         </div>
                     </div>
@@ -199,41 +197,24 @@ table.dataTable thead .sorting_desc_disabled:before {
             </div>
         </div>
     </div>
-     <!-- The Modal -->
-<div class="modal fade" id="successModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Modal Heading</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-      <span class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
-            <div class="inline-block align-center bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
-                role="dialog" aria-modal="true" aria-labelledby="modal-headline">
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <h2 class="text-4xl">正常に更新されました!</h2>
-                </div>
-                <div class="bg-gray-200 px-4 py-3 text-right">
-                    <button type="button" class="btn btn-primary"
-                        onclick="closeModal()"><i class="fas fa-check"></i> いいよ</button>
-                </div>
+ 
+<div class="modal fade" id="successModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div id="oxIdConfirmModal" class="d-none"></div>
+                <h5 class="modal-title" id="staticBackdropLabel">情報ダイアログ</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-      </div>
-
+            <div class="modal-body">
+                <h2 class="text-center">正常に更新されました!</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-check"></i> わかった</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
-
     <script src="{{ asset('assets/js/components/datatable.js') }}"></script>
     <script>
     $(document).ready(function() {
