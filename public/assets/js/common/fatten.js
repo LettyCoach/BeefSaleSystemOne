@@ -1,3 +1,9 @@
+$(document).ready(function () {
+    $('#dtBasicExample').DataTable();
+    $('.dataTables_length').addClass('bs-select');
+    getOxListByPastoral();
+});
+
 function descriptionModal(id) {
     var sex;
     $.get( "../common/oxs/select", {
@@ -11,36 +17,35 @@ function descriptionModal(id) {
         $("#oxBirth").val(data['birthday']);
         $("#oxSex").val(sex);
         $("#appendInfo").val(data['appendInfo']);
-        // $("#modal").fadeIn();
-        var myModal = new bootstrap.Modal(document.getElementById("modal"), {});
-        myModal.show();
-
+        $("#modal").modal('show');
     });
-}
-
-function closeModal() {
-    $("#modal").fadeOut();
-    $("#successModal").fadeOut();
 }
 
 function saveAppendInfo() {
     var oxId = $("#oxId").html();
     var appendInfo = $("#appendInfo").val();
+    if(appendInfo == "") {
+        toastr.warning("入力された情報はありません。");
+        return;
+    }
     $.get("../common/oxs/saveAppendInfo", {
         "oxId": oxId,
         "appendInfo": appendInfo
     }, function(data){
         if(data == "OK") {
-            $("#successModal").fadeIn();
+            toastr.success("正常に更新されました。");
+            $("#modal").modal('hide');
         }
     });
 }
 
-function selectPastoral() {
+function getOxListByPastoral() {
     var pastoralId = $("#selectPastoral").val();
     $.get('../common/oxs/bypastoralId', {
         "pastoralId": pastoralId
     }, function(data){
         $("#FattenData").html(data);
+        $('#dtBasicExample').DataTable();
+        $('.dataTables_length').addClass('bs-select');
     });
 }
