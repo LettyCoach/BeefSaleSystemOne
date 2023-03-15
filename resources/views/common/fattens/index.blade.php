@@ -21,12 +21,12 @@
 
 <div class="mx-auto p-4 pt-5 mt-5">
     <h2 class="text-center font-bold mt-5 fw-bold">肥育（牛の生育状況の登録）</h2>
-    <div class="container panel panel-primary" style="margin: 50px;">
+    <div class="container panel panel-primary mx-auto">
         <div class="panel-heading">
             <div class="d-flex justify-content-end items-center mb-2">
                 <div class="rounded-md">
                     <select name="selectPastoral" class="form-select" id="selectPastoral" onchange="getOxListByPastoral()">
-                        <option value="0">全て</option>
+                        <option value="0">全て(牧場)</option>
                         @foreach($Pastorals as $Pastoral)
                         <option value="{{$Pastoral->id}}">{{$Pastoral->name}}</option>
                         @endforeach
@@ -37,21 +37,7 @@
         <div class="panel-body">
             <div style="width: 100%; padding-left: -10px;">
                 <div class="table-responsive" id="FattenData">
-                    <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0"
-                        style="min-width: 1000px; width: 100%; overflow-x: scroll; width:100%">
-                        <thead>
-                            <tr>
-                                <th>個体識別番号</th>
-                                <th>和牛登録名</th>
-                                <th>生年月日</th>
-                                <th>性別</th>
-                                <th>記載</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                        </tbody>
-                    </table>
+                    
                 </div>
             </div>
         </div>
@@ -111,7 +97,4 @@
 
 <script src="{{ asset('assets/js/components/datatable.js') }}"></script>
 <script src="{{ asset('assets/js/common/fatten.js') }}"></script>
-<script>
-    
-</script>
 @endsection

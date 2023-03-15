@@ -1,4 +1,8 @@
-getShipList();
+$(document).ready(function () {
+    $('#dtBasicExample').DataTable();
+    $('.dataTables_length').addClass('bs-select');
+    getShipList();
+});
 
 function getShipList() {
     var pastoralId = $("#pastoralId").val();
@@ -12,7 +16,7 @@ function getShipList() {
 }
 
 function showAddShipModal() {
-    $('#AddShipModal').fadeIn();
+    $('#AddShipModal').modal('show');
     getOxRegisterNumberListByPastoral();
 }
 
@@ -66,7 +70,7 @@ function addShip() {
     }, function(data){
         if(data == "OK") {
             toastr.success('操作に成功しました。');
-            $('#AddShipModal').fadeOut();
+            $('#AddShipModal').modal('hide');
             getShipList();
         } else {
             toastr.error('サーバーでエラーが発生しました。');
@@ -91,12 +95,12 @@ function editShip(id) {
         $("#oxNameEditModal").val(data['name']);
         $("#exportDateEditShip").val(data['exportDate']);
         selectSlaughterHouse.value = data['slaughterHouse_id'];
-        $('#EditShipModal').fadeIn();
+        $('#EditShipModal').modal('show');
     });
 }
 
 function closeEditShipModal() {
-    $('#EditShipModal').fadeOut();
+    $('#EditShipModal').modal('hide');
 }
 
 
@@ -117,21 +121,22 @@ function updateShip() {
     }, function(data){
         if(data == "OK") {
             toastr.success('操作に成功しました。');
-            $('#EditShipModal').fadeOut();
+            $('#EditShipModal').modal('hide');
             getShipList();
         } else {
             toastr.error('サーバーでエラーが発生しました。');
+            return;
         }
     });
 }
 
 function deleteShip(id) {
     $("#oxIdConfirmModal").html(id);
-    $("#confirmModal").fadeIn();
+    $("#confirmModal").modal('show');
 }
 
 function closeConfirmModal() {
-    $("#confirmModal").fadeOut();
+    $("#confirmModal").modal('hide');
 }
 
 function trashShip() {
@@ -141,7 +146,7 @@ function trashShip() {
     }, function(data){
         if(data == "OK") {
             toastr.success('操作に成功しました。');
-            $('#confirmModal').fadeOut();
+            $('#confirmModal').modal('hide');
             getShipList();
         } else {
             toastr.error('サーバーでエラーが発生しました。');
