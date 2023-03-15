@@ -20,7 +20,7 @@
 
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <div class="mx-auto p-4 pt-5 mt-5">
-    <h2 class="text-center font-bold mt-5 fw-bold">仕入リスト</h2>
+    <h2 class="text-center mt-5 fw-bold">仕入リスト</h2>
     @if($message = Session::get('updateSuccess'))
     <div class="alert alert-success alert-dismissible container mx-auto">
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>

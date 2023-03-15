@@ -61,26 +61,23 @@ class ShipController extends Controller
         $transportCompanyId = $request->transportCompanyId;
         
         if($pastoralId == 0 && $transportCompanyId ==0) {
-            $oxen = Ox::whereNotNull('exportDate')->paginate(10);
+            $oxen = Ox::whereNotNull('exportDate')->get();
         }
 
         if($pastoralId != 0 && $transportCompanyId == 0) {
             $oxen = Ox::whereNotNull('exportDate')
-                ->where('pastoral_id', $pastoralId)
-                ->paginate(10);
+                ->where('pastoral_id', $pastoralId)->get();
         }
 
         if($pastoralId == 0 && $transportCompanyId != 0) {
             $oxen = Ox::whereNotNull('exportDate')
-                ->where('slaughterTransport_Company_id', $transportCompanyId)
-                ->paginate(10);
+                ->where('slaughterTransport_Company_id', $transportCompanyId)->get();
         }
 
         if($pastoralId != 0 && $transportCompanyId != 0) {
             $oxen = Ox::whereNotNull('exportDate')
                 ->where('pastoral_id', $pastoralId)
-                ->where('slaughterTransport_Company_id', $transportCompanyId)
-                ->paginate(10);
+                ->where('slaughterTransport_Company_id', $transportCompanyId)->get();
         }
 
         return view('common.ships.list',['oxen'=>$oxen]);
