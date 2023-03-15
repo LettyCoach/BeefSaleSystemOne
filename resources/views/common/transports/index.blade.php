@@ -1,10 +1,7 @@
 @extends('layouts.commonUser')
 @section('content')
-<h2 class="text-center text-3xl font-bold mt-4 mb-4">運送（買った牛を運び込みと積み下ろしの報告）</h2>
-<div class="max-w-6xl mx-auto flex justify-center navbar">
-
-<div class="panel mt-5 pt-5" style="margin:0 50px">
-    <h2 class="text-center font-bold mt-5 fw-bold">仕入リスト</h2>
+<div class="panel container mt-5 pt-5" >
+    <h2 class="text-center font-bold mt-5 fw-bold">積み込み</h2>
     <form action="navForm" id="navForm" method="post" class="flex">
         @csrf
         <div class="">
@@ -18,7 +15,7 @@
     </form>
 </div>
 
-<div class="" id="content">
+<div class="container mx-auto" id="content">
     
 </div>
 <script>
