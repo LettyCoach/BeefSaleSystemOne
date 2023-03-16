@@ -15,6 +15,14 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('users')->insert([
+            'name' => 'AAA',
+            'email' => 'example@gmail.com',
+            'password' => Hash::make('superadmin'),
+            'created_at' => date("Y-m-d"),
+            'updated_at' => date("Y-m-d"),
+        ]);
+
         for ($i=0; $i < 10; $i++) {
             DB::table('users')->insert([
                 'name' => Str::random(10),
@@ -63,5 +71,54 @@ class UserSeeder extends Seeder
                 'updated_at' => date("Y-m-d"),
             ]);
         }
+
+        DB::table('roles')->insert([
+            'name' => 'admin',
+            'created_at' => date("Y-m-d"),
+            'updated_at' => date("Y-m-d"),
+        ]);
+
+        DB::table('roles')->insert([
+            'name' => 'purchase',
+            'created_at' => date("Y-m-d"),
+            'updated_at' => date("Y-m-d"),
+        ]);
+
+        DB::table('roles')->insert([
+            'name' => 'transport',
+            'created_at' => date("Y-m-d"),
+            'updated_at' => date("Y-m-d"),
+        ]);
+
+        DB::table('roles')->insert([
+            'name' => 'fatten',
+            'created_at' => date("Y-m-d"),
+            'updated_at' => date("Y-m-d"),
+        ]);
+
+        DB::table('roles')->insert([
+            'name' => 'ship',
+            'created_at' => date("Y-m-d"),
+            'updated_at' => date("Y-m-d"),
+        ]);
+
+        DB::table('roles')->insert([
+            'name' => 'slaughter',
+            'created_at' => date("Y-m-d"),
+            'updated_at' => date("Y-m-d"),
+        ]);
+
+        DB::table('roles')->insert([
+            'name' => 'meat',
+            'created_at' => date("Y-m-d"),
+            'updated_at' => date("Y-m-d"),
+        ]);
+
+        DB::table('role_users')->insert([
+            'user_id' => 1,
+            'role_id' => 1,
+            'created_at' => date("Y-m-d"),
+            'updated_at' => date("Y-m-d"),
+        ]);
     }
 }
