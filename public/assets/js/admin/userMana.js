@@ -1,7 +1,12 @@
 $(document).ready(function() {
-    $('#dtBasicExample').DataTable();
-    $('.dataTables_length').addClass('bs-select');
+    getUserList();
 });
+
+function getUserList() {
+    $.get('/admin/getUserList', function(data){
+        $('#userData').html(data);
+    });
+}
 
 function showAddRoleModal(userId) {
     $('#userIdAddModal').html(userId);
@@ -56,4 +61,23 @@ function storeUserRole() {
             }
         });
     }
+}
+
+function showConfirmModal(userId) {
+    $('#userIdConfirmModal').html(userId);
+    $('#confirmModal').modal('show');
+}
+
+function deleteUser() {
+    userId = $('#userIdConfirmModal').html();
+    
+    $.get('/admin/userDestroy', {
+        'userId': userId
+    }, function(data){
+        if(data == "OK") {
+            $('#confirmModal').modal('hide');
+            toastr.success('正常に削除されました。');
+            getUserList();
+        }
+    });
 }

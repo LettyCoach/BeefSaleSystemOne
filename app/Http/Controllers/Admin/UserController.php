@@ -68,9 +68,11 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $userId = $request->userId;
+        User::find($userId)->delete();
+        return "OK";
     }
 
     public function getUserById(Request $request) {
@@ -99,5 +101,12 @@ class UserController extends Controller
         }
         
         return "OK";
+    }
+
+    public function getUserList() {
+        $users = User::where('id', '>', 1)->get();
+        return view('admin/users.list',[
+            "users"=>$users
+        ]);
     }
 }
