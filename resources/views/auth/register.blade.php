@@ -1,79 +1,64 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}" style="margin-top: 100px;">
-        @csrf
-        <div class="container">
 
-            <h1 class="text-center">会員登録</h1>
-            <hr>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
-            <label for="name"><b>氏名</b></label>
-            <input type="text" placeholder="名前を入力してください" name="name" id="name" required>
+    <!-- Session Status -->
+    <x-auth-session-status class="mb-4" :status="session('status')" />
 
-            <label for="email"><b>Eメール</b></label>
-            <input type="text" placeholder="メールアドレスを入力" name="email" id="email" required>
+    <div class="justify-content-center mt-5 pt-5 mb-4">
+        <div class="col-md-6 mt-5 mx-auto">
+            <!-- form user info -->
+            <div class="card card-outline-secondary">
+                <div class="card-header">
+                    <h3 class="mb-0 text-center">ログイン</h3>
 
-            <label for="psw"><b>パスワード</b></label>
-            <input type="password" placeholder="パスワードを入力してください" name="password" id="password" required>
+                </div>
+                <div class="card-body">
 
-            <label for="psw-repeat"><b>パスワードを繰り返す</b></label>
-            <input type="password" placeholder="パスワードを再度入力してください" name="password_confirmation" id="password_confirmation" required>
-            <hr>
-
-            <button type="submit" class="registerbtn"><i class="fas fa-user-plus"></i> 登録</button>
+                    <form method="POST" action="{{ route('register') }}" autocomplete="off" class="form" role="form">
+                        @csrf
+                        @method('post')
+                        <div class="form-group row p-2">
+                            <label class="col-lg-3 col-form-label form-control-label">氏名</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="text" id="name" name="name" placeholder="名前を入力してください" required>
+                            </div>
+                        </div>
+                        <div class="form-group row p-2">
+                            <label class="col-lg-3 col-form-label form-control-label">Eメール</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="text" id="email" name="email" placeholder="メールアドレスを入力" required>
+                            </div>
+                        </div>
+                        <div class="form-group row p-2">
+                            <label class="col-lg-3 col-form-label form-control-label">パスワード</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="password" name="password" id="password" placeholder="パスワードを入力してください" required>
+                            </div>
+                        </div>
+                        <div class="form-group row p-2">
+                            <label class="col-lg-3 col-form-label form-control-label">パスワードを繰り返す</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="password" name="password_confirmation" id="password_confirmation" placeholder="パスワードを再度入力してください" required>
+                            </div>
+                        </div>
+                        <div class="form-group row p-2 d-flex flex-content-center">
+                            <div class="col-3"></div>
+                            <div class="col-9">
+                                <p>すでにアカウントを持っていますか? <a href="#">ログイン</a></p>
+                            </div>
+                        </div>
+                        <div class="form-group row p-2 d-flex flex-content-center">
+                            <label class="col-lg-3 col-form-label form-control-label"></label>
+                            <div class="col-lg-9">
+                                <button type="submit" class="btn btn-primary" style="background-color: #6ea924; border: 0;"><i class="fa fa-user-plus"></i> ログイン</button>
+                                <a href="javascript:;history.back();" class="btn btn-secondary">
+                                    <i class="fa fa-rotate-left"></i> 取消</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- /form user info -->
         </div>
-
-        <div class="container signin">
-            <p>すでにアカウントを持っていますか? <a href="#">ログイン</a>.</p>
-        </div>
-    </form>
+    </div>
 </x-guest-layout>
-
-<style>
-    input[type=text],
-    input[type=password] {
-        width: 100%;
-        padding: 15px;
-        margin: 5px 0 20px 0;
-        display: inline-block;
-        border: none;
-        background: #f1f1f1;
-    }
-
-    input[type=text]:focus,
-    input[type=password]:focus {
-        background-color: #ddd;
-        outline: none;
-    }
-
-    /* Overwrite default styles of hr */
-    hr {
-        border: 1px solid #f1f1f1;
-        margin-bottom: 10px;
-    }
-
-    /* Set a style for the submit/register button */
-    .registerbtn {
-        background-color: #6ea924;
-        color: white;
-        padding: 16px 20px;
-        margin: 8px 0;
-        border: none;
-        cursor: pointer;
-        width: 100%;
-        opacity: 0.9;
-    }
-
-    .registerbtn:hover {
-        opacity: 1;
-    }
-
-    /* Add a blue text color to links */
-    a {
-        color: dodgerblue;
-    }
-
-    /* Set a grey background color and center the text of the "sign in" section */
-    .signin {
-        text-align: center;
-    }
-</style>
