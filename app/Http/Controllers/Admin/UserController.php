@@ -1,11 +1,17 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Models\User;
+use App\Models\Role;
+use App\Models\RoleUser;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
+
 class UserController extends Controller
 {
     /**
@@ -13,7 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::where('id', '>', 1)->get();
         return view('admin/users.index',[
             "users"=>$users
         ]);
@@ -65,5 +71,33 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function getUserById(Request $request) {
+        $userId = $request->userId;
+        $user = User::find($userId);
+
+        // $userRoles = $user->roles;
+        $userRoles = RoleUser::where('user_id', $userId)->get();
+
+        return $userRoles;
+    }
+
+    public function userRoleAdd(Request $request) {
+        $userId = $request->userId;
+        $userRoles = $request->userRoleArray;
+
+        if($userRoles == "noRole") {
+            RoleUser::where('user_id', $userId)->delete();
+            return "OK";
+        }
+
+        RoleUser::where('user_id', $userId)->delete();
+
+        foreach ($userRoles as $userRole) {
+            RoleUser::create(['user_id' => $userId, 'role_id' => $userRole + 1]);
+        }
+        
+        return "OK";
     }
 }
