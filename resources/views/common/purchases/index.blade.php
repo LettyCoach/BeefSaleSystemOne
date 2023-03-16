@@ -51,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div class="panel-body" style="min-height: 500px; overflow-y: auto">
+        <div class="panel-body">
             <div style="width: 100%; padding-left: -10px;">
                 <div class="table-responsive">
                     <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0"  style="min-width: 1000px; overflow-x: scroll; width:100%">

@@ -50,6 +50,7 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('set null');
             $table->date('acceptedDateSlaughterHouse')->nullable();
+            $table->date('slaughterFinishedDate')->nullable();
             $table->decimal('acceptedWeight',11,2)->nullable();
             $table->integer('acceptedLevel')->nullable();
             $table->timestamps();
