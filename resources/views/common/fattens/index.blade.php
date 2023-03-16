@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" style="min-height: 500px; overflow-y: auto">
             <div style="width: 100%; padding-left: -10px;">
                 <div class="table-responsive" id="FattenData">
                     
