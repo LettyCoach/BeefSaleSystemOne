@@ -33,7 +33,7 @@ table.dataTable thead .sorting_desc_disabled:before {
         </div>
         @endif
 
-        <div class="panel panel-primary container mx-auto" style="min-height: 500px; overflow-y: auto">
+        <div class="panel panel-primary container mx-auto" style="min-height: 500px; overflow-y: auto" id="userData">
             <div class="panel-body">
                 <div style="width: 100%; padding-left: -10px;">
                     <div class="table-responsive">
@@ -55,28 +55,27 @@ table.dataTable thead .sorting_desc_disabled:before {
                                 @foreach ($users as $user)
                                 <tr>
                                     <td class="text-center">
-                                        <span class="text-gray-800 break-all">{{ $counter++;}}</span>
+                                        <span class="break-all">{{ $counter++;}}</span>
                                     </td>
                                     <td class="text-center">
-                                        <span class="text-gray-800 break-all" id = "userName{{ $user->id }}">{{ $user->name }}</span>
+                                        <span class="break-all" id = "userName{{ $user->id }}">{{ $user->name }}</span>
                                     </td>
                                     <td class="text-center">
-                                        <span class="text-gray-800 break-all" id = "userEmail{{ $user->id }}">{{ $user->email }}</span>
+                                        <span class="break-all" id = "userEmail{{ $user->id }}">{{ $user->email }}</span>
                                     </td>
                                     <td class="text-center">
-                                        <span class="text-gray-800 break-all">
-                                            <a href="javascript:;showAddRoleModal({{ $user->id }})"><i class="fa fa-plus"></i></a>
+                                        <span class="break-all">
+                                            <a href="javascript:;showAddRoleModal({{ $user->id }})">
+                                                <i class="fa fa-plus"></i>
+                                            </a>
                                         </span>
                                     </td>
                                     <td class="text-center">
-                                        <form method="POST" id="deleteForm{{$user->id}}"
-                                            action="{{ route('users.destroy', $user) }}" class="inline-block ">
-                                            @csrf
-                                            @method('delete')
+                                        <span class="break-all">
                                             <a href="javascript:;showConfirmModal({{$user->id}})">
                                                 <i class="fa fa-trash"></i>
                                             </a>
-                                        </form>
+                                        </span>
                                     </td>
 
                                 </tr>
@@ -87,13 +86,13 @@ table.dataTable thead .sorting_desc_disabled:before {
                 </div>
             </div>
         </div>
-        
+
         <div class="modal fade" id="confirmModal" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <div id="user_id" class="d-none"></div>
+                        <div id="userIdConfirmModal" class="d-none"></div>
                         <h5 class="modal-title" id="staticBackdropLabel">削除を確認する</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -102,7 +101,7 @@ table.dataTable thead .sorting_desc_disabled:before {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;"
-                            onclick="trashuser()"><i class="fas fa-check"></i> いいよ</button>
+                            onclick="deleteUser()"><i class="fas fa-check"></i> いいよ</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
                                 class="fas fa-times"></i> 取消</button>
                     </div>
