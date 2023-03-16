@@ -41,7 +41,7 @@ class PastoralController extends Controller
             'note'=>'required|string|max:255',
         ]);
         $pastoral=Pastoral::create($validated);
-        return redirect(route('pastorals.index'));
+        return redirect(route('pastorals.index'))->with('registerSuccess','正確に登録されました。');
 
     }
 
@@ -78,7 +78,7 @@ class PastoralController extends Controller
             'note'=>'required|string|max:255',
         ]);
         $pastoral->update($validated);
-        return redirect(route('pastorals.index'));
+        return redirect(route('pastorals.index'))->with('updateSuccess',"正確に更新されました。");
     }
 
     /**
@@ -89,7 +89,7 @@ class PastoralController extends Controller
         //
        /// $this->authorize('delete',$pastoral);
         $pastoral->delete();
-        return redirect(route('pastorals.index'));
+        return redirect(route('pastorals.index'))->with('deleteSuccess',"正確に削除されました。");
     }
     
 }

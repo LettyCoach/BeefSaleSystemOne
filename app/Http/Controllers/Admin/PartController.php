@@ -39,7 +39,7 @@ class PartController extends Controller
             'name'=>'required|string|max:255',
         ]);
         $part=Part::create($validated);
-        return redirect(route('parts.index'));
+        return redirect(route('parts.index'))->with('registerSuccess','正確に登録されました。');
 
     }
 
@@ -74,7 +74,7 @@ class PartController extends Controller
             'name'=>'required|string|max:255',
         ]);
         $part->update($validated);
-        return redirect(route('parts.index'));
+        return redirect(route('parts.index'))->with('updateSuccess',"正確に更新されました。");
     }
 
     /**
@@ -85,7 +85,7 @@ class PartController extends Controller
         //
        /// $this->authorize('delete',$part);
         $part->delete();
-        return redirect(route('parts.index'));
+        return redirect(route('parts.index'))->with('deleteSuccess',"正確に削除されました。");
     }
     
 }

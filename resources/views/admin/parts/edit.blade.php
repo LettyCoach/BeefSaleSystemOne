@@ -1,19 +1,38 @@
 <x-app-layout>
-    <div class="container mt-5 pt-5"  style="min-height: 600px; overflow-y: auto">
-        <h2 class="pt-5 text-center fw-bold">部位情報アップデート</h2>
-        <form method="POST" action="{{ route('parts.update', $part) }}">
+    <div class="justify-content-center container mt-5 pt-5 mb-4">
+        <div class="col-md-6 mt-5 mx-auto">
+            <!-- form user info -->
+            <div class="card card-outline-secondary">
+                <div class="card-header">
+                    <h3 class="mb-0 text-center">部位情報更新</h3>
+
+                </div>
+                <div class="card-body">
+
+                <form method="POST" action="{{ route('parts.update', $part) }}">
         @csrf
             @method('patch')
-            <div class="row mb-3 mt-3">
-                <label for="name">部位名:</label>
-                <input type="name" class="form-control" id="name" placeholder="" name="name" value="{{old('name',$part->name)}}">
-                @error('name')<div class="text-danger">{{ $message }}</div>@enderror
-            </div>
-            <div class="row d-flex justify-content-center">
-                <button type="submit" class="col-1  btn btn-primary mx-2">セーブ</button>
-                <a href="{{ route('parts.index') }}" class="col-1  btn btn-secondary mx-2">取消</a>
-            </div>
-            
-        </form>
+                        <div class="form-group row p-2">
+                            <label class="col-lg-3 col-form-label form-control-label">名前:</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="text" name="name" id="inline-name"
+                                    value="{{old('name',$part->name)}}">
+                                @error('name')<div class="text-danger">{{ $message }}</div>@enderror
+                            </div>
+                        </div>
+                        <div class="form-group row p-2 d-flex flex-content-center">
+                            <label class="col-lg-3 col-form-label form-control-label"></label>
+                            <div class="col-lg-9">
+                                <button type="submit" class="btn btn-primary"
+                                    style="background-color: #6ea924; border: 0;"><i class="fa fa-check"></i>
+                                    更新</button>
+                                <a href="{{ route('parts.index') }}" class="btn btn-secondary"><i
+                                        class="fa fa-rotate-left" aria-hidden="true"></i> 取消</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- /form user info -->
+        </div>
     </div>
 </x-app-layout>

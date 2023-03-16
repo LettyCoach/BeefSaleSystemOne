@@ -42,7 +42,7 @@ class TransportCompanyController extends Controller
             'note'=>'required|string|max:255',
         ]);
         $transportCompany=TransportCompany::create($validated);
-        return redirect(route('transportCompanies.index'));
+        return redirect(route('transportCompanies.index'))->with('registerSuccess','正確に登録されました。');
 
     }
 
@@ -79,7 +79,7 @@ class TransportCompanyController extends Controller
             'note'=>'required|string|max:255',
         ]);
         $transportCompany->update($validated);
-        return redirect(route('transportCompanies.index'));
+        return redirect(route('transportCompanies.index'))->with('updateSuccess',"正確に更新されました。");
     }
 
     /**
@@ -90,7 +90,7 @@ class TransportCompanyController extends Controller
         //
        /// $this->authorize('delete',$transportCompany);
         $transportCompany->delete();
-        return redirect(route('transportCompanies.index'));
+        return redirect(route('transportCompanies.index'))->with('deleteSuccess',"正確に削除されました。");
     }
     
 }
