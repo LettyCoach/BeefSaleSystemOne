@@ -183,7 +183,9 @@ return [
         'position' => [
             'required' => '位置が必要です。',
         ],
-
+        'note' => [
+            'required' => 'メモが必要です。',
+        ],
     ],
 
     /*

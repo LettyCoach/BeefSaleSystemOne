@@ -1,11 +1,6 @@
 
 <x-app-layout>
-    <div class="container mt-5 pt-5 mb-4">
-        <h2 class="text-center fw-bold pt-5">部位カットリスト</h2>
-        <div class="m-2 rounded-md d-flex justify-content-end">
-            <a href="{{ route('parts.create') }}" class="btn btn-primary">{{ __('添加') }}</a>
-        </div>
-        <style>
+<style>
         table.dataTable thead .sorting:after,
         table.dataTable thead .sorting:before,
         table.dataTable thead .sorting_asc:after,
@@ -21,6 +16,28 @@
         </style>
 
         <link rel="stylesheet" href="{{ asset('assets/css/components/datatable.css')}}">
+    <div class="container mt-5 pt-5 mb-4">
+        <h2 class="text-center fw-bold pt-5">部位カットリスト</h2>
+        @if($message = Session::get('updateSuccess'))
+        <div class="alert alert-success alert-dismissible container mx-auto">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>{{$message}}</strong>
+        </div>
+        @endif @if($message = Session::get('registerSuccess'))
+        <div class="alert alert-success alert-dismissible container mx-auto">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>{{$message}}</strong>
+        </div>
+        @endif @if($message = Session::get('deleteSuccess'))
+        <div class="alert alert-success alert-dismissible container mx-autoss">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>{{$message}}</strong>
+        </div>
+        @endif
+        <div class="m-2 rounded-md d-flex justify-content-end">
+            <a href="{{ route('parts.create') }}" class="btn btn-primary" style="background-color:#f05656;"><i
+                    class="fa fa-plus" aria-hidden="true"></i> 添加</a>
+        </div>
         <div class="panel panel-primary container mx-auto"  style="min-height: 500px; overflow-y: auto">
             <div class="panel-body">
                 <div style="width: 100%; padding-left: -10px;">
@@ -51,23 +68,13 @@
                                         <a href="{{route('parts.edit', $part)}}" class="p-2"><i class="fa fa-edit"></i></a>
                                     </td>
                                     <td class="text-center">
-                                        <form method="POST" id="deleteForm"
+                                        <form method="POST" id="deleteForm{{$part->id}}"
                                             action="{{ route('parts.destroy', $part) }}" class="inline-block ">
                                             @csrf
                                             @method('delete')
-                                            <a href="" onclick="deleteFunction()">
-                                                <i class="fa fa-trash" ></i>
+                                            <a href="javascript:;showConfirmModal({{$part->id}})">
+                                                <i class="fa fa-trash"></i>
                                             </a>
-                                            <script>
-                                            function deleteFunction() {
-                                                let text = "本当に削除しますか?";
-                                                if (confirm(text) == true) {
-                                                    event.preventDefault();
-                                                    document.getElementById('deleteForm').submit();
-                                                } else
-                                                    event.preventDefault();
-                                            }
-                                            </script>
                                         </form>
                                     </td>
 
@@ -79,11 +86,45 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="confirmModal" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div id="part_id" class="d-none"></div>
+                        <h5 class="modal-title" id="staticBackdropLabel">削除を確認する</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h2 class="text-center">本当に削除しますか？</h2>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;"
+                            onclick="trashPart()"><i class="fas fa-check"></i> いいよ</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
+                                class="fas fa-times"></i> 取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="{{ asset('assets/js/components/datatable.js') }}"></script>
         <script>
         $(document).ready(function() {
             $('#dtBasicExample').DataTable();
             $('.dataTables_length').addClass('bs-select');
         });
+        </script>
+        <script type="text/javascript">
+        function showConfirmModal(id) {
+            $('#confirmModal').modal('show');
+            $('#part_id').html(id);
+        }
+
+        function trashPart() {
+            id=$('#part_id').html();
+            $('#deleteForm'+id).submit();
+            $('#confirmModal').modal('hide');
+        }
         </script>
 </x-app-layout>

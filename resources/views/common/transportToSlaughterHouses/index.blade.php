@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="container mx-auto mt-5 pt-5">
-    <h2 class="mt-5 text-center mb-4">運搬（運送済みの牛の報告）</h2>
+    <h2 class="mt-5 text-center mb-4 fw-bold">運搬（運送済みの牛の報告）</h2>
     <form action="navForm" id="navForm" method="post" class="d-flex justify-content-end">
         @csrf
         <div class="rounded-md">

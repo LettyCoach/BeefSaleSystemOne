@@ -20,30 +20,35 @@ return new class extends Migration
             $table->foreignId('market_id')
                 ->nullable()
                 ->constrained()
-                ->onUpdate('cascade');
+                ->onUpdate('cascade')
+                ->onDelete('set null');
             $table->date('purchaseDate')->nullable();
             $table->decimal('purchasePrice',11,2)->nullable();
             $table->foreignId('purchaseTransport_Company_id')
                 ->nullable()
                 ->constrained('transport_companies')
-                ->onUpdate('cascade');
+                ->onUpdate('cascade')
+                ->onDelete('set null');
             $table->date('loadDate')->nullable();
             $table->date('unloadDate')->nullable();
             $table->foreignId('pastoral_id')
                 ->nullable()    
                 ->constrained()
-                ->onUpdate('cascade');
+                ->onUpdate('cascade')
+                ->onDelete('set null');
             $table->date('accessDate')->nullable();
             $table->date('exportDate')->nullable();
             $table->text('appendInfo')->nullable();
             $table->foreignId('slaughterTransport_Company_id')
                 ->nullable()
                 ->constrained('transport_companies')
-                ->onUpdate('cascade');
+                ->onUpdate('cascade')
+                ->onDelete('set null');
             $table->foreignId('slaughterHouse_id')
                 ->nullable()
                 ->constrained('slaughter_houses')
-                ->onUpdate('cascade');
+                ->onUpdate('cascade')
+                ->onDelete('set null');
             $table->date('acceptedDateSlaughterHouse')->nullable();
             $table->decimal('acceptedWeight',11,2)->nullable();
             $table->integer('acceptedLevel')->nullable();

@@ -41,7 +41,7 @@ class MarketController extends Controller
             'note'=>'required|string|max:255',
         ]);
         $market=Market::create($validated);
-        return redirect(route('markets.index'));
+        return redirect(route('markets.index'))->with('registerSuccess','正確に登録されました。');
 
     }
 
@@ -78,7 +78,7 @@ class MarketController extends Controller
             'note'=>'required|string|max:255',
         ]);
         $market->update($validated);
-        return redirect(route('markets.index'));
+        return redirect(route('markets.index'))->with('updateSuccess',"正確に更新されました。");
     }
 
     /**
@@ -89,7 +89,7 @@ class MarketController extends Controller
         //
        /// $this->authorize('delete',$market);
         $market->delete();
-        return redirect(route('markets.index'));
+        return redirect(route('markets.index'))->with('deleteSuccess',"正確に削除されました。");
     }
     
 }

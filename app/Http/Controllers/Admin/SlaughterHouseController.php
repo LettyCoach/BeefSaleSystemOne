@@ -43,7 +43,7 @@ class SlaughterHouseController extends Controller
             'note'=>'required|string|max:255',
         ]);
         $slaughterHouse=SlaughterHouse::create($validated);
-        return redirect(route('slaughterHouses.index'));
+        return redirect(route('slaughterHouses.index'))->with('registerSuccess','正確に登録されました。');
 
     }
 
@@ -80,7 +80,7 @@ class SlaughterHouseController extends Controller
             'note'=>'required|string|max:255',
         ]);
         $slaughterHouse->update($validated);
-        return redirect(route('slaughterHouses.index'));
+        return redirect(route('slaughterHouses.index'))->with('updateSuccess',"正確に更新されました。");
     }
 
     /**
@@ -91,7 +91,7 @@ class SlaughterHouseController extends Controller
         //
        /// $this->authorize('delete',$slaughterHouse);
         $slaughterHouse->delete();
-        return redirect(route('slaughterHouses.index'));
+        return redirect(route('slaughterHouses.index'))->with('deleteSuccess',"正確に削除されました。");
     }
     
 }
