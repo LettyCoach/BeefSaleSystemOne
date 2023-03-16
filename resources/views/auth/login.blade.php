@@ -20,7 +20,7 @@
         </div>
 
         <div class="container signin">
-            <p>すでにアカウントを持っていますか? <a href="#">ログイン</a>.</p>
+            <p>アカウントがありませんか？ <a href="/register">ログイン</a>.</p>
         </div>
     </form>
 </x-guest-layout>
