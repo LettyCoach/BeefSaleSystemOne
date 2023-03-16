@@ -122,6 +122,10 @@ class PurchaseController extends Controller
      */
     public function destroy(int $ox_id):RedirectResponse
     {
+        $ox = Ox::find($ox_id);
+        if($ox->loadDate != NULL) {
+            return redirect(route('purchases.index'))->with('deleteError',"既に積載しているため削除できません。");
+        }
        
         $deleted = Ox::where('id', $ox_id)->delete();
         return redirect(route('purchases.index'))->with('deleteSuccess',"正確に削除されました。");

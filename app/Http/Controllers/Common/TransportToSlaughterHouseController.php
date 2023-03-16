@@ -25,6 +25,9 @@ class TransportToSlaughterHouseController extends Controller
         $acceptedDateSlaughterHouse = $request->input('acceptedDateSlaughterHouse');
         $ox_id = $request->input('ox_id');
         if(isset($ox_id) && ($acceptedDateSlaughterHouse == '1900-01-01')){
+            if(isset(Ox::find($ox_id)->slaughterFinishedDate)) {
+                return 0;
+            }
             $acceptedDateSlaughterHouse = NULL;
             Ox::where('id',$ox_id)->update(['acceptedDateSlaughterHouse'=>$acceptedDateSlaughterHouse]);
         }

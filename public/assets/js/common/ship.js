@@ -151,8 +151,12 @@ function trashShip() {
             toastr.success('操作に成功しました。');
             $('#confirmModal').modal('hide');
             getShipList();
+        } else if(data == "0") {
+            toastr.warning('既に出荷が完了しているためキャンセルできません。');
+            $('#confirmModal').modal('hide');
         } else {
             toastr.error('サーバーでエラーが発生しました。');
+            $('#confirmModal').modal('hide');
         }
     });
 }

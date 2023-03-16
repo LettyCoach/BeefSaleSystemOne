@@ -53,6 +53,10 @@ function cancel(id) {
                 'loadDate': '1900-01-01'
             },
             function(data) {
+                if(data == 0) {
+                    toastr.warning("すでにアンロードされているためキャンセルできません。");
+                    return;
+                }
                 $('#content').html(data);
             },
         )
@@ -85,15 +89,17 @@ function unloadDateregister(id) {
 function unloadDatecancel(id) {
     ox_id = $('#ox_id' + id).val();
     SelectCompany = $('#SelectCompany').val();
-    $('#confirmModal2').modal('hide');
-    $.post(
-            "{{ route('transports.list')}}", {
+    $.post("{{ route('transports.list')}}", {
                 'SelectCompany': SelectCompany,
                 'ox_id': id,
                 'unloadDate': '1900-01-01'
             },
             function(data) {
-                 $('#content').html(data);  
+                if(data == 0) {
+                    toastr.warning('既に出荷が完了しているためキャンセルできません。');
+                    return;
+                }
+                $('#content').html(data);
             },
         )
         .fail(function(jqXhr, textStatus, errorThrown) {

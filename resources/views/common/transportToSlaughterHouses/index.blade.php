@@ -42,7 +42,11 @@
             $.post(
                     "{{ route('transportToSlaughterHouses.list')}}",
                     {'ox_id':id,'acceptedDateSlaughterHouse':'1900-01-01'},
-                    function( data ){
+                    function( data ) {
+                        if(data == 0) {
+                            toastr.warning('既に屠殺されているためキャンセルできません。');
+                            return;
+                        }
                         $('#content').html( data );
                     },
 
@@ -50,8 +54,8 @@
                 .fail(function( jqXhr, textStatus, errorThrown ){
                         console.log( errorThrown );
                 });
-                selectCompany();
-                alert("登録はキャンセルされました。")
+                // selectCompany();
+                // alert("登録はキャンセルされました。");
         } else {
             return;
         }

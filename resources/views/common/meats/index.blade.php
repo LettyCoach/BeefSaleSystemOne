@@ -253,13 +253,13 @@ table.dataTable thead .sorting_desc_disabled:before {
             "{{route('meats.store')}}",
             $('#dataForm').serialize(),
             function(data) {
-                if (data.msg == "register") {
-                    $("#successModal").modal('show');
+                if (data.msg == "already register") {
                     $("#meatModal").modal('hide');
+                    toastr.warning('すでに登録されています。');
                 }else{
-                    $("#successModal").modal('show');
+                    $("#meatModal").modal('hide');
+                    toastr.success('登録に成功しました。');
                 }
-                
             });
     }
 
