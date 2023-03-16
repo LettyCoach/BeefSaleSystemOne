@@ -10,8 +10,7 @@
             <!-- form user info -->
             <div class="card card-outline-secondary">
                 <div class="card-header">
-                    <h3 class="mb-0 text-center">ログイン</h3>
-
+                    <h3 class="mb-0 text-center">会員登録</h3>
                 </div>
                 <div class="card-body">
 
@@ -45,12 +44,12 @@
                         <div class="form-group row p-2 d-flex flex-content-center">
                             <div class="col-lg-4"></div>
                             <div class="col-lg-8">
-                                <p>すでにアカウントを持っていますか? <a href="#">ログイン</a></p>
+                                <p>すでにアカウントを持っていますか? <a href="/login">ログイン</a></p>
                             </div>
                         </div>
                         <div class="form-group row p-2 d-flex flex-content-center">
                             <div class="col-lg-12  d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary mx-2" style="background-color: #6ea924; border: 0;"><i class="fa fa-user-plus"></i> ログイン</button>
+                                <button type="submit" class="btn btn-primary mx-2" style="background-color: #6ea924; border: 0;"><i class="fa fa-user-plus"></i> 会員登録</button>
                                 <a href="javascript:;history.back();" class="btn btn-secondary mx-2">
                                     <i class="fa fa-rotate-left"></i> 取消</a>
                             </div>
