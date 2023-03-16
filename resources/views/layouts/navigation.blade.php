@@ -16,6 +16,7 @@
                 <li><a href="{{ route('pastorals.index') }}">牧場</a></li>
                 <li><a href="{{ route('slaughterHouses.index') }}">屠殺場</a></li>
                 <li><a href="{{ route('parts.index') }}">部位カット</a></li>
+                <li><a href="{{ route('users.index') }}">ユーザー管理</a></li>
                 <li><a href="{{ route('purchases.index') }}">ユーザーページ</a></li>
             </ul>
         </nav><!-- .navbar -->
