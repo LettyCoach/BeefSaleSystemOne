@@ -33,7 +33,7 @@
                                 <th class="text-center">性別</th>
                                 <th class="text-center">登録日</th>
                                 <th class="text-center">登録</th>
-                                <th class="text-center">取り消す</th>
+                                <!-- <th class="text-center">取消</th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -73,10 +73,10 @@
                                             id="register{{$ox->id}}" href="javascript:;register({{$ox->id}})"
                                             @if($ox->slaughterFinishedDate != NULL) disabled @endif>登録</a>
                                     </span></td>
-                                <td class="text-center"><span class="text-gray-800 break-all"><a id="cancel{{$ox->id}}"
+                                <!-- <td class="text-center"><span class="text-gray-800 break-all"><a id="cancel{{$ox->id}}"
                                             href="javascript:;cancel({{$ox->id}})" @if($ox->slaughterFinishedDate ==
-                                            NULL) disabled @endif>取り消す</a>
-                                    </span></td>
+                                            NULL) disabled @endif>取消</a>
+                                    </span></td> -->
 
                             </tr>
                             @endforeach

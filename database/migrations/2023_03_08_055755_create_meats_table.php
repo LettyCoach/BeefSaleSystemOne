@@ -14,11 +14,15 @@ return new class extends Migration
         Schema::create('meats', function (Blueprint $table) {
             $table->id();
             $table->foreignId('ox_id')
+                ->nullable()
                 ->constrained()
-                ->onUpdate('cascade');
+                ->onUpdate('cascade')
+                ->onDelete('set null');
             $table->foreignId('part_id')
+                ->nullable()
                 ->constrained()
-                ->onUpdate('cascade');
+                ->onUpdate('cascade')
+                ->onDelete('set null');
             $table->decimal('weight',11,2);
             $table->decimal('price',11,2);
             $table->timestamps();

@@ -32,7 +32,12 @@
         <strong>{{$message}}</strong>
     </div>
     @endif @if($message = Session::get('deleteSuccess'))
-    <div class="alert alert-success alert-dismissible container mx-autoss">
+    <div class="alert alert-success alert-dismissible container mx-auto">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>{{$message}}</strong>
+    </div>
+    @endif @if($message = Session::get('deleteError'))
+    <div class="alert alert-warning alert-dismissible container mx-auto">
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         <strong>{{$message}}</strong>
     </div>
@@ -106,10 +111,10 @@
                                     </a>
                                 </td>
                                 <td class="text-center">
-                                    <form method="POST" id="deleteForm" action="{{route('purchases.destroy',$ox->id)}}">
+                                    <form method="POST" id="deleteForm{{ $ox->id }}" action="{{route('purchases.destroy',$ox->id)}}">
                                         @csrf
                                         @method('delete')
-                                        <a href="javascript:;showConfirmModal()" class="p-2 mx-auto">
+                                        <a href="javascript:;showConfirmModal({{ $ox->id }})" class="p-2 mx-auto">
                                             <i class="fas fa-trash" aria-hidden="true"></i>
                                         </a>
                                     </form>
@@ -163,12 +168,14 @@
         today = yyyy + '-' + mm + '-' + dd;
         return today;
     }
-    function showConfirmModal() {
+    function showConfirmModal(id) {
         $('#confirmModal').modal('show');
+        $('#oxIdConfirmModal').html(id);
     }
 
     function trashPurchase() {
-        $('#deleteForm').submit();
+        var id = $('#oxIdConfirmModal').html();
+        $('#deleteForm' + id).submit();
     }
 </script>
 @endsection

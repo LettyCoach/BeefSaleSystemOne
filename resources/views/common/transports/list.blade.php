@@ -56,10 +56,7 @@
                                         @csrf
                                         <input type="hidden" name="ox_id" id="ox_id{{$ox->id}}" value="{{$ox->id}}">
                                         <input type="date" class="loadDate" name="loadDate" id="loadDate{{$ox->id}}" class="text-xs" value="{{$ox->loadDate}}">
-
-
                                     </form>
-
                                 </td>
                                 
                                 <td class="text-center"><a id="register{{$ox->id}}" href="javascript:;register({{$ox->id}})"  @if($ox->loadDate != NULL) disabled @endif>登録</a>  

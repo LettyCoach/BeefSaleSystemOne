@@ -40,7 +40,7 @@ class MeatController extends Controller
     public function store(Request $request)
     {
         if(Meat::where('ox_id',$request->input('ox_id'))->count()>0)
-            return response()->json(['msg'=>'register']);
+            return response()->json(['msg'=>'already register']);
         else{
             $count =Meat::all()->count();
             for($i=1;$i<=5;$i++){

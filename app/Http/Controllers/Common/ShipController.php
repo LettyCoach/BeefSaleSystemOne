@@ -108,6 +108,10 @@ class ShipController extends Controller
         $oxId = $request->oxId;
         $ox = Ox::find($oxId);
 
+        if(isset($ox->acceptedDateSlaughterHouse)) {
+            return 0;
+        }
+
         $ox->exportDate = NULL;
         $ox->slaughterTransport_Company_id = NULL;
         $ox->slaughterHouse_id = NULL;
