@@ -18,6 +18,18 @@
                 <li><a href="{{route('transportToSlaughterHouses.index')}}">出荷運搬</a></li>
                 <li><a href="{{route('slaughters.index')}}">屠殺</a></li>
                 <li><a href="{{route('meats.index')}}">精肉管理</a></li>
+                <li class="dropdown">
+                    <a href="#"><span>レポート</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                    <ul>
+                        <li><a href="#">仕入レポート</a></li>
+                        <li><a href="#">運送レポート</a></li>
+                        <li><a href="#">肥育レポート</a></li>
+                        <li><a href="#">運送レポート</a></li>
+                        <li><a href="#">出荷レポート</a></li>
+                        <li><a href="#">屠殺レポート</a></li>
+                        <li><a href="#">精肉レポート</a></li>
+                    </ul>
+                </li>
                 <li><a href="{{route('markets.index')}}">管理者</a></li>
             </ul>
         </nav><!-- .navbar -->
