@@ -19,40 +19,39 @@
                         @csrf
                         @method('post')
                         <div class="form-group row p-2">
-                            <label class="col-lg-3 col-form-label form-control-label">氏名</label>
-                            <div class="col-lg-9">
+                            <label class="col-lg-4 col-form-label form-control-label d-flex justify-content-end">氏名</label>
+                            <div class="col-lg-8">
                                 <input class="form-control" type="text" id="name" name="name" placeholder="名前を入力してください" required>
                             </div>
                         </div>
                         <div class="form-group row p-2">
-                            <label class="col-lg-3 col-form-label form-control-label">Eメール</label>
-                            <div class="col-lg-9">
+                            <label class="col-lg-4 col-form-label form-control-label d-flex justify-content-end">Eメール</label>
+                            <div class="col-lg-8">
                                 <input class="form-control" type="text" id="email" name="email" placeholder="メールアドレスを入力" required>
                             </div>
                         </div>
                         <div class="form-group row p-2">
-                            <label class="col-lg-3 col-form-label form-control-label">パスワード</label>
-                            <div class="col-lg-9">
+                            <label class="col-lg-4 col-form-label form-control-label d-flex justify-content-end">パスワード</label>
+                            <div class="col-lg-8">
                                 <input class="form-control" type="password" name="password" id="password" placeholder="パスワードを入力してください" required>
                             </div>
                         </div>
                         <div class="form-group row p-2">
-                            <label class="col-lg-3 col-form-label form-control-label">パスワードを繰り返す</label>
-                            <div class="col-lg-9">
+                            <label class="col-lg-4 col-form-label form-control-label d-flex justify-content-end">パスワードを繰り返す</label>
+                            <div class="col-lg-8">
                                 <input class="form-control" type="password" name="password_confirmation" id="password_confirmation" placeholder="パスワードを再度入力してください" required>
                             </div>
                         </div>
                         <div class="form-group row p-2 d-flex flex-content-center">
-                            <div class="col-3"></div>
-                            <div class="col-9">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-8">
                                 <p>すでにアカウントを持っていますか? <a href="#">ログイン</a></p>
                             </div>
                         </div>
                         <div class="form-group row p-2 d-flex flex-content-center">
-                            <label class="col-lg-3 col-form-label form-control-label"></label>
-                            <div class="col-lg-9">
-                                <button type="submit" class="btn btn-primary" style="background-color: #6ea924; border: 0;"><i class="fa fa-user-plus"></i> ログイン</button>
-                                <a href="javascript:;history.back();" class="btn btn-secondary">
+                            <div class="col-lg-12  d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary mx-2" style="background-color: #6ea924; border: 0;"><i class="fa fa-user-plus"></i> ログイン</button>
+                                <a href="javascript:;history.back();" class="btn btn-secondary mx-2">
                                     <i class="fa fa-rotate-left"></i> 取消</a>
                             </div>
                         </div>
