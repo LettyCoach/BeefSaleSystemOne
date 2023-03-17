@@ -15,12 +15,15 @@ function showAddRoleModal(userId) {
     $.get('/admin/users/getUserById', {
         "userId": userId
     }, function(data){
+        // alert(data.length);
+        // return ;
+
         var roleLen = data.length;
         for(j = 0; j < 6; j ++) {
             $('.form-check-input')[j].checked = false;
         }
         for(i = 0; i < roleLen; i ++) {
-            $('.form-check-input')[data[i].role_id - 2].checked = true;
+            $('.form-check-input')[data[i].id - 2].checked = true;
         }
     });
     $('#addRoleModal').modal('show');

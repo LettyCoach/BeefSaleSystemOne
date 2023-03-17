@@ -79,9 +79,8 @@ class UserController extends Controller
         $userId = $request->userId;
         $user = User::find($userId);
 
-        // $userRoles = $user->roles;
-        $userRoles = RoleUser::where('user_id', $userId)->get();
-
+         $userRoles = $user->roles;
+       // $userRoles = RoleUser::where('user_id', $userId)->get();
         return $userRoles;
     }
 
