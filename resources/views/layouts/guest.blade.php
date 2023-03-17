@@ -69,7 +69,9 @@
                             <li><a href="#">精肉レポート</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ route('markets.index') }}">管理者</a></li>
+                    @if (Auth::user() && Auth::user()->hasRole('admin'))
+                    <li><a href="{{route('markets.index')}}">管理者</a></li>                    
+                @endif
                 </ul>
             </nav><!-- .navbar -->
 

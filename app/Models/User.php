@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\RoleUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -44,13 +45,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+    
     public function chirps():HasMany
     {
         return $this->hasMany(Chirp::class);
     }
     public function roles(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class,'role_users','user_id','role_id');
+    }
+
+    public function hasRole(string $roleName)
+    {
+         $roles = Auth::user()->roles;
+         foreach($roles as $role){
+            if($roleName == $role->name)
+                return true;
+         }
+        return false;
     }
 }
