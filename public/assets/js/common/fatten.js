@@ -1,6 +1,4 @@
 $(document).ready(function () {
-    $('#dtBasicExample').DataTable();
-    $('.dataTables_length').addClass('bs-select');
     getOxListByPastoral();
 });
 
@@ -45,7 +43,5 @@ function getOxListByPastoral() {
         "pastoralId": pastoralId
     }, function(data){
         $("#FattenData").html(data);
-        $('#dtBasicExample').DataTable();
-        $('.dataTables_length').addClass('bs-select');
     });
 }
