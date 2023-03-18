@@ -10,7 +10,6 @@
 
         <nav id="navbar" class="navbar">
             <ul>
-                <li><a href="/">ホーム</a></li>
                 <li><a href="{{ route('purchases.index') }}">仕入</a></li>
                 <li><a href="{{ route('transports.index') }}">仕入運送</a></li>
                 <li><a href="{{ route('fatten.index') }}">肥育</a></li>
