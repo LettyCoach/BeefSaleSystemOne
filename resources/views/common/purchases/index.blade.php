@@ -21,6 +21,7 @@
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <div class="mx-auto p-4 pt-5 mt-5">
     <h2 class="text-center mt-5 fw-bold">仕入リスト</h2>
+    
     @if($message = Session::get('updateSuccess'))
     <div class="alert alert-success alert-dismissible container mx-auto">
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -178,4 +179,31 @@
         $('#deleteForm' + id).submit();
     }
 </script>
+@if (session('status'))
+<!-- Toastr -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            toastr.options = {
+                'closeButton': true,
+                'debug': false,
+                'newestOnTop': false,
+                'progressBar': true,
+                'positionClass': 'toast-top-right',
+                'preventDuplicates': false,
+                'showDuration': '1000',
+                'hideDuration': '1000',
+                'timeOut': '5000',
+                'extendedTimeOut': '1000',
+                'showEasing': 'swing',
+                'hideEasing': 'linear',
+                'showMethod': 'fadeIn',
+                'hideMethod': 'fadeOut',
+            }
+            toastr.warning('アクセス権はありません。');
+        })
+        
+    </script>
+@endif
 @endsection

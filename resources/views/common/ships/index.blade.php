@@ -19,6 +19,7 @@
     }
 </style>
 
+
 <div class="mx-auto p-4 pt-5 mt-5">
     <h2 class="text-center mt-5 fw-bold">出荷指示</h2>
     <div class="container panel panel-primary mx-auto">
@@ -218,6 +219,34 @@
         </div>
     </div>
 </div>
+
+@if (session('status'))
+<!-- Toastr -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            toastr.options = {
+                'closeButton': true,
+                'debug': false,
+                'newestOnTop': false,
+                'progressBar': true,
+                'positionClass': 'toast-top-right',
+                'preventDuplicates': false,
+                'showDuration': '1000',
+                'hideDuration': '1000',
+                'timeOut': '5000',
+                'extendedTimeOut': '1000',
+                'showEasing': 'swing',
+                'hideEasing': 'linear',
+                'showMethod': 'fadeIn',
+                'hideMethod': 'fadeOut',
+            }
+            toastr.warning('アクセス権はありません。');
+        })
+        
+    </script>
+@endif
 
 <script src="{{ asset('assets/js/common/ship.js') }}"></script>
 <script src="{{ asset('assets/js/components/datatable.js') }}"></script>
