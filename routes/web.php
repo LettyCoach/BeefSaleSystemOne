@@ -58,17 +58,17 @@ Route::get('/common/oxs/getOxRegisterNumberListByPastoral', [OXController::class
 Route::get('/common/oxs/getOxNameById', [OXController::class, 'getOxNameById'])->middleware(['auth','verified']);
 Route::get('/common/oxs/getOxById', [OXController::class, 'getOxById'])->middleware(['auth','verified']);
 
-Route::resource('/common/transports',TransportController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
-Route::resource('/common/purchases',PurchaseController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
+Route::resource('/common/transports',TransportController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:transport']);
+Route::resource('/common/purchases',PurchaseController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:purchase']);
 Route::post('/common/transports',[TransportController::class,'list'])->name('transports.list')->middleware(['auth','verified']);
-Route::resource('/common/fatten',FattenController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
-Route::resource('/common/ship',ShipController::class)->only(['index','store','show','create','edit','update'])->middleware(['auth','verified']);
+Route::resource('/common/fatten',FattenController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:fatten']);
+Route::resource('/common/ship',ShipController::class)->only(['index','store','show','create','edit','update'])->middleware(['auth','verified','role:ship']);
 Route::get('/common/shipDestroy', [ShipController::class, 'destroy'])->middleware(['auth','verified']);
-Route::resource('/common/transportToSlaughterHouses',TransportToSlaughterHouseController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
+Route::resource('/common/transportToSlaughterHouses',TransportToSlaughterHouseController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:transport']);
 Route::post('/common/transportToSlaughterHouses',[TransportToSlaughterHouseController::class,'list'])->name('transportToSlaughterHouses.list')->middleware(['auth','verified']);
-Route::resource('/common/slaughters',SlaughterController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
+Route::resource('/common/slaughters',SlaughterController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:slaughter']);
 Route::post('/common/slaughters',[SlaughterController::class,'list'])->name('slaughters.list')->middleware(['auth','verified']);
-Route::resource('/common/meats',MeatController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified']);
+Route::resource('/common/meats',MeatController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:meat']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
