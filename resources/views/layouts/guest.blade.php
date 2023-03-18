@@ -49,7 +49,6 @@
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a href="/">ホーム</a></li>
                     <li><a href="{{ route('purchases.index') }}">仕入</a></li>
                     <li><a href="{{ route('transports.index') }}">仕入運送</a></li>
                     <li><a href="{{ route('fatten.index') }}">肥育</a></li>
@@ -104,8 +103,8 @@
                     <div>
                         <h4>住所</h4>
                         <p>
-                            A108 Adam Street <br>
-                            New York, NY 535022 - US<br>
+                            Tokyo <br>
+                            Japan<br>
                         </p>
                     </div>
 
@@ -116,8 +115,8 @@
                     <div>
                         <h4>私たちとのつながり</h4>
                         <p>
-                            <strong>電話番号:</strong> +1 5589 55488 55<br>
-                            <strong>Eメール:</strong> <a href="mailto:;">info@example.com</a><br>
+                            <strong>電話番号:</strong> +81-69-4199-9190<br>
+                            <strong>Eメール:</strong> <a href="mailto:;">example@gmail.com</a><br>
                         </p>
                     </div>
                 </div>
@@ -148,7 +147,7 @@
 
         <div class="container">
             <div class="copyright">
-                &copy; Copyright <strong><span>Yummy</span></strong>. All Rights Reserved
+                &copy; Copyright <strong><span>SGDs</span></strong>. All Rights Reserved
             </div>
             <div class="credits">
             </div>
