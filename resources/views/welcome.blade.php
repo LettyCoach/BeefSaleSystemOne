@@ -6,12 +6,8 @@
             <div class="row justify-content-between gy-5">
                 <div
                     class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
-                    <h2 data-aos="fade-up">Enjoy Your Healthy<br>Delicious Food</h2>
-                    <p data-aos="fade-up" data-aos-delay="100">Sed autem laudantium dolores. Voluptatem itaque ea
-                        consequatur eveniet. Eum quas beatae cumque eum quaerat.</p>
-                    <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-                        <a href="#book-a-table" class="btn-book-a-table">Book a Table</a>
-                    </div>
+                    <h2 data-aos="fade-up">あなたの健康を楽しむ<br>おいしい食べ物</h2>
+                    <p data-aos="fade-up" data-aos-delay="100">しかし、賛美する人々の痛み。そして、それは幸福につながるでしょう。彼を求める者は幸いです。</p>
                 </div>
                 <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
                     <img src="assets/img/hero-img.png" class="img-fluid w-100" alt="" data-aos="zoom-out"
@@ -28,15 +24,14 @@
             <div class="container" data-aos="fade-up">
 
                 <div class="section-header">
-                    <h2>About Us</h2>
-                    <p>Learn More <span>About Us</span></p>
+                    <p><span>私たちについてもっと知る</span></p>
                 </div>
 
                 <div class="row gy-4">
                     <div class="col-lg-7 position-relative about-img"
                         style="background-image: url(assets/img/about.jpg); background-repeat: no-repeat;" data-aos="fade-up" data-aos-delay="150">
                     </div>
-                    <div class="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
+                    <div class="col-lg-5 d-flex align-items-center" data-aos="fade-up" data-aos-delay="300">
                         <div class="content ps-0 ps-lg-5">
                             <p class="">
                                 日本国の牛の消費量は年々増え続けているが日本の農家数10万のうち毎年約４千農家が廃業しており、
@@ -67,33 +62,25 @@
 
                     <div class="col-lg-3 col-md-6">
                         <div class="stats-item text-center w-100 h-100">
-                            <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1"
-                                class="purecounter"></span>
-                            <p>Clients</p>
+                            
                         </div>
                     </div><!-- End Stats Item -->
 
                     <div class="col-lg-3 col-md-6">
                         <div class="stats-item text-center w-100 h-100">
-                            <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1"
-                                class="purecounter"></span>
-                            <p>Projects</p>
+                            
                         </div>
                     </div><!-- End Stats Item -->
 
                     <div class="col-lg-3 col-md-6">
                         <div class="stats-item text-center w-100 h-100">
-                            <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1"
-                                class="purecounter"></span>
-                            <p>Hours Of Support</p>
+                            
                         </div>
                     </div><!-- End Stats Item -->
 
                     <div class="col-lg-3 col-md-6">
                         <div class="stats-item text-center w-100 h-100">
-                            <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1"
-                                class="purecounter"></span>
-                            <p>Workers</p>
+                            
                         </div>
                     </div><!-- End Stats Item -->
 
@@ -107,8 +94,7 @@
             <div class="container" data-aos="fade-up">
 
                 <div class="section-header">
-                    <h2>Testimonials</h2>
-                    <p>What Are They <span>Saying About Us</span></p>
+                    <p><span>顧客の声</span></p>
                 </div>
 
                 <div class="slides-1 swiper" data-aos="fade-up" data-aos-delay="100">
@@ -121,18 +107,12 @@
                                         <div class="testimonial-content">
                                             <p>
                                                 <i class="bi bi-quote quote-icon-left"></i>
-                                                Proin iaculis purus consequat sem cure digni ssim donec porttitora entum
-                                                suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh
-                                                et. Maecen aliquam, risus at semper.
+                                                ターゲットグループにとって、結果は航空会社が引き継ぐまで気にする価値があります。ただし、告発者にはそれが必要であり、ある程度の規律が必要です。少し気弱ですが、いつも笑顔です。
                                                 <i class="bi bi-quote quote-icon-right"></i>
                                             </p>
-                                            <h3>Saul Goodman</h3>
-                                            <h4>Ceo &amp; Founder</h4>
-                                            <div class="stars">
-                                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                    class="bi bi-star-fill"></i>
-                                            </div>
+                                            <h3>サウル・グッドマン</h3>
+                                            <h4>最高経営責任者 &amp; 創設者</h4>
+                                            
                                         </div>
                                     </div>
                                     <div class="col-lg-2 text-center">
@@ -150,18 +130,11 @@
                                         <div class="testimonial-content">
                                             <p>
                                                 <i class="bi bi-quote quote-icon-left"></i>
-                                                Export tempor illum tamen malis malis eram quae irure esse labore quem
-                                                cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua
-                                                noster fugiat irure amet legam anim culpa.
+                                                ターゲットグループにとって、結果は航空会社が引き継ぐまで気にする価値があります。ただし、告発者にはそれが必要であり、ある程度の規律が必要です。少し気弱ですが、いつも笑顔です。
                                                 <i class="bi bi-quote quote-icon-right"></i>
                                             </p>
-                                            <h3>Sara Wilsson</h3>
-                                            <h4>Designer</h4>
-                                            <div class="stars">
-                                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                    class="bi bi-star-fill"></i>
-                                            </div>
+                                            <h3>サラ・ウィルソン</h3>
+                                            <h4>デザイナー</h4>
                                         </div>
                                     </div>
                                     <div class="col-lg-2 text-center">
@@ -179,18 +152,11 @@
                                         <div class="testimonial-content">
                                             <p>
                                                 <i class="bi bi-quote quote-icon-left"></i>
-                                                Enim nisi quem export duis labore cillum quae magna enim sint quorum
-                                                nulla quem veniam duis minim tempor labore quem eram duis noster aute
-                                                amet eram fore quis sint minim.
+                                                ターゲットグループにとって、結果は航空会社が引き継ぐまで気にする価値があります。ただし、告発者にはそれが必要であり、ある程度の規律が必要です。少し気弱ですが、いつも笑顔です。
                                                 <i class="bi bi-quote quote-icon-right"></i>
                                             </p>
-                                            <h3>Jena Karlis</h3>
-                                            <h4>Store Owner</h4>
-                                            <div class="stars">
-                                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                    class="bi bi-star-fill"></i>
-                                            </div>
+                                            <h3>ジェナ・カーリス</h3>
+                                            <h4>ストア オーナー</h4>
                                         </div>
                                     </div>
                                     <div class="col-lg-2 text-center">
@@ -208,18 +174,11 @@
                                         <div class="testimonial-content">
                                             <p>
                                                 <i class="bi bi-quote quote-icon-left"></i>
-                                                Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam
-                                                tempor noster veniam enim culpa labore duis sunt culpa nulla illum
-                                                cillum fugiat legam esse veniam culpa fore nisi cillum quid.
+                                                ターゲットグループにとって、結果は航空会社が引き継ぐまで気にする価値があります。ただし、告発者にはそれが必要であり、ある程度の規律が必要です。少し気弱ですが、いつも笑顔です。
                                                 <i class="bi bi-quote quote-icon-right"></i>
                                             </p>
-                                            <h3>John Larson</h3>
-                                            <h4>Entrepreneur</h4>
-                                            <div class="stars">
-                                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                    class="bi bi-star-fill"></i>
-                                            </div>
+                                            <h3>ジョン・ラーソン</h3>
+                                            <h4>起業家</h4>
                                         </div>
                                     </div>
                                     <div class="col-lg-2 text-center">
@@ -242,8 +201,7 @@
             <div class="container-fluid" data-aos="fade-up">
 
                 <div class="section-header">
-                    <h2>Events</h2>
-                    <p>作業工程</p>
+                    <p><span>作業工程</span></p>
                 </div>
 
                 <div class="slides-3 swiper" data-aos="fade-up" data-aos-delay="100">
@@ -254,8 +212,7 @@
                             <h3>仕入</h3>
                             <div class="price align-self-start">01</div>
                             <p class="description">
-                                Quo corporis voluptas ea ad. Consectetur inventore sapiente ipsum voluptas eos omnis
-                                facere. Enim facilis veritatis id est rem repudiandae nulla expedita quas.
+                            家畜市場で牛を購入する。家畜市場で牛を購入する。家畜市場で牛を購入する。家畜市場で牛を購入する。家畜市場で牛を購入する。家畜市場で牛を購入する。家畜市場で牛を購入する。
                             </p>
                         </div><!-- End Event item -->
 
@@ -264,8 +221,7 @@
                             <h3>運送</h3>
                             <div class="price align-self-start">02</div>
                             <p class="description">
-                                In delectus sint qui et enim. Et ab repudiandae inventore quaerat doloribus. Facere nemo
-                                vero est ut dolores ea assumenda et. Delectus saepe accusamus aspernatur.
+                            運送会社が牧場へ運送します。運送会社が牧場へ運送します。運送会社が牧場へ運送します。運送会社が牧場へ運送します。運送会社が牧場へ運送します。運送会社が牧場へ運送します。
                             </p>
                         </div><!-- End Event item -->
 
@@ -274,8 +230,7 @@
                             <h3>肥育</h3>
                             <div class="price align-self-start">03</div>
                             <p class="description">
-                                Laborum aperiam atque omnis minus omnis est qui assumenda quos. Quis id sit quibusdam.
-                                Esse quisquam ducimus officia ipsum ut quibusdam maxime. Non enim perspiciatis.
+                            牧場で牛を育てています。牧場で牛を育てています。牧場で牛を育てています。牧場で牛を育てています。牧場で牛を育てています。牧場で牛を育てています。牧場で牛を育てています。
                             </p>
                         </div><!-- End Event item -->
 
@@ -284,8 +239,7 @@
                             <h3>出荷</h3>
                             <div class="price align-self-start">04</div>
                             <p class="description">
-                                Laborum aperiam atque omnis minus omnis est qui assumenda quos. Quis id sit quibusdam.
-                                Esse quisquam ducimus officia ipsum ut quibusdam maxime. Non enim perspiciatis.
+                            肥育した牛を屠殺場に運びます。肥育した牛を屠殺場に運びます。肥育した牛を屠殺場に運びます。肥育した牛を屠殺場に運びます。肥育した牛を屠殺場に運びます。肥育した牛を屠殺場に運びます。
                             </p>
                         </div><!-- End Event item -->
 
@@ -294,8 +248,7 @@
                             <h3>屠殺</h3>
                             <div class="price align-self-start">05</div>
                             <p class="description">
-                                Laborum aperiam atque omnis minus omnis est qui assumenda quos. Quis id sit quibusdam.
-                                Esse quisquam ducimus officia ipsum ut quibusdam maxime. Non enim perspiciatis.
+                            牛を屠殺します。牛を屠殺します。牛を屠殺します。牛を屠殺します。牛を屠殺します。牛を屠殺します。牛を屠殺します。牛を屠殺します。牛を屠殺します。牛を屠殺します。牛を屠殺します。
                             </p>
                         </div><!-- End Event item -->
 
@@ -304,8 +257,7 @@
                             <h3>精肉出荷</h3>
                             <div class="price align-self-start">06</div>
                             <p class="description">
-                                Laborum aperiam atque omnis minus omnis est qui assumenda quos. Quis id sit quibusdam.
-                                Esse quisquam ducimus officia ipsum ut quibusdam maxime. Non enim perspiciatis.
+                            精肉管理。精肉管理。精肉管理。精肉管理。精肉管理。精肉管理。精肉管理。精肉管理。精肉管理。精肉管理。精肉管理。精肉管理。精肉管理。精肉管理。精肉管理。精肉管理。精肉管理。精肉管理。
                             </p>
                         </div><!-- End Event item -->
 
@@ -321,8 +273,7 @@
             <div class="container" data-aos="fade-up">
 
                 <div class="section-header">
-                    <h2>gallery</h2>
-                    <p>ギャラリーをチェック</p>
+                    <p><span>ギャラリーをチェック</span></p>
                 </div>
 
                 <div class="gallery-slider swiper">
@@ -363,7 +314,6 @@
             <div class="container" data-aos="fade-up">
 
                 <div class="section-header">
-                    <h2>Contact</h2>
                     <p>お問い合わせ</p>
                 </div>
 
@@ -380,7 +330,7 @@
                             <i class="icon bi bi-map flex-shrink-0"></i>
                             <div>
                                 <h3>住所</h3>
-                                <p>A108 Adam Street, New York, NY 535022</p>
+                                <p>Japan</p>
                             </div>
                         </div>
                     </div><!-- End Info Item -->
@@ -390,7 +340,7 @@
                             <i class="icon bi bi-envelope flex-shrink-0"></i>
                             <div>
                                 <h3>Eメール</h3>
-                                <p>contact@example.com</p>
+                                <p>example@gmail.com</p>
                             </div>
                         </div>
                     </div><!-- End Info Item -->
@@ -400,7 +350,7 @@
                             <i class="icon bi bi-telephone flex-shrink-0"></i>
                             <div>
                                 <h3>電話</h3>
-                                <p>+1 5589 55488 55</p>
+                                <p>+81-69-4199-9190</p>
                             </div>
                         </div>
                     </div><!-- End Info Item -->
@@ -410,8 +360,8 @@
                             <i class="icon bi bi-share flex-shrink-0"></i>
                             <div>
                                 <h3>Opening Hours</h3>
-                                <div><strong>Mon-Sat:</strong> 11AM - 23PM;
-                                    <strong>Sunday:</strong> Closed
+                                <div><strong>月-土:</strong> 11:00 - 23:00;
+                                    <strong>日:</strong> 休館日
                                 </div>
                             </div>
                         </div>
