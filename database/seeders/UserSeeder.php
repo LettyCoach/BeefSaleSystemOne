@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
-            'name' => 'AAA',
+            'name' => 'Admin',
             'email' => 'example@gmail.com',
             'password' => Hash::make('superadmin'),
             'created_at' => date("Y-m-d"),
@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
 
         for ($i=0; $i < 10; $i++) {
             DB::table('users')->insert([
-                'name' => Str::random(10),
+                'name' => '一般利用者' . $i,
                 'email' => Str::random(10).'@gmail.com',
                 'email_verified_at' => date("Y-m-d"),
                 'password' => Hash::make('password'),
@@ -34,39 +34,39 @@ class UserSeeder extends Seeder
             ]);
 
             DB::table('markets')->insert([
-                'name' => Str::random(5),
-                'position' => Str::random(5),
-                'note' => Str::random(5),
+                'name' => '市場名' . $i,
+                'position' => '市場位置' . $i,
+                'note' => 'メモ' . $i,
                 'created_at' => date("Y-m-d"),
                 'updated_at' => date("Y-m-d"),
             ]);
 
             DB::table('transport_companies')->insert([
-                'name' => Str::random(5),
-                'position' => Str::random(5),
-                'note' => Str::random(5),
+                'name' => '運送会社名' . $i,
+                'position' => '運送会社位置' . $i,
+                'note' => 'メモ' . $i,
                 'created_at' => date("Y-m-d"),
                 'updated_at' => date("Y-m-d"),
             ]);
 
             DB::table('pastorals')->insert([
-                'name' => Str::random(5),
-                'position' => Str::random(5),
-                'note' => Str::random(5),
+                'name' => '牧場名' . $i,
+                'position' => '牧場位置' . $i,
+                'note' => 'メモ' . $i,
                 'created_at' => date("Y-m-d"),
                 'updated_at' => date("Y-m-d"),
             ]);
 
             DB::table('slaughter_houses')->insert([
-                'name' => Str::random(5),
-                'position' => Str::random(5),
-                'note' => Str::random(5),
+                'name' => '屠殺場名' . $i,
+                'position' => '屠殺場位置' . $i,
+                'note' => 'メモ' . $i,
                 'created_at' => date("Y-m-d"),
                 'updated_at' => date("Y-m-d"),
             ]);
 
             DB::table('parts')->insert([
-                'name' => Str::random(5),
+                'name' => '部品名' . $i,
                 'created_at' => date("Y-m-d"),
                 'updated_at' => date("Y-m-d"),
             ]);
@@ -74,42 +74,49 @@ class UserSeeder extends Seeder
 
         DB::table('roles')->insert([
             'name' => 'admin',
+            'showName' => '',
             'created_at' => date("Y-m-d"),
             'updated_at' => date("Y-m-d"),
         ]);
 
         DB::table('roles')->insert([
             'name' => 'purchase',
+            'showName' => '購入管理',
             'created_at' => date("Y-m-d"),
             'updated_at' => date("Y-m-d"),
         ]);
 
         DB::table('roles')->insert([
             'name' => 'transport',
+            'showName' => '輸送管理',
             'created_at' => date("Y-m-d"),
             'updated_at' => date("Y-m-d"),
         ]);
 
         DB::table('roles')->insert([
             'name' => 'fatten',
+            'showName' => '肥育管理',
             'created_at' => date("Y-m-d"),
             'updated_at' => date("Y-m-d"),
         ]);
 
         DB::table('roles')->insert([
             'name' => 'ship',
+            'showName' => '出荷管理',
             'created_at' => date("Y-m-d"),
             'updated_at' => date("Y-m-d"),
         ]);
 
         DB::table('roles')->insert([
             'name' => 'slaughter',
+            'showName' => '屠殺管理',
             'created_at' => date("Y-m-d"),
             'updated_at' => date("Y-m-d"),
         ]);
 
         DB::table('roles')->insert([
             'name' => 'meat',
+            'showName' => '精肉管理',
             'created_at' => date("Y-m-d"),
             'updated_at' => date("Y-m-d"),
         ]);
