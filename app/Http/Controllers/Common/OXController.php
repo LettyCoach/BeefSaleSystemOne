@@ -79,16 +79,47 @@ class OXController extends Controller
         return "OK";
     }
 
-    public function SelectByPastoralId(Request $request) {
+    public function getOxList(Request $request) {
+        $pageNumber = $request->pageNumber;
+        $pageSize = $request->pageSize;
         $pastoralId = $request->pastoralId;
         if($pastoralId == 0) {
-            $oxs = Ox::whereNotNull('unloadDate')->get();
+            $totalCnt = Ox::whereNotNull('unloadDate')->count();
+            if(($totalCnt % $pageSize) == 0) {
+                $pageCnt = $totalCnt / $pageSize;
+            } else {
+                $pageCnt = $totalCnt / $pageSize;
+                $pageCnt = (int)$pageCnt + 1;
+            }
+            $oxs = Ox::whereNotNull('unloadDate')
+                ->limit($pageSize)
+                ->offset(($pageNumber - 1) * $pageSize)
+                ->get();
         }
         else {
-            $oxs = Ox::where('pastoral_id', $pastoralId)->get();
+            $totalCnt = Ox::whereNotNull('unloadDate')
+                ->where('pastoral_id', $pastoralId)
+                ->count();
+            if(($totalCnt % $pageSize) == 0) {
+                $pageCnt = $totalCnt / $pageSize;
+            } else {
+                $pageCnt = $totalCnt / $pageSize;
+                $pageCnt = (int)$pageCnt + 1;
+            }
+            $oxs = Ox::whereNotNull('unloadDate')
+                ->where('pastoral_id', $pastoralId)
+                ->limit($pageSize)
+                ->offset(($pageNumber - 1) * $pageSize)
+                ->get();
         }
 
-        return view('common/fattens.list',['oxs'=>$oxs]);
+        return view('common/fattens.list',[
+            'oxs'=>$oxs,
+            'pageCnt' => $pageCnt, 
+            'pageNumber' => $pageNumber, 
+            'pageSize' => $pageSize,
+            'totalCnt' => $totalCnt
+        ]);
     }
 
     public function getOxRegisterNumberListByPastoral(Request $request) {

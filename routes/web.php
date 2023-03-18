@@ -53,7 +53,7 @@ Route::get('/admin/getUserList', [UserController::class, 'getUserList'])->middle
 
 Route::get('/common/oxs/select', [OXController::class, 'select'])->middleware(['auth','verified']);
 Route::get('/common/oxs/saveAppendInfo', [OXController::class, 'saveAppendInfo'])->middleware(['auth','verified']);
-Route::get('/common/oxs/bypastoralId', [OXController::class, 'SelectByPastoralId'])->middleware(['auth','verified']);
+Route::get('/common/oxs/getOxList', [OXController::class, 'getOxList'])->middleware(['auth','verified']);
 Route::get('/common/oxs/getOxRegisterNumberListByPastoral', [OXController::class, 'getOxRegisterNumberListByPastoral'])->middleware(['auth','verified']);
 Route::get('/common/oxs/getOxNameById', [OXController::class, 'getOxNameById'])->middleware(['auth','verified']);
 Route::get('/common/oxs/getOxById', [OXController::class, 'getOxById'])->middleware(['auth','verified']);
