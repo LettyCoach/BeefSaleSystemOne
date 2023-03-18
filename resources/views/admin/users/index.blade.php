@@ -64,72 +64,59 @@ table.dataTable thead .sorting_desc_disabled:before {
                 <div class="modal-content">
                     <div class="modal-header">
                         <div id="userIdAddModal" class="d-none"></div>
+                        <div id = "userRoleMaxCount" class="d-none">{{$roles->count()}}</div>
                         <h5 class="modal-title" id="staticBackdropLabel">ユーザー権限設定</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="row mb-4">
-                            <div class="col-lg-6">
-                                <span class="form-control" id="userNameAddModal"></span>
-                            </div>
-                            <div class="col-lg-6">
-                                <span class="form-control" id="userEmailAddModal"></span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" value="" id="purchase">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Purchase
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" value="" id="transport">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Transport
-                                    </label>
-                                </div>
+                        <div class="row w-75 mb-4 mx-auto">
+                            <label class="col-lg-3 form-label" for="userNameAddModal">
+                                名前 :
+                            </label>
+                            <div class="col-lg-9">
+                                <span id="userNameAddModal"></span>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" value="" id="fatten">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Fatten
-                                    </label>
+                        @php
+                            $max = $roles->count();
+                        @endphp 
+                        @for ($i = 0; $i < $max/2; $i++)
+                            <div class="row w-75 mx-auto">
+                                <div class="col-lg-6">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" value="" id="purchase">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            {{$roles->toArray()[$i]['showName']}}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" value="" id="purchase">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            {{$roles->toArray()[$i+1]['showName']}}
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" value="" id="ship">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Ship
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" value="" id="slaughter">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Slaughter
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" value="" id="meat">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Meat
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                        @endfor       
+                        @if ($max %2 != 0)
+                                <div class="row w-75 mx-auto">
+                                    <div class="col-lg-6">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" value="" id="purchase">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                {{$roles->toArray()[$max-1]['showName']}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-check form-switch">
+                                           
+                                        </div>
+                                    </div>
+                                </div> 
+                        @endif
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;" onclick="storeUserRole()">
@@ -143,5 +130,5 @@ table.dataTable thead .sorting_desc_disabled:before {
 
         <script src="{{ asset('assets/js/components/datatable.js') }}"></script>
         <script src="{{ asset('assets/js/admin/userMana.js') }}"></script>
-    </div>
+        </div>
 </x-app-layout>

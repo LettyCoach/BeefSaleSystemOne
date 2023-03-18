@@ -172,13 +172,14 @@ return [
             'required' => '個人識別番号が必要です。',           
         ],
         'name' => [
-            'required' => '名前が求められます。。',
+            'required' => '名前が求められます。',
         ],
         'birthday' => [
             'required' => '生年月日が必要です。',
         ],
         'purchasePrice' => [
             'required' => '購入金額が必要です。',
+            'decimal' => '購入金額の小数点以下の桁数は 0 ～ 2 です。',
         ],
         'position' => [
             'required' => '位置が必要です。',
@@ -186,6 +187,7 @@ return [
         'note' => [
             'required' => 'メモが必要です。',
         ],
+        
     ],
 
     /*
