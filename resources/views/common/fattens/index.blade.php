@@ -8,7 +8,7 @@
         <div class="panel-heading">
             <div class="d-flex justify-content-between items-center mb-2">
                 <div class="rounded-md">
-                    <select name="" class="form-select" id="" onchange="getOxListByPastoral()">
+                    <select name="pageSize" class="form-select" id="pageSize" onchange="getOxList()">
                         <option value="5">5</option>
                         <option value="10">10</option>
                         <option value="15">15</option>
@@ -16,7 +16,7 @@
                     </select>
                 </div>
                 <div class="rounded-md">
-                    <select name="selectPastoral" class="form-select" id="selectPastoral" onchange="getOxListByPastoral()">
+                    <select name="selectPastoral" class="form-select" id="selectPastoral" onchange="getOxList()">
                         <option value="0">全て(牧場)</option>
                         @foreach($Pastorals as $Pastoral)
                         <option value="{{$Pastoral->id}}">{{$Pastoral->name}}</option>
@@ -26,41 +26,10 @@
             </div>
         </div>
         <div class="panel-body">
-            <div style="min-height: calc(100vh - 400px); overflow-y: auto;">
-                <div class="table-responsive">
-                    <table id="" class="table table-bordered" style="min-width: 1000px; width: 100%; overflow-x: scroll;">
-                        <thead class="bg-light">
-                            <tr>
-                                <th>番号</th>
-                                <th>個体識別番号</th>
-                                <th>和牛登録名</th>
-                                <th>生年月日</th>
-                                <th>性別</th>
-                                <th>記載</th>
-                            </tr>
-                        </thead>
-                        <tbody id="FattenData">
-
-                        </tbody>
-                    </table>
+            <div style="min-height: calc(100vh - 400px);">
+                <div class="table-responsive" id="FattenData">
+                    
                 </div>
-                <ul class="pagination justify-content-end">
-                    <li class="page-item disabled">
-                        <span class="page-link">Previous</span>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">1</a>
-                    </li>
-                    <li class="page-item active" aria-current="page">
-                        <span class="page-link">2</span>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>

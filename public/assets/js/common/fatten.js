@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    getOxListByPastoral();
+    getOxList();
 });
 
 function descriptionModal(id) {
@@ -37,9 +37,15 @@ function saveAppendInfo() {
     });
 }
 
-function getOxListByPastoral() {
+function getOxList(pageNumber) {
+    if(pageNumber == undefined) {
+        pageNumber = 1;
+    }
+    var pageSize = $('#pageSize').val();
     var pastoralId = $("#selectPastoral").val();
-    $.get('../common/oxs/bypastoralId', {
+    $.get('../common/oxs/getOxList', {
+        'pageNumber': pageNumber,
+        'pageSize': pageSize,
         "pastoralId": pastoralId
     }, function(data){
         $("#FattenData").html(data);
