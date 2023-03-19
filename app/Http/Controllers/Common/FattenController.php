@@ -65,4 +65,69 @@ class FattenController extends Controller
     {
         //
     }
+
+    public function getFattenList(Request $request) {
+        $pageNumber = $request->pageNumber;
+        $pageSize = $request->pageSize;
+        $pastoralId = $request->pastoralId;
+
+        if($pastoralId == 0) {
+            $totalCnt = Ox::whereNotNull('unloadDate')->count();
+            
+            if(($totalCnt % $pageSize) == 0) {
+                $pageCnt = $totalCnt / $pageSize;
+            } else {
+                $pageCnt = $totalCnt / $pageSize;
+                $pageCnt = (int)$pageCnt + 1;
+            }
+
+            $oxs = Ox::whereNotNull('unloadDate')
+                ->orderBy('unloadDate', 'desc')
+                ->limit($pageSize)
+                ->offset(($pageNumber - 1) * $pageSize)
+                ->get();
+                
+        } else {
+            $totalCnt = Ox::whereNotNull('unloadDate')
+                ->where('pastoral_id', $pastoralId)
+                ->count();
+
+            if(($totalCnt % $pageSize) == 0) {
+                $pageCnt = $totalCnt / $pageSize;
+            } else {
+                $pageCnt = $totalCnt / $pageSize;
+                $pageCnt = (int)$pageCnt + 1;
+            }
+
+            $oxs = Ox::whereNotNull('unloadDate')
+                ->where('pastoral_id', $pastoralId)
+                ->orderBy('unloadDate', 'desc')
+                ->limit($pageSize)
+                ->offset(($pageNumber - 1) * $pageSize)
+                ->get();
+        }
+
+        return view('common/fattens.list',[
+            'oxs'=>$oxs,
+            'pageCnt' => $pageCnt, 
+            'pageNumber' => $pageNumber, 
+            'pageSize' => $pageSize,
+            'totalCnt' => $totalCnt
+        ]);
+    }
+
+    public function getAppendInfoByOxId(Request $request) {
+        $id = $request->id;
+        $ox = Ox::find($id);
+        return $ox;
+    }
+
+    public function saveAppendInfo(Request $request) {
+        $id = $request->oxId;
+        $appendInfo = $request->appendInfo;
+        $ox = Ox::find($id);
+        $ox->appendInfo = $appendInfo;
+        $ox->save();
+        return "OK";
+    }
 }

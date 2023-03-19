@@ -1,156 +1,523 @@
-<style>
-    table.dataTable thead .sorting:after,
-    table.dataTable thead .sorting:before,
-    table.dataTable thead .sorting_asc:after,
-    table.dataTable thead .sorting_asc:before,
-    table.dataTable thead .sorting_asc_disabled:after,
-    table.dataTable thead .sorting_asc_disabled:before,
-    table.dataTable thead .sorting_desc:after,
-    table.dataTable thead .sorting_desc:before,
-    table.dataTable thead .sorting_desc_disabled:after,
-    table.dataTable thead .sorting_desc_disabled:before {
-        bottom: .5em;
-    }
-</style>
-
-<link rel="stylesheet" href="{{ asset('assets/css/components/datatable.css')}}">
-
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-<div class="mx-auto">
-    <div class="panel panel-primary my-4" style="min-height: 500px; overflow-y: auto">
-        <div class="panel-body">
-            <div style="width: 100%; padding-left: -10px;">
-                <div class="table-responsive">
-                    <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0"  style="min-width: 1200px; overflow-x: scroll; width:100%">
-                        <thead>
-                            <tr>
-                                <th class="text-center">No</th>
-                                <th class="text-center">積載</th>
-                                <th class="text-center">行き先</th>
-                                <th class="text-center">個体識別番号</th>
-                                <th class="text-center">和牛登録名</th>
-                                <th class="text-center">生年月日</th>
-                                <th class="text-center">性別</th>
-                                <th class="text-center">登録日</th>
-                                <th class="text-center">登録</th>
-                                <th class="text-center">取消</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                            $counter = 1;
-                            @endphp
-                            @foreach($oxen as $ox)
-                            <tr>
-                                <td class="text-center"><span class="text-gray-800 break-all">{{$counter++}}</span></td>
-                                <td class="text-center">
-                                    <span class="@if($ox->loadDate != NULL) text-success @endif">@if($ox->loadDate != NULL) 完了 @else 未 @endif</span>
-                                </td>
-                                <td class="text-center"><span class="text-gray-800 break-all">{{$ox->pastoral->name}}</span></td>
-                                <td class="text-center"><span class="text-gray-800 break-all">{{$ox->registerNumber}}</span></td>
-                                <td class="text-center"><span class="text-gray-800 break-all">{{$ox->name}}</span></td>
-                                <td class="text-center"><span class="text-gray-800 break-all">{{$ox->birthday}}</span></td>
-                                <td class="text-center"><span class="text-gray-800 break-all">@if($ox->sex == 1 ) 雄 @else 雌 @endif</td>
-                                <td class="text-center" class="p-1">
-                                    <form method="post" id="loadDateForm{{$ox->id}}" name="loadDateForm{{$ox->id}}">
-                                        @csrf
-                                        <input type="hidden" name="ox_id" id="ox_id{{$ox->id}}" value="{{$ox->id}}">
-                                        <input type="date" class="loadDate" name="loadDate" id="loadDate{{$ox->id}}" class="text-xs" value="{{$ox->loadDate}}">
-                                    </form>
-                                </td>
-                                
-                                <td class="text-center"><a id="register{{$ox->id}}" href="javascript:;register({{$ox->id}})"  @if($ox->loadDate != NULL) disabled @endif>登録</a>  
-                                </td>
-                                <td class="text-center"><a id="cancel{{$ox->id}}" href="javascript:;cancel({{$ox->id}})"  @if($ox->loadDate == NULL) disabled @endif>取消</a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+@if($loadType == 0)
+    <table id="" class="table table-bordered" style="min-width: 1000px; width: 100%; overflow-x: scroll;">
+        <thead class="bg-light">
+            <tr>
+                <th>番号</th>
+                <th>個体識別番号</th>
+                <th>和牛登録名</th>
+                <th>生年月日</th>
+                <th>性別</th>
+                <th>購入場所</th>
+                <th>運送会社</th>
+                <th>行き先</th>
+                <th>積み込み状態</th>
+                <th>積み込み日</th>
+                <th style="width: 5%;">記載</th>
+                <th style="width: 5%;">詳細</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(count($purchaseTransports) > 0)
+                @php
+                    $no = ($pageNumber - 1) * $pageSize + 1;
+                    $firstRow = $no;
+                    $rowCnt = 0;
+                @endphp
+                @foreach ($purchaseTransports as $purchaseTransport)
+                @php
+                    $rowCnt ++;
+                @endphp
+                <tr>
+                    <td>
+                        <span class="">{{ $no ++ }}</span>
+                    </td>
+                    <td>
+                        <span class="">{{ $purchaseTransport->registerNumber }}</span>
+                    </td>
+                    <td>
+                        <span class="">{{ $purchaseTransport->name }}</span>
+                    </td>
+                    <td>
+                        <span class="">{{ $purchaseTransport->birthday }}</span>
+                    </td>
+                    <td>
+                        <span class="ml-2 break-all text-gray-600">@if( $purchaseTransport->sex == 1 ) 雄 @else 雌 @endif</span>
+                    </td>
+                    <td>
+                        <span class="" id = "marketName_{{ $purchaseTransport->id }}">{{ $purchaseTransport->market->name }}</span>
+                    </td>
+                    <td>
+                        <span class="" id = "transportCompanyName_{{ $purchaseTransport->id }}">{{ $purchaseTransport->purchaseTransportCompany->name }}</span>
+                    </td>
+                    <td>
+                        <span class="" id = "pastoralName_{{ $purchaseTransport->id }}">{{ $purchaseTransport->pastoral->name }}</span>
+                    </td>
+                    <td>
+                        <span class="">@if($purchaseTransport->loadDate == null) 未 @else 完了 @endif</span>
+                    </td>
+                    <td>
+                        <span class="ml-2 break-all text-gray-600">@if($purchaseTransport->loadDate == null) なし @else {{ $purchaseTransport->loadDate }} @endif</span>
+                    </td>
+                    @if($purchaseTransport->loadDate == null)
+                    <td class="text-center">
+                        <span class="">
+                            <a href="javascript:;showPurchaseTransLoadModal({{  $purchaseTransport->id }})">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </span>
+                    </td>
+                    @else
+                    <td class="text-center">
+                        <span class="">
+                            <a href="javascript:;" class="disabled">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </span>
+                    </td>
+                    @endif
+                    <td class="text-center">
+                        <span class="">
+                            <a href="javascript:;showPurchaseTransViewModal({{  $purchaseTransport->id }})">
+                                <i class="fa fa-info"></i>
+                            </a>
+                        </span>
+                    </td>
+                </tr>
+                @endforeach
+            @else
+                <tr>
+                    <td class="text-center" colspan="12">表にデータがありません</td>
+                </tr>
+            @endif
+        </tbody>
+    </table>
+    <div class="d-flex  justify-content-between">
+        <div class="d-flex justify-content-start">
+            @if(count($purchaseTransports) > 0)
+                {{ $totalCnt }} エントリ中 {{ $firstRow }} から {{ $firstRow + $rowCnt - 1 }} を表示
+            @endif
         </div>
+        <ul class="pagination justify-content-end">
+            @if($pageCnt <= 5)
+                @if($pageNumber == 1)
+                <li class="page-item disabled">
+                    <a href="javascript:;getPurchaseTransportList(1)" class="page-link">初め</a>
+                </li>
+                <li class="page-item disabled">
+                    <a href="javascript:;getPurchaseTransportList({{ $pageNumber - 1 }})" class="page-link">前へ</a>
+                </li>
+                @else
+                <li class="page-item">
+                    <a href="javascript:;getPurchaseTransportList(1)" class="page-link">初め</a>
+                </li>
+                <li class="page-item">
+                    <a href="javascript:;getPurchaseTransportList({{ $pageNumber - 1 }})" class="page-link">前へ</a>
+                </li>
+                @endif
+                @for($i = 1; $i <= $pageCnt; $i ++)
+                    @if($i == $pageNumber)
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $i }})" class="page-link active">{{ $i }}</a>
+                    </li>
+                    @else
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $i }})" class="page-link">{{ $i }}</a>
+                    </li>
+                    @endif
+                @endfor
+                @if($pageNumber == $pageCnt)
+                <li class="page-item disabled">
+                    <a href="javascript:;getPurchaseTransportList({{ $pageNumber + 1 }})" class="page-link">次に</a>
+                </li>
+                <li class="page-item disabled">
+                    <a href="javascript:;getPurchaseTransportList({{ $pageCnt }})" class="page-link">最後</a>
+                </li>
+                @else
+                <li class="page-item">
+                    <a href="javascript:;getPurchaseTransportList({{ $pageNumber + 1 }})" class="page-link">次に</a>
+                </li>
+                <li class="page-item">
+                    <a href="javascript:;getPurchaseTransportList({{ $pageCnt }})" class="page-link">最後</a>
+                </li>
+                @endif
+            @else
+                @if($pageNumber <= 4)
+                    @if($pageNumber == 1)
+                    <li class="page-item disabled">
+                        <a href="javascript:;getPurchaseTransportList(1)" class="page-link">初め</a>
+                    </li>
+                    <li class="page-item disabled">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageNumber - 1 }})" class="page-link">前へ</a>
+                    </li>
+                    @else
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList(1)" class="page-link">初め</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageNumber - 1 }})" class="page-link">前へ</a>
+                    </li>
+                    @endif
+                    @for($i = 1; $i <= 4; $i ++)
+                        @if($i == $pageNumber)
+                        <li class="page-item">
+                            <a href="javascript:;getPurchaseTransportList({{ $i }})" class="page-link active">{{ $i }}</a>
+                        </li>
+                        @else
+                        <li class="page-item">
+                            <a href="javascript:;getPurchaseTransportList({{ $i }})" class="page-link">{{ $i }}</a>
+                        </li>
+                        @endif
+                    @endfor
+                    <li class="page-item">
+                        <a href="javascript:;" class="page-link">...</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageCnt }})" class="page-link">{{ $pageCnt }}</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageNumber + 1 }})" class="page-link">次に</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageCnt }})" class="page-link">最後</a>
+                    </li>
+                @elseif($pageNumber >= $pageCnt - 3)
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList(1)" class="page-link">初め</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageNumber - 1 }})" class="page-link">前へ</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList(1)" class="page-link">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;" class="page-link">...</a>
+                    </li>
+                    @for($i = $pageCnt - 3; $i <= $pageCnt; $i ++)
+                        @if($i == $pageNumber)
+                        <li class="page-item">
+                            <a href="javascript:;getPurchaseTransportList({{ $i }})" class="page-link active">{{ $i }}</a>
+                        </li>
+                        @else
+                        <li class="page-item">
+                            <a href="javascript:;getPurchaseTransportList({{ $i }})" class="page-link">{{ $i }}</a>
+                        </li>
+                        @endif
+                    @endfor
+                    @if($pageNumber == $pageCnt)
+                    <li class="page-item disabled">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageNumber + 1 }})" class="page-link">次に</a>
+                    </li>
+                    <li class="page-item disabled">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageCnt }})" class="page-link">最後</a>
+                    </li>
+                    @else
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageNumber + 1 }})" class="page-link">次に</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageCnt }})" class="page-link">最後</a>
+                    </li>
+                    @endif
+                @elseif($pageNumber > 4 && $pageNumber < $pageCnt - 3)
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList(1)" class="page-link">初め</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageNumber - 1 }})" class="page-link">前へ</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList(1)" class="page-link">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;" class="page-link">...</a>
+                    </li>
+                    @for($i = $pageNumber - 1; $i <= $pageNumber + 1; $i ++)
+                        @if($i == $pageNumber)
+                        <li class="page-item">
+                            <a href="javascript:;getPurchaseTransportList({{ $i }})" class="page-link active">{{ $i }}</a>
+                        </li>
+                        @else
+                        <li class="page-item">
+                            <a href="javascript:;getPurchaseTransportList({{ $i }})" class="page-link">{{ $i }}</a>
+                        </li>
+                        @endif
+                    @endfor
+                    <li class="page-item">
+                        <a href="javascript:;" class="page-link">...</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageCnt }})" class="page-link">{{ $pageCnt }}</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageNumber + 1 }})" class="page-link">次に</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageCnt }})" class="page-link">最後</a>
+                    </li>
+                @endif
+            @endif
+        </ul>
     </div>
-    <div class="panel panel-primary my-4">
-        <h2 class="text-center fw-bold">積み下ろし</h2>
-        <div class="panel-body">
-            <div style="width: 100%; padding-left: -10px;">
-                <div class="table-responsive">
-                    <table id="dtBasicExample1" class="table table-striped table-bordered table-sm" cellspacing="0"  style="min-width: 1200px; overflow-x: scroll; width:100%">
-                        <thead>
-                            <tr>
-                                <th class="text-center">No</th>
-                                <th class="text-center">積み下ろし</th>
-                                <th class="text-center">行き先</th>
-                                <th class="text-center">個体識別番号</th>
-                                <th class="text-center">和牛登録名</th>
-                                <th class="text-center">生年月日</th>
-                                <th class="text-center">性別</th>
-                                <th class="text-center">登録日</th>
-                                <th class="text-center">登録</th>
-                                <th class="text-center">取消</th> 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                            $counter = 1;
-                            @endphp
-                            @foreach($oxen as $ox)
-                            <tr>
-                                <td class="text-center"><span class="text-gray-800 break-all">{{$counter++}}</span></td>
-                                <td class="text-center">
-                                <span class="@if($ox->unloadDate != NULL) text-success @endif">@if($ox->unloadDate != NULL) 完了 @else 未 @endif</span>
-                                </td>
-                                <td class="text-center"><span class="text-gray-800 break-all">{{$ox->pastoral->name}}</span></td>
-                                <td class="text-center"><span class="text-gray-800 break-all">{{$ox->registerNumber}}</span></td>
-                                <td class="text-center"><span class="text-gray-800 break-all">{{$ox->name}}</span></td>
-                                <td class="text-center"><span class="text-gray-800 break-all">{{$ox->birthday}}</span></td>
-                                <td class="text-center"><span class="text-gray-800 break-all">@if($ox->sex == 1 ) 雄 @else 雌 @endif</td>
-                                <td class="text-center" class="p-1">
-                                    <form method="post" id="unloadDateForm{{$ox->id}}" name="unloadDateForm{{$ox->id}}">
-                                        @csrf
-                                        <input type="hidden" name="ox_id" value="{{$ox->id}}">
-                                        <input type="date" class="unloadDate" name="unloadDate" id="unloadDate{{$ox->id}}" class="text-xs" value="{{$ox->unloadDate}}">
-                                    </form>
-                                </td>
-                                <td class="text-center"><a id="unloadDateregister{{$ox->id}}" href="javascript:;unloadDateregister({{$ox->id}})"  @if($ox->unloadDate != NULL) disabled @endif>登録</a>  
-                                </td>
-                                <td class="text-center"><a id="unloadDatecancel{{$ox->id}}" href="javascript:;unloadDatecancel({{$ox->id}})"  @if($ox->unloadDate == NULL) disabled @endif>取消</a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+@else
+    <table id="" class="table table-bordered" style="min-width: 1000px; width: 100%; overflow-x: scroll;">
+        <thead class="bg-light">
+            <tr style="postion: sticky; top: 0;">
+                <th>番号</th>
+                <th>個体識別番号</th>
+                <th>和牛登録名</th>
+                <th>生年月日</th>
+                <th>性別</th>
+                <th>購入場所</th>
+                <th>運送会社</th>
+                <th>行き先</th>
+                <th>積み下ろし状態</th>
+                <th>積み下ろし日</th>
+                <th style="width: 5%;">記載</th>
+                <th style="width: 5%;">詳細</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(count($purchaseTransports) > 0)
+                @php
+                    $no = ($pageNumber - 1) * $pageSize + 1;
+                    $firstRow = $no;
+                    $rowCnt = 0;
+                @endphp
+                @foreach ($purchaseTransports as $purchaseTransport)
+                @php
+                    $rowCnt ++;
+                @endphp
+                <tr>
+                    <td>
+                        <span class="">{{ $no ++ }}</span>
+                    </td>
+                    <td>
+                        <span class="">{{ $purchaseTransport->registerNumber}}</span>
+                    </td>
+                    <td>
+                        <span class="">{{ $purchaseTransport->name}}</span>
+                    </td>
+                    <td>
+                        <span class="">{{ $purchaseTransport->birthday}}</span>
+                    </td>
+                    <td>
+                        <span class="ml-2 break-all text-gray-600">@if( $purchaseTransport->sex==1) 雄 @else 雌 @endif</span>
+                    </td>
+                    <td>
+                        <span class="" id = "marketName_{{ $purchaseTransport->id }}">{{ $purchaseTransport->market->name }}</span>
+                    </td>
+                    <td>
+                        <span class="" id = "transportCompanyName_{{ $purchaseTransport->id }}">{{ $purchaseTransport->purchaseTransportCompany->name }}</span>
+                    </td>
+                    <td>
+                        <span class="" id = "pastoralName_{{ $purchaseTransport->id }}">{{ $purchaseTransport->pastoral->name }}</span>
+                    </td>
+                    <td>
+                        <span class="">@if($purchaseTransport->unloadDate == null) 未 @else 完了 @endif</span>
+                    </td>
+                    <td>
+                        <span class="ml-2 break-all text-gray-600">@if($purchaseTransport->unloadDate == null) なし @else {{ $purchaseTransport->loadDate }} @endif</span>
+                    </td>
+                    @if($purchaseTransport->unloadDate == null)
+                    <td class="text-center">
+                        <span class="">
+                            <a href="javascript:;showPurchaseTransUnloadModal({{  $purchaseTransport->id }})">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </span>
+                    </td>
+                    @else
+                    <td class="text-center">
+                        <span class="">
+                            <a href="javascript:;" class="disabled">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </span>
+                    </td>
+                    @endif
+                    <td class="text-center">
+                        <span class="">
+                            <a href="javascript:;showPurchaseTransViewModal({{  $purchaseTransport->id }})">
+                                <i class="fa fa-info"></i>
+                            </a>
+                        </span>
+                    </td>
+                </tr>
+                @endforeach
+            @else
+                <tr>
+                    <td class="text-center" colspan="12">表にデータがありません</td>
+                </tr>
+            @endif
+        </tbody>
+    </table>
+    <div class="d-flex  justify-content-between">
+        <div class="d-flex justify-content-start">
+            @if(count($purchaseTransports) > 0)
+                {{ $totalCnt }} エントリ中 {{ $firstRow }} から {{ $firstRow + $rowCnt - 1 }} を表示
+            @endif
         </div>
+        <ul class="pagination justify-content-end">
+            @if($pageCnt <= 5)
+                @if($pageNumber == 1)
+                <li class="page-item disabled">
+                    <a href="javascript:;getPurchaseTransportList(1)" class="page-link">初め</a>
+                </li>
+                <li class="page-item disabled">
+                    <a href="javascript:;getPurchaseTransportList({{ $pageNumber - 1 }})" class="page-link">前へ</a>
+                </li>
+                @else
+                <li class="page-item">
+                    <a href="javascript:;getPurchaseTransportList(1)" class="page-link">初め</a>
+                </li>
+                <li class="page-item">
+                    <a href="javascript:;getPurchaseTransportList({{ $pageNumber - 1 }})" class="page-link">前へ</a>
+                </li>
+                @endif
+                @for($i = 1; $i <= $pageCnt; $i ++)
+                    @if($i == $pageNumber)
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $i }})" class="page-link active">{{ $i }}</a>
+                    </li>
+                    @else
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $i }})" class="page-link">{{ $i }}</a>
+                    </li>
+                    @endif
+                @endfor
+                @if($pageNumber == $pageCnt)
+                <li class="page-item disabled">
+                    <a href="javascript:;getPurchaseTransportList({{ $pageNumber + 1 }})" class="page-link">次に</a>
+                </li>
+                <li class="page-item disabled">
+                    <a href="javascript:;getPurchaseTransportList({{ $pageCnt }})" class="page-link">最後</a>
+                </li>
+                @else
+                <li class="page-item">
+                    <a href="javascript:;getPurchaseTransportList({{ $pageNumber + 1 }})" class="page-link">次に</a>
+                </li>
+                <li class="page-item">
+                    <a href="javascript:;getPurchaseTransportList({{ $pageCnt }})" class="page-link">最後</a>
+                </li>
+                @endif
+            @else
+                @if($pageNumber <= 4)
+                    @if($pageNumber == 1)
+                    <li class="page-item disabled">
+                        <a href="javascript:;getPurchaseTransportList(1)" class="page-link">初め</a>
+                    </li>
+                    <li class="page-item disabled">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageNumber - 1 }})" class="page-link">前へ</a>
+                    </li>
+                    @else
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList(1)" class="page-link">初め</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageNumber - 1 }})" class="page-link">前へ</a>
+                    </li>
+                    @endif
+                    @for($i = 1; $i <= 4; $i ++)
+                        @if($i == $pageNumber)
+                        <li class="page-item">
+                            <a href="javascript:;getPurchaseTransportList({{ $i }})" class="page-link active">{{ $i }}</a>
+                        </li>
+                        @else
+                        <li class="page-item">
+                            <a href="javascript:;getPurchaseTransportList({{ $i }})" class="page-link">{{ $i }}</a>
+                        </li>
+                        @endif
+                    @endfor
+                    <li class="page-item">
+                        <a href="javascript:;" class="page-link">...</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageCnt }})" class="page-link">{{ $pageCnt }}</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageNumber + 1 }})" class="page-link">次に</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageCnt }})" class="page-link">最後</a>
+                    </li>
+                @elseif($pageNumber >= $pageCnt - 3)
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList(1)" class="page-link">初め</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageNumber - 1 }})" class="page-link">前へ</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList(1)" class="page-link">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;" class="page-link">...</a>
+                    </li>
+                    @for($i = $pageCnt - 3; $i <= $pageCnt; $i ++)
+                        @if($i == $pageNumber)
+                        <li class="page-item">
+                            <a href="javascript:;getPurchaseTransportList({{ $i }})" class="page-link active">{{ $i }}</a>
+                        </li>
+                        @else
+                        <li class="page-item">
+                            <a href="javascript:;getPurchaseTransportList({{ $i }})" class="page-link">{{ $i }}</a>
+                        </li>
+                        @endif
+                    @endfor
+                    @if($pageNumber == $pageCnt)
+                    <li class="page-item disabled">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageNumber + 1 }})" class="page-link">次に</a>
+                    </li>
+                    <li class="page-item disabled">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageCnt }})" class="page-link">最後</a>
+                    </li>
+                    @else
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageNumber + 1 }})" class="page-link">次に</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageCnt }})" class="page-link">最後</a>
+                    </li>
+                    @endif
+                @elseif($pageNumber > 4 && $pageNumber < $pageCnt - 3)
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList(1)" class="page-link">初め</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageNumber - 1 }})" class="page-link">前へ</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList(1)" class="page-link">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;" class="page-link">...</a>
+                    </li>
+                    @for($i = $pageNumber - 1; $i <= $pageNumber + 1; $i ++)
+                        @if($i == $pageNumber)
+                        <li class="page-item">
+                            <a href="javascript:;getPurchaseTransportList({{ $i }})" class="page-link active">{{ $i }}</a>
+                        </li>
+                        @else
+                        <li class="page-item">
+                            <a href="javascript:;getPurchaseTransportList({{ $i }})" class="page-link">{{ $i }}</a>
+                        </li>
+                        @endif
+                    @endfor
+                    <li class="page-item">
+                        <a href="javascript:;" class="page-link">...</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageCnt }})" class="page-link">{{ $pageCnt }}</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageNumber + 1 }})" class="page-link">次に</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="javascript:;getPurchaseTransportList({{ $pageCnt }})" class="page-link">最後</a>
+                    </li>
+                @endif
+            @endif
+        </ul>
     </div>
-</div>
-
-<script src="{{ asset('assets/js/components/datatable.js') }}"></script>
-<script>
-    $(document).ready(function () {
-        $('#dtBasicExample').DataTable();
-        $('#dtBasicExample1').DataTable();
-        $('.dataTables_length').addClass('bs-select');
-
-        var today = getTodayDate();
-        var length = document.getElementsByClassName("loadDate").length;
-        for(i = 0; i < length; i ++) {
-            document.getElementsByClassName("loadDate")[i].setAttribute('max', today);
-        }
-        length = document.getElementsByClassName("unloadDate").length;
-        for(i = 0; i < length; i ++) {
-            document.getElementsByClassName("unloadDate")[i].setAttribute('max', today);
-        }
-
-        function getTodayDate() {
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-            var yyyy = today.getFullYear();
-            today = yyyy + '-' + mm + '-' + dd;
-            return today;
-        }
-    });
-</script>
+@endif
