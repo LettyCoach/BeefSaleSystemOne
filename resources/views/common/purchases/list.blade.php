@@ -1,19 +1,18 @@
-
-<table id="dtBasicExample" class="table table-striped table-fixed table-bordered table-sm"
-    cellspacing="0" style="min-width: 1200px; overflow-x: scroll; width:100%">
-    <thead style="height:47px;">
-        <tr class="align-middle">
-            <th class="text-center">No</th>
-            <th class="text-center">ステータス</th>
+<table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0"  style="min-width: 1000px; overflow-x: scroll; width:100%">
+    <thead >
+        <tr>
+            <th class="text-center">番号</th>
             <th class="text-center">個体識別番号</th>
             <th class="text-center">和牛登録名</th>
             <th class="text-center">生年月日</th>
             <th class="text-center">性別</th>
-            <th class="text-center">牧場</th>
+            <th class="text-center">購入場所</th>
             <th class="text-center">運送会社</th>
-            <th class="text-center">屠殺場</th>
-            <th class="text-center" style="width:13%;">登録日</th>
-            <th class="text-center">登録</th>
+            <th class="text-center">搬送先</th>
+            <th class="text-center">購入金額</th>
+            <th class="text-center">購入日</th>
+            <th class="text-center">編集</th>
+            <th class="text-center">削除</th>
         </tr>
     </thead>
     <tbody>
@@ -26,26 +25,52 @@
         @php
             $rowCnt ++;
         @endphp
-        <tr class="align-middle">
-        <td class="text-center"><span class="">{{$no++}}</span></td>
-                <td class="text-xs text-center">
-                    <span class="@if($ox->acceptedDateSlaughterHouse != NULL) text-success @endif">@if($ox->acceptedDateSlaughterHouse != NULL) 完了 @else 未 @endif</span>
-                </td>
-                <td class="text-center"><span class="">{{$ox->registerNumber}}</span></td>
-                <td class="text-center"><span class="">{{$ox->name}}</span></td>
-                <td class="text-center"><span class="">{{$ox->birthday}}</span></td>
-                <td class="text-center">@if($ox->sex == 1 ) 雄 @else 雌 @endif</td>
-                <td class="text-center"><span class="">{{$ox->pastoral->name}}</span></td>
-                <td class="text-center"><span class="">{{$ox->slaughterTransportCompany->name}}</span></td>
-                <td class="text-center"><span class="">{{$ox->slaughterHouse->name}}</span></td>
-                <td class="text-center">
-                    <input type="date" name="acceptedDateSlaughterHouse" class="form-control acceptedDateSlaughterHouse"
-                    id="acceptedDateSlaughterHouse{{$ox->id}}"
-                    value="{{$ox->acceptedDateSlaughterHouse}}" @if($ox->acceptedDateSlaughterHouse != NULL) disabled @endif>
-                </td>
-
-                <td class="text-center"><a href="javascript:;register(undefined, {{$ox->id}})"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                </td>
+        <tr>
+            <td class="text-center">
+                <span class="text-gray-800 break-all">{{$no++}}</span>
+            </td>
+            <td class="text-center">
+                <span class="text-gray-800 break-all">{{$ox->registerNumber}}</span>
+            </td>
+            <td class="text-center">
+                <span class="text-gray-800 break-all">{{$ox->name}}</span>
+            </td>
+            <td class="text-center">
+                <span class="text-gray-800 break-all">{{$ox->birthday}}</span>
+            </td>
+            <td class="text-center">
+                <span class="ml-2 break-all text-gray-600">@if($ox->sex==1) 雄 @else 雌
+                    @endif</span>
+            </td>
+            <td class="text-center">
+                <span class="text-gray-800 break-all">{{$ox->market->name}}</span>
+            </td>
+            <td class="text-center">
+                <span class="text-gray-800 break-all">{{$ox->purchaseTransportCompany->name}}</span>
+            </td>
+            <td class="text-center">
+                <span class="text-gray-800 break-all">{{$ox->pastoral->name}}</span>
+            </td>
+            <td class="text-center">
+                <span class="text-gray-800 break-all">{{$ox->purchasePrice}}</span>
+            </td>
+            <td class="text-center">
+                <span class="text-gray-800 break-all">{{$ox->purchaseDate}}</span>
+            </td>
+            <td class="text-center">
+                <a href="{{route('purchases.edit', $ox)}}" class="p-2 text-center">
+                    <i class="fas fa-edit text-green-700" aria-hidden="true"></i>
+                </a>
+            </td>
+            <td class="text-center">
+                <form method="POST" id="deleteForm{{ $ox->id }}" action="{{route('purchases.destroy',$ox->id)}}">
+                    @csrf
+                    @method('delete')
+                    <a href="javascript:;showConfirmModal({{ $ox->id }})" class="p-2 mx-auto">
+                        <i class="fas fa-trash" aria-hidden="true"></i>
+                    </a>
+                </form>
+            </td>
         </tr>
         @endforeach
     </tbody>

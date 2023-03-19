@@ -79,6 +79,14 @@
                         </div>
                     </div>
                     <div class="form-group row p-2">
+                        <label class="col-lg-3 col-form-label form-control-label">購入日</label>
+                        <div class="col-lg-9">
+                            <input class="form-control" type="date" name="purchaseDate" id="inline-purchaseDate"
+                                value="{{date("Y-m-d")}}">
+                            @error('purchaseDate')<div class="text-danger">{{ $message }}</div>@enderror
+                        </div>
+                    </div>
+                    <div class="form-group row p-2">
                         <label class="col-lg-3 col-form-label form-control-label">購入金額</label>
                         <div class="col-lg-9">
                             <input class="form-control" id="inline-purchasePrice" type="text" name="purchasePrice" value="{{$ox->purchasePrice}}">
@@ -102,6 +110,7 @@
     window.onload = function() {
         var today = getTodayDate();
         document.getElementById("inline-birthday").setAttribute('max', today);
+        document.getElementById("inline-purchaseDate").setAttribute('max', today);
     }
     function getTodayDate() {
         var today = new Date();
