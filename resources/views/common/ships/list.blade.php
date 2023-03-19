@@ -46,8 +46,3 @@
         @endforeach
     </tbody>
 </table>
-
-<script>
-    $('#dtBasicExample').DataTable();
-    $('.dataTables_length').addClass('bs-select');
-</script>

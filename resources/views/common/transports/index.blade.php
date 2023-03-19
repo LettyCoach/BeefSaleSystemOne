@@ -1,203 +1,254 @@
 @extends('layouts.commonUser')
 @section('content')
-<div class="panel container mt-5 pt-5 ">
-    <h2 class="text-center font-bold mt-5 fw-bold">積み込み</h2>
-    <form action="navForm" id="navForm" method="post" class="d-flex justify-content-end">
-        @csrf
-        <div class="rounded-md">
-            <select name="SelectCompany" class="form-select" id="SelectCompany" onchange="selectCompany()">
-                @foreach($transportCompanies as $transportCompany)
-                <option value="{{$transportCompany->id}}">{{$transportCompany->name}}</option>
-                @endforeach
-            </select>
+<div class="mx-auto p-4 pt-5 mt-5" >
+    <h2 class="text-center font-bold mt-5 fw-bold">運送(買った牛を運び込みと積み下ろしの報告)</h2>
+    <div class="container panel panel-primary mx-auto">
+        <div class="panel-heading">
+            <div class="d-flex justify-content-between items-center mb-2 mt-4">
+                <div class="rounded-md">
+                    <select name="pageSize" class="form-select" id="pageSize" onchange="getPurchaseTransportList()">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>
+                <div class="rounded-md">
+                    <select name="transportCompany" class="form-select" id="transportCompany" onchange="getPurchaseTransportList()">
+                        <option value="0">全て(運送会社)</option>
+                        @foreach($TransportCompanies as $TransportCompany)
+                        <option value="{{$TransportCompany->id}}">{{ $TransportCompany->name }}</option>
+                        @endforeach
+                    </select>
+                </div>    
+                <div class="rounded-md d-flex justify-content-center align-items-center">
+                    <input type="date" name="" id="firstDate" class="form-control form-input-disable" onchange="getPurchaseTransportList()" value="{{ $firstDate }}">
+                    <label for="" class="mx-2">~</label>
+                    <input type="date" name="" id="lastDate" class="form-control form-input-disable" onchange="getPurchaseTransportList()" value="{{ $todayDate }}">
+                </div>
+                <div class="rounded-md">
+                    <select name="pastoral" class="form-select" id="pastoral" onchange="getPurchaseTransportList()">
+                        <option value="0">全て(牧場)</option>
+                        @foreach($Pastorals as $Pastoral)
+                        <option value="{{ $Pastoral->id }}">{{ $Pastoral->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="rounded-md">
+                    <select name="loadType" class="form-select" id="loadType" onchange="getPurchaseTransportList()">
+                        <option value="0">積み込み</option>
+                        <option value="1">積み下ろし</option>
+                    </select>
+                </div>
+                <div class="rounded-md">
+                    <select name="loadState" class="form-select" id="loadState" onchange="getPurchaseTransportList()">
+                        <option value="0">全て(状態)</option>
+                        <option value="1">未</option>
+                        <option value="2">完了</option>
+                    </select>
+                </div>
+            </div>
         </div>
-    </form>
+        <div class="panel-body">
+            <div style="min-height: calc(100vh - 400px);">
+                <div class="table-responsive" id="purchaseTransportData">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="container mx-auto" id="content">
+<div class="modal fade" id="PurchaseTransLoadModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">積み込み状態登録</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <p id="OxIdLoadModal" class="d-none"></p>
+                <div class="row mb-2">
+                    <div class="col">
+                        <label for="">個体識別番号</label>
+                        <input type="text" name="" class="form-control" id="OxRegisterNumberLoadModal" disabled>
+                    </div>
+                    <div class="col">
+                        <label for="">和牛登録名</label>
+                        <input type="text" name="" class="form-control" id="OxNameLoadModal" disabled>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <label for="">購入場所</label>
+                        <input type="text" name="" class="form-control" id="MarketNameLoadModal" disabled>
+                    </div>
+                    <div class="col">
+                        <label for="">運送会社</label>
+                        <input type="text" name="" class="form-control" id="TransportNameLoadModal" disabled>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <label for="">搬送先</label>
+                        <input type="text" name="" class="form-control" id="PastoralNameLoadModal" disabled>
+                    </div>
+                    <div class="col">
+                        <label for="">積み込み日</label>
+                        <input type="date" id="LoadDate" class="form-control rounded" value="{{$todayDate}}" placeholder="" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" style="background-color: #6ea924;" onclick="registerDate('load')"><i class="fa fa-check"></i> セーブ</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i>
+                    閉じる</button>
+            </div>
+
+        </div>
+    </div>
 </div>
-<script>
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
 
-function register(id) {
-    SelectCompany = $('#SelectCompany').val();
-    ox_id = $('#ox_id' + id).val();
-    loadDate = $('#loadDate' + id).val();
-    $.post(
-            "{{ route('transports.list')}}", {
-                'SelectCompany': SelectCompany,
-                'ox_id': ox_id,
-                'loadDate': loadDate
-            },
-            function(data) {
-                $('#content').html(data);
-            },
-        )
-        .fail(function(jqXhr, textStatus, errorThrown) {
-            console.log(errorThrown);
-        });
-}
+<div class="modal fade" id="PurchaseTransUnloadModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
 
-function cancel(id) {
-    ox_id = $('#ox_id' + id).val();
-    SelectCompany = $('#SelectCompany').val();
-    $('#confirmModal').modal('hide');
-    $.post(
-            "{{ route('transports.list')}}", {
-                'SelectCompany': SelectCompany,
-                'ox_id': id,
-                'loadDate': '1900-01-01'
-            },
-            function(data) {
-                if(data == 0) {
-                    toastr.warning("すでにアンロードされているためキャンセルできません。");
-                    return;
-                }
-                $('#content').html(data);
-            },
-        )
-        .fail(function(jqXhr, textStatus, errorThrown) {
-            console.log(errorThrown);
-        });
-}
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">積み下ろし状態登録</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
 
-function unloadDateregister(id) {
-    SelectCompany = $('#SelectCompany').val();
-    ox_id = $('#ox_id' + id).val();
-    unloadDate = $('#unloadDate' + id).val();
-        $.post(
-                "{{ route('transports.list')}}", {
-                    'SelectCompany': SelectCompany,
-                    'ox_id': ox_id,
-                    'unloadDate': unloadDate
-                },
-                function(data) {
-                    alert(data)
-                    $('#content').html(data);
-                },
+            <!-- Modal body -->
+            <div class="modal-body">
+                <p id="OxIdUnloadModal" class="d-none"></p>
+                <div class="row mb-2">
+                    <div class="col">
+                        <label for="">個体識別番号</label>
+                        <input type="text" name="" class="form-control" id="OxRegisterNumberUnloadModal" disabled>
+                    </div>
+                    <div class="col">
+                        <label for="">和牛登録名</label>
+                        <input type="text" name="" class="form-control" id="OxNameUnloadModal" disabled>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <label for="">購入場所</label>
+                        <input type="text" name="" class="form-control" id="MarketNameUnloadModal" disabled>
+                    </div>
+                    <div class="col">
+                        <label for="">運送会社</label>
+                        <input type="text" name="" class="form-control" id="TransportNameUnloadModal" disabled>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <label for="">搬送先</label>
+                        <input type="text" name="" class="form-control" id="PastoralNameUnloadModal" disabled>
+                    </div>
+                    <div class="col">
+                        <label for="">積み込み日</label>
+                        <input type="date" id="UnloadDate" class="form-control rounded" value="{{$todayDate}}" placeholder="" />
+                    </div>
+                </div>
+            </div>
 
-            )
-            .fail(function(jqXhr, textStatus, errorThrown) {
-                console.log(errorThrown);
-            });
-}
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" style="background-color: #6ea924;" onclick="registerDate('unload')"><i class="fa fa-check"></i> セーブ</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i>
+                    閉じる</button>
+            </div>
 
-function unloadDatecancel(id) {
-    ox_id = $('#ox_id' + id).val();
-    SelectCompany = $('#SelectCompany').val();
-    $.post("{{ route('transports.list')}}", {
-                'SelectCompany': SelectCompany,
-                'ox_id': id,
-                'unloadDate': '1900-01-01'
-            },
-            function(data) {
-                if(data == 0) {
-                    toastr.warning('既に出荷が完了しているためキャンセルできません。');
-                    return;
-                }
-                $('#content').html(data);
-            },
-        )
-        .fail(function(jqXhr, textStatus, errorThrown) {
-            console.log(errorThrown);
-        });
-}
+        </div>
+    </div>
+</div>
 
-function selectCompany() {
+<div class="modal fade" id="PurchaseTransViewModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
 
-    $.post(
-            "{{ route('transports.list')}}",
-            $('#navForm').serialize(),
-            function(data) {
-                $('#content').html(data);
-            }
-        )
-        .fail(function(jqXhr, textStatus, errorThrown) {
-            console.log(errorThrown);
-        });
-}
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">購入輸送情報詳細を見る</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
 
-function status() {
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row mb-2">
+                    <div class="col">
+                        <label for="">個体識別番号</label>
+                        <input type="text" name="" class="form-control" id="OxRegisterNumberInfo" disabled>
+                    </div>
+                    <div class="col">
+                        <label for="">和牛登録名</label>
+                        <input type="text" name="" class="form-control" id="OxNameInfo" disabled>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <label for="">生年月日</label>
+                        <input type="text" name="" class="form-control" id="OxBirthInfo" disabled>
+                    </div>
+                    <div class="col">
+                        <label for="">性別</label>
+                        <input type="text" name="" class="form-control" id="OxSexInfo" disabled>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <label for="">購入場所</label>
+                        <input type="text" name="" class="form-control" id="MarketNameInfo" disabled>
+                    </div>
+                    <div class="col-4">
+                        <label for="">運送会社</label>
+                        <input type="text" name="" class="form-control" id="TransportCompanyNameInfo" disabled>
+                    </div>
+                    <div class="col-4">
+                        <label for="">搬送先</label>
+                        <input type="text" name="" class="form-control" id="PastoralNameInfo" disabled>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <label for="">積み込み状態</label>
+                        <input type="text" name="" class="form-control" id="LoadStateInfo" disabled>
+                    </div>
+                    <div class="col">
+                        <label for="">積み込み日</label>
+                        <input type="text" id="LoadDateInfo" class="form-control rounded" value="" placeholder="" disabled/>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <label for="">積み下ろし状態</label>
+                        <input type="text" name="" class="form-control" id="UnloadStateInfo" disabled>
+                    </div>
+                    <div class="col">
+                        <label for="">積み下ろし日</label>
+                        <input type="text" id="UnloadDateInfo" class="form-control rounded" value="" placeholder="" disabled/>
+                    </div>
+                </div>
+            </div>
 
-    $.post(
-            "{{ route('transports.list')}}",
-            $('#navForm').serialize(),
-            function(data) {
-                $('#content').html(data);
-            }
-        )
-        .fail(function(jqXhr, textStatus, errorThrown) {
-            console.log(errorThrown);
-        });
-}
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fa fa-times"></i> 閉じる
+                </button>
+            </div>
 
-function initFunction() {
-    $.post(
-            "{{ route('transports.list')}}",
-            $('#navForm').serialize(),
-            function(data) {
-                $('#content').html(data);
-            }
-        )
-        .fail(function(jqXhr, textStatus, errorThrown) {
-            console.log(errorThrown);
-        });
-}
-initFunction();
+        </div>
+    </div>
+</div>
 
-function verifyFunction() {
-    var date = new Date();
-    var month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
-    var day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
-    var current_date = date.getFullYear() + "-" + month + "-" + day;
-    var select_date = $('#loadDate').val();
-    if (select_date > current_date) {
-        toastr.warning('日付入力時にエラーが発生しました。<br>もう一度お試しください。');
-        event.preventDefault();
-        return;
-    }
-}
-</script>
-
-<link rel="stylesheet" type="text/css"
-    href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<script src="{{ asset('assets/js/common/ship.js') }}"></script>
-
-<script>
-$(document).ready(function() {
-    toastr.options = {
-        'closeButton': true,
-        'debug': false,
-        'newestOnTop': false,
-        'progressBar': false,
-        'positionClass': 'toast-top-right',
-        'preventDuplicates': false,
-        'showDuration': '1000',
-        'hideDuration': '1000',
-        'timeOut': '5000',
-        'extendedTimeOut': '1000',
-        'showEasing': 'swing',
-        'hideEasing': 'linear',
-        'showMethod': 'fadeIn',
-        'hideMethod': 'fadeOut',
-    }
-});
-</script>
-
-@if (session('status'))
-<!-- Toastr -->
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            toastr.warning('アクセス権はありません。');
-        })
-        
-    </script>
-@endif
+<script src="{{ asset('assets/js/common/purchaseTransport.js') }}"></script>
 @endsection
