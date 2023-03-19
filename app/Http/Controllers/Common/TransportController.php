@@ -147,7 +147,7 @@ class TransportController extends Controller {
             $totalCnt = $purchaseTransports->count();
         }
 
-        $purchaseTransports = $purchaseTransports->limit($pageSize)->offset(($pageNumber - 1) * $pageSize)->get();
+        $purchaseTransports = $purchaseTransports->orderBy('updated_at', 'desc')->limit($pageSize)->offset(($pageNumber - 1) * $pageSize)->get();
 
         if(($totalCnt % $pageSize) == 0) {
             $pageCnt = $totalCnt / $pageSize;
