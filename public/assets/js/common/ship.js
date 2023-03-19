@@ -1,16 +1,14 @@
 $(document).ready(function () {
-    $('#dtBasicExample').DataTable();
-    $('.dataTables_length').addClass('bs-select');
     var today = getTodayDate();
-    document.getElementById("exportDateAddShip").setAttribute('max', today);
-    document.getElementById("exportDateEditShip").setAttribute('max', today);
+    // document.getElementById("exportDateAddShip").setAttribute('max', today);
+    // document.getElementById("exportDateEditShip").setAttribute('max', today);
     getShipList();
 });
 
 function getShipList() {
     var pastoralId = $("#pastoralId").val();
     var transportCompanyId = $("#transportCompanyId").val();
-    $.get('../common/ship/show', {
+    $.get('/common/ship/show', {
         'pastoralId': pastoralId,
         'transportCompanyId': transportCompanyId
     }, function (data) {
@@ -29,7 +27,7 @@ function closeAddShipModal() {
 
 function getOxRegisterNumberListByPastoral() {
     var pastoralId = $("#pastoralAddShip").val();
-    $.get('../common/oxs/getOxRegisterNumberListByPastoral', {
+    $.get('/common/oxs/getOxRegisterNumberListByPastoral', {
         'pastoralId': pastoralId
     }, function (data) {
         $("#oxRegisterNumberByPastoral").html(data);
@@ -39,7 +37,7 @@ function getOxRegisterNumberListByPastoral() {
 
 function getOxNameById() {
     var oxId = $("#oxRegisterNumberByPastoral").val();
-    $.get('../common/oxs/getOxNameById', {
+    $.get('/common/oxs/getOxNameById', {
         'oxId': oxId
     }, function (data) {
         $("#oxNameById").val(data);

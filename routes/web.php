@@ -51,20 +51,28 @@ Route::get('/admin/userDestroy', [UserController::class, 'destroy'])->middleware
 Route::get('/admin/getUserList', [UserController::class, 'getUserList'])->middleware(['auth','verified']);
 // Route::resource('/admin/oxs',OXController::class)->middleware(['auth','verified']);
 
-Route::get('/common/oxs/select', [OXController::class, 'select'])->middleware(['auth','verified']);
-Route::get('/common/oxs/saveAppendInfo', [OXController::class, 'saveAppendInfo'])->middleware(['auth','verified']);
-Route::get('/common/oxs/getOxList', [OXController::class, 'getOxList'])->middleware(['auth','verified']);
-Route::get('/common/oxs/getOxRegisterNumberListByPastoral', [OXController::class, 'getOxRegisterNumberListByPastoral'])->middleware(['auth','verified']);
+
+//買った牛を運び込みと積み下ろしの報告
+Route::resource('/common/transports',               TransportController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:transport']);
+Route::get('/common/getPurchaseTransportList',      [TransportController::class,'getPurchaseTransportList'])->middleware(['auth','verified']);
+Route::get('/common/getPurchaseTransDataByOxId',    [TransportController::class,'getPurchaseTransDataByOxId'])->middleware(['auth','verified']);
+Route::get('/common/registerLoadDate',              [TransportController::class,'registerLoadDate'])->middleware(['auth','verified']);
+
+
+// 肥育（牛の生育状況の登録）
+Route::resource('/common/fatten',                   FattenController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:fatten']);
+Route::get('/common/getFattenList',                 [FattenController::class, 'getFattenList'])->middleware(['auth','verified']);
+Route::get('/common/getAppendInfoByOxId',           [FattenController::class, 'getAppendInfoByOxId'])->middleware(['auth','verified']);
+Route::post('/common/saveAppendInfo',               [FattenController::class, 'saveAppendInfo'])->middleware(['auth','verified']);
+
+
+
 Route::get('/common/oxs/getOxNameById', [OXController::class, 'getOxNameById'])->middleware(['auth','verified']);
 Route::get('/common/oxs/getOxById', [OXController::class, 'getOxById'])->middleware(['auth','verified']);
 
-Route::resource('/common/transports',TransportController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:transport']);
 
 Route::resource('/common/purchases',PurchaseController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:purchase']);
-Route::get('/common/getPurchaseList',[PurchaseController::class,'getPurchaseList'])->middleware(['auth','verified']);
 
-Route::post('/common/transports',[TransportController::class,'list'])->name('transports.list')->middleware(['auth','verified']);
-Route::resource('/common/fatten',FattenController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:fatten']);
 Route::resource('/common/ship',ShipController::class)->only(['index','store','show','create','edit','update'])->middleware(['auth','verified','role:ship']);
 Route::get('/common/shipDestroy', [ShipController::class, 'destroy'])->middleware(['auth','verified']);
 

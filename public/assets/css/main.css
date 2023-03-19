@@ -14,7 +14,7 @@
 :root {
 	--font-default: "Yu Gothic", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 	--font-primary: "Yu Gothic", sans-serif;
-	--font-secondary: "Inter", sans-serif;
+	--font-secondary: "Yu Gothic", sans-serif;
 }
 
 /* Colors */
@@ -1704,10 +1704,10 @@ section {
 	border: 0;
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button.current,
-.dataTables_wrapper .dataTables_paginate .paginate_button.current,
-.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover,
-.dataTables_wrapper .dataTables_paginate .paginate_button,
-.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-	border-radius: 50% !important;
+tbody tr:hover {
+	background-color: #d1d1d7;
+}
+
+a.disabled {
+	pointer-events: none;
 }
