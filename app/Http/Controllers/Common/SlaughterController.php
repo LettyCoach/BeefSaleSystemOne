@@ -39,42 +39,63 @@ class SlaughterController extends Controller
      * Display the specified resource.
      */
 
-     public function list(Request $request){
-        $slaughterHouse_id = $request->input('SlaughterHouse');
-        $statu = $request->input('statu');
-        $slaughterFinishedDate = $request->input('slaughterFinishedDate');
-        $unslaughterFinishedDate = $request->input('unslaughterFinishedDate');
-        $ox_id = $request->input('ox_id');
-        $acceptedWeight = $request->input('acceptedWeight');
-        $acceptedLevel = $request->input('acceptedLevel');
+     public function slaughterList(Request $request){
+        $pageNumber = $request->pageNumber;
+        $pageSize = $request->pageSize; 
         
-        if(isset($ox_id) && ($slaughterFinishedDate == '1900-01-01')){
-            $slaughterFinishedDate = NULL;
-            $acceptedWeight = NULL;
-            $acceptedLevel = NULL;
+        //Search data
+        $slaughterHouse = $request->SlaughterHouse;
+        $acceptedWeight = $request->acceptedWeight;
+        $acceptedLevel = $request->acceptedLevel;
+        $slaughterFinishedDate = $request->slaughterFinishedDate;
+        $ox_id = $request->ox_id;
+        $slaughterState =$request->slaughterState;
+        $OxModel = Ox::whereNotNull('acceptedDateSlaughterHouse');
+        $oxen = $OxModel->get();
+        $totalCnt = $OxModel->count();
+
+        ///register
+        if($acceptedWeight != NULL && $acceptedLevel !=NULL && $slaughterFinishedDate !=NULL){
             Ox::where('id',$ox_id)->update([
-                'slaughterFinishedDate'=>$slaughterFinishedDate,
                 'acceptedWeight'=>$acceptedWeight,
                 'acceptedLevel'=>$acceptedLevel,
-            ]);
-        }else if(isset($ox_id) && isset($slaughterFinishedDate)){
-            
-            Ox::where('id',$ox_id)->update([
                 'slaughterFinishedDate'=>$slaughterFinishedDate,
-                'acceptedWeight'=>$acceptedWeight,
-                'acceptedLevel'=>$acceptedLevel,
             ]);
-        }else{
-            if($statu == 2){
-              
-            }elseif($statu == 1){
-                
-            }else{
-                $oxen = Ox::where('slaughterHouse_id','=',$slaughterHouse_id)->get();
-            }
         }
-       
-        return view('common/slaughters.list',['oxen'=>$oxen]);
+
+        if($slaughterHouse != NULL){
+            $OxModel = $OxModel->where('slaughterHouse','=',$slaughterHouse);
+            $totalCnt =$OxModel->count();
+        }
+        if($slaughterState != NULL){
+            $OxModel = $OxModel->whereNotNull('slaughterFinishedDate');
+            $totalCnt =$OxModel->count();
+        }
+        if($acceptedWeight != NULL){
+            $OxModel = $OxModel->where('acceptedWeight','=',$acceptedWeight);
+            $totalCnt =$OxModel->count();
+        }
+        if($acceptedLevel != NULL){
+            $OxModel = $OxModel->where('acceptedLevel','=',$acceptedLevel);
+            $totalCnt =$OxModel->count();
+        }
+        if(($totalCnt % $pageSize) == 0) {
+            $pageCnt = $totalCnt / $pageSize;
+        } else {
+            $pageCnt = $totalCnt / $pageSize;
+            $pageCnt = (int)$pageCnt + 1;
+        }
+        $oxen = $OxModel->limit($pageSize)
+        ->offset(($pageNumber - 1) * $pageSize)
+        // ->orderBy('acceptedDateSlaughterHouse', 'desc')
+        ->get();
+        return view('common/slaughters.list',[
+            'oxen'=>$oxen,
+            'pageCnt' => $pageCnt, 
+            'pageNumber' => $pageNumber, 
+            'pageSize' => $pageSize,
+            'totalCnt' => $totalCnt
+        ]);
     }
 
     public function show(string $id)

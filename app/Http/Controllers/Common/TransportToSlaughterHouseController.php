@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\TransportCompany;
 use App\Models\Common\Ox;
+use App\Models\Admin\Pastoral;
+use App\Models\Admin\SlaughterHouse ;
 
 
 class TransportToSlaughterHouseController extends Controller
@@ -15,34 +17,78 @@ class TransportToSlaughterHouseController extends Controller
      */
     public function index()
     {
-        //
+        $month = strtotime("-1 Months");
+        $startDate = date('Y-m-d', $month);
         $transportCompanies = TransportCompany::all();
-        return view("common/transportToSlaughterHouses.index",['transportCompanies'=>$transportCompanies]);
+        $pastorals = Pastoral::all();
+        $slaughterHouses = SlaughterHouse::all();
+        return view("common/transportToSlaughterHouses.index",[
+            'transportCompanies'=>$transportCompanies,
+            'startDate'=>$startDate,
+            'pastorals' =>$pastorals,
+            'slaughterHouses' =>$slaughterHouses,
+
+        ]);
     }
-    public function list(Request $request){
-        $company_id = $request->input('SelectCompany');
-        $statu = $request->input('statu');
-        $acceptedDateSlaughterHouse = $request->input('acceptedDateSlaughterHouse');
-        $ox_id = $request->input('ox_id');
-        if(isset($ox_id) && ($acceptedDateSlaughterHouse == '1900-01-01')){
-            if(isset(Ox::find($ox_id)->slaughterFinishedDate)) {
-                return 0;
+    public function getExportTransportCompanyList(Request $request){
+        $pageNumber = $request->pageNumber;
+        $pageSize = $request->pageSize; 
+        //
+        $acceptedDateSlaughterHouse = $request->acceptedDateSlaughterHouse;
+        $ox_id = $request->ox_id;
+        Ox::where('id',$ox_id)->update(['acceptedDateSlaughterHouse'=>$acceptedDateSlaughterHouse]);
+        //search data
+        $transportState =$request->transportState;
+        $endDate = $request->endDate;
+        $company_id = $request->SelectCompany;
+        $pastoral_id = $request->pastoral;
+        $slaughterHouse_id = $request->slaughterHouse;
+
+
+        $OxModel = Ox::whereNotNull('exportDate');
+        $totalCnt = $OxModel->count();
+        
+
+        if($transportState != NULL) {
+            if($transportState == 1){
+                $OxModel = $OxModel->whereNotNull('acceptedDateSlaughterHouse');
+                $totalCnt = $OxModel->count();
             }
-            $acceptedDateSlaughterHouse = NULL;
-            Ox::where('id',$ox_id)->update(['acceptedDateSlaughterHouse'=>$acceptedDateSlaughterHouse]);
+            if($transportState == 0){
+                $OxModel = $OxModel->whereNull('acceptedDateSlaughterHouse');
+                $totalCnt = $OxModel->count();
+            } 
         }
-        if(isset($ox_id) && isset($acceptedDateSlaughterHouse)){
-            Ox::where('id',$ox_id)->update(['acceptedDateSlaughterHouse'=>$acceptedDateSlaughterHouse]);           
-        }else{
-            if($statu == 2){
-                $oxen =TransportCompany::find($company_id)->oxen()->where('exportDate','<>',NULL)->where('acceptedDateSlaughterHouse','<>',NULL)->get(); 
-            }elseif($statu == 1){
-                $oxen = TransportCompany::find($company_id)->oxen()->where('exportDate','<>',NULL)->where('acceptedDateSlaughterHouse','=',NULL)->get();
-            }else{
-                $oxen = TransportCompany::find($company_id)->oxen()->where('exportDate','<>',NULL)->get();
-            }
+        if($pastoral_id != NULL) {
+            $OxModel = $OxModel->where('pastoral_id','=',$pastoral_id);
+            $totalCnt = $OxModel->count();          
         }
-        return view('common/transportToSlaughterHouses.list',['oxen'=>$oxen]);
+        if($company_id != NULL) {
+            $OxModel = $OxModel->where('slaughterTransport_Company_id','=',$company_id);
+            $totalCnt = $OxModel->count();          
+        }
+        if($slaughterHouse_id != NULL) {
+            $OxModel = $OxModel->where('slaughterHouse_id','=',$slaughterHouse_id);
+            $totalCnt = $OxModel->count();          
+        }
+        $oxen = $OxModel->limit($pageSize)
+                ->offset(($pageNumber - 1) * $pageSize)
+                // ->orderBy('acceptedDateSlaughterHouse', 'desc')
+                ->get();
+    
+        if(($totalCnt % $pageSize) == 0) {
+            $pageCnt = $totalCnt / $pageSize;
+        } else {
+            $pageCnt = $totalCnt / $pageSize;
+            $pageCnt = (int)$pageCnt + 1;
+        }
+        return view('common/transportToSlaughterHouses.list',[
+            'oxen'=>$oxen,
+            'pageCnt' => $pageCnt, 
+            'pageNumber' => $pageNumber, 
+            'pageSize' => $pageSize,
+            'totalCnt' => $totalCnt,
+        ]);
     }
     /**
      * Show the form for creating a new resource.

@@ -26,7 +26,7 @@ function saveAppendInfo() {
         toastr.warning("入力された情報はありません。");
         return;
     }
-    $.get("../common/oxs/saveAppendInfo", {
+    $.get("/common/oxs/saveAppendInfo", {
         "oxId": oxId,
         "appendInfo": appendInfo
     }, function(data){
@@ -43,7 +43,7 @@ function getOxList(pageNumber) {
     }
     var pageSize = $('#pageSize').val();
     var pastoralId = $("#selectPastoral").val();
-    $.get('../common/oxs/getOxList', {
+    $.get('/common/oxs/getOxList', {
         'pageNumber': pageNumber,
         'pageSize': pageSize,
         "pastoralId": pastoralId

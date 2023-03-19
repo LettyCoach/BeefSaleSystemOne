@@ -17,9 +17,15 @@ class PurchaseController extends Controller
      */
     public function index()
     {
+        $month = strtotime("-1 Months");
+        $startDate = date('Y-m-d', $month);
         return view('common/purchases.index',[
-            'oxen'=>Ox::orderByDesc('created_at')->get()],
-        );
+            'oxen'=>Ox::select('purchaseDate')->distinct()->get(),
+            'markets'=>Market::all(),
+            'pastorals'=>Pastoral::all(),
+            'transportCompanies'=>TransportCompany::all(),
+            'startDate'=>$startDate,
+        ]);
     }
 
     /**
@@ -59,7 +65,7 @@ class PurchaseController extends Controller
                 'purchaseTransport_Company_id' => (int)$validateData['purchaseTransport_Company_id'],
                 'pastoral_id' => (int)$validateData['pastoral_id'],
                 'purchasePrice' =>(float)$validateData['purchasePrice'],
-                'purchaseDate'=>date('Y/m/d H:i:s'),
+                'purchaseDate'=>$validateData['purchaseDate'],
             ]);
             return redirect(route('purchases.index'))->with('registerSuccess','正確に登録されました。');;
         }
@@ -110,7 +116,7 @@ class PurchaseController extends Controller
                 'purchaseTransport_Company_id' => (int)$validateData['purchaseTransport_Company_id'],
                 'pastoral_id' => (int)$validateData['pastoral_id'],
                 'purchasePrice' =>(float)$validateData['purchasePrice'],
-                'purchaseDate'=>date('Y/m/d H:i:s'),
+                'purchaseDate'=>$validateData['purchaseDate'],
             ]);
             return redirect(route('purchases.index'))->with('updateSuccess',"正確に更新されました。");
         }
@@ -129,5 +135,59 @@ class PurchaseController extends Controller
        
         $deleted = Ox::where('id', $ox_id)->delete();
         return redirect(route('purchases.index'))->with('deleteSuccess',"正確に削除されました。");
+    }
+
+    public function getPurchaseList(Request $request) {
+     
+        $pageNumber = $request->pageNumber;
+        $pageSize = $request->pageSize;   
+     
+        // search Data
+        $market_id =$request->market_id;
+        $transportCompany_id = $request->transportCompany_id;
+        $pastoral_id = $request->pastoral_id;
+        $startDate = $request->startDate;
+        $endDate = $request->endDate;
+
+        if($startDate>$endDate) return "DateError";
+         
+        $OxModel = Ox::whereNotNull('created_at');
+        $totalCnt = $OxModel->count();
+        if($market_id != NULL){
+            $OxModel=$OxModel->where('market_id','=',$market_id);
+            $totalCnt = $OxModel->count();
+        }
+        if($transportCompany_id !=NULL){
+            $OxModel=$OxModel->where('purchaseTransport_Company_id', '=', $transportCompany_id);
+            $totalCnt = $OxModel->count();
+        }
+        if($pastoral_id !=NULL){
+            $OxModel=$OxModel->where('pastoral_id', '=', $pastoral_id);
+            $totalCnt = $OxModel->count();
+        }
+        if($startDate !=NULL && $endDate !=NULL){
+            $OxModel=$OxModel->where('purchaseDate','>=',$startDate)
+            ->where('purchaseDate','<=',$endDate) ;
+            $totalCnt = $OxModel->count();
+        }
+        $oxen = $OxModel->limit($pageSize)
+                ->offset(($pageNumber - 1) * $pageSize)
+                ->orderBy('purchaseDate', 'desc')
+                ->get();
+        
+        if(($totalCnt % $pageSize) == 0) {
+            $pageCnt = $totalCnt / $pageSize;
+        } else {
+            $pageCnt = $totalCnt / $pageSize;
+            $pageCnt = (int)$pageCnt + 1;
+        }
+
+        return view('common/purchases.list',[
+            'oxen'=>$oxen,
+            'pageCnt' => $pageCnt, 
+            'pageNumber' => $pageNumber, 
+            'pageSize' => $pageSize,
+            'totalCnt' => $totalCnt
+        ]);
     }
 }
