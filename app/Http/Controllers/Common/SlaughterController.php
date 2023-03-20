@@ -44,16 +44,12 @@ class SlaughterController extends Controller
         $pageSize = $request->pageSize; 
         
         //Search data
-        $slaughterHouse = $request->SlaughterHouse;
+        $slaughterHouse_id = $request->SlaughterHouse;
         $acceptedWeight = $request->acceptedWeight;
         $acceptedLevel = $request->acceptedLevel;
         $slaughterFinishedDate = $request->slaughterFinishedDate;
         $ox_id = $request->ox_id;
         $slaughterState =$request->slaughterState;
-        $OxModel = Ox::whereNotNull('acceptedDateSlaughterHouse');
-        $oxen = $OxModel->get();
-        $totalCnt = $OxModel->count();
-
         ///register
         if($acceptedWeight != NULL && $acceptedLevel !=NULL && $slaughterFinishedDate !=NULL){
             Ox::where('id',$ox_id)->update([
@@ -63,28 +59,31 @@ class SlaughterController extends Controller
             ]);
         }
 
-        if($slaughterHouse != NULL){
-            $OxModel = $OxModel->where('slaughterHouse','=',$slaughterHouse);
+        $OxModel = Ox::whereNotNull('acceptedDateSlaughterHouse');
+        $totalCnt = $OxModel->count();
+
+        if($slaughterHouse_id != NULL){
+            $OxModel = $OxModel->where('slaughterHouse_id','=',$slaughterHouse_id);
             $totalCnt =$OxModel->count();
         }
-        if($slaughterState != NULL){
-            $OxModel = $OxModel->whereNotNull('slaughterFinishedDate');
-            $totalCnt =$OxModel->count();
+        if($slaughterState !=NULL){
+            if($slaughterState == 1){
+                $OxModel = $OxModel->whereNotNull('slaughterFinishedDate');
+                $totalCnt =$OxModel->count();
+            }
+            if($slaughterState == 0){
+                $OxModel = $OxModel->whereNull('slaughterFinishedDate');
+                $totalCnt =$OxModel->count();
+            }
         }
-        if($acceptedWeight != NULL){
-            $OxModel = $OxModel->where('acceptedWeight','=',$acceptedWeight);
-            $totalCnt =$OxModel->count();
-        }
-        if($acceptedLevel != NULL){
-            $OxModel = $OxModel->where('acceptedLevel','=',$acceptedLevel);
-            $totalCnt =$OxModel->count();
-        }
+        
         if(($totalCnt % $pageSize) == 0) {
             $pageCnt = $totalCnt / $pageSize;
         } else {
             $pageCnt = $totalCnt / $pageSize;
             $pageCnt = (int)$pageCnt + 1;
         }
+        
         $oxen = $OxModel->limit($pageSize)
         ->offset(($pageNumber - 1) * $pageSize)
         // ->orderBy('acceptedDateSlaughterHouse', 'desc')

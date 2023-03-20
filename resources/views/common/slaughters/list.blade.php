@@ -2,16 +2,16 @@
 <table id="dtBasicExample" class="table table-striped table-fixed table-bordered table-sm" cellspacing="0"
     style="min-width: 1200px; overflow-x: scroll; width:100%">
     <thead>
-        <tr>
+        <tr class="align-middle" style = "height:47px">
             <th class="text-center">No</th>
             <th class="text-center">積載</th>
-            <th class="text-center">重量</th>
-            <th class="text-center">格付</th>
+            <th class="text-center" style="width:10%">重量</th>
+            <th class="text-center" style="width:10%">格付</th>
             <th class="text-center">個体識別番号</th>
             <th class="text-center">和牛登録名</th>
             <th class="text-center">生年月日</th>
             <th class="text-center">性別</th>
-            <th class="text-center">登録日</th>
+            <th class="text-center" style="width:13%">登録日</th>
             <th class="text-center">登録</th>
             <!-- <th class="text-center">取消</th> -->
         </tr>
@@ -26,7 +26,7 @@
     @php
         $rowCnt ++;
     @endphp
-        <tr>
+        <tr class="align-middle">
             <td class="text-center">{{$no++}}</span></td>
             <td class="text-center"><span class="text-gray-800 break-all">
                     <span class="@if($ox->slaughterFinishedDate != NULL) text-success @endif">@if($ox->slaughterFinishedDate != NULL) 完了 @else 未 @endif</span>

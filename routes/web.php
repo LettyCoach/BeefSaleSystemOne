@@ -72,6 +72,7 @@ Route::get('/common/oxs/getOxById', [OXController::class, 'getOxById'])->middlew
 
 
 Route::resource('/common/purchases',PurchaseController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:purchase']);
+Route::get('/common/getPurchaseList',[PurchaseController::class,'getPurchaseList'])->middleware(['auth','verified']);
 
 Route::resource('/common/ship',ShipController::class)->only(['index','store','show','create','edit','update'])->middleware(['auth','verified','role:ship']);
 Route::get('/common/shipDestroy', [ShipController::class, 'destroy'])->middleware(['auth','verified']);
@@ -84,6 +85,7 @@ Route::resource('/common/slaughters',SlaughterController::class)->only(['index',
 Route::get('/common/slaughterList',[SlaughterController::class,'slaughterList'])->middleware(['auth','verified']);
 
 Route::resource('/common/meats',MeatController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:meat']);
+Route::get('/common/getMeatList',[MeatController::class,'getMeatList'])->middleware(['auth','verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
