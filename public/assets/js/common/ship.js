@@ -5,12 +5,32 @@ $(document).ready(function () {
     getShipList();
 });
 
-function getShipList() {
+function getShipList(pageNumber) {
+
+    if(pageNumber == undefined) {
+        pageNumber = 1;
+    }
+
+    var pageSize = $('#pageSize').val();
     var pastoralId = $("#pastoralId").val();
     var transportCompanyId = $("#transportCompanyId").val();
-    $.get('/common/ship/show', {
+    var slaughterHouseId = $("#slaughterHouseId").val();
+    var firstDate = $("#firstDate").val();
+    var lastDate = $("#lastDate").val();
+
+    if(firstDate > lastDate) {
+        toastr.warning("最初の日付は最後の日付より大きくてはいけません。");
+        return;
+    }
+    
+    $.get('/common/getShipList', {
+        'pageNumber': pageNumber,
+        'pageSize': pageSize,
         'pastoralId': pastoralId,
-        'transportCompanyId': transportCompanyId
+        'transportCompanyId': transportCompanyId,
+        'slaughterHouseId': slaughterHouseId,
+        'firstDate': firstDate,
+        'lastDate': lastDate
     }, function (data) {
         $("#shipData").html(data);
     });
@@ -22,12 +42,12 @@ function showAddShipModal() {
 }
 
 function closeAddShipModal() {
-    $('#AddShipModal').fadeOut();
+    $('#AddShipModal').modal('hide');
 }
 
 function getOxRegisterNumberListByPastoral() {
     var pastoralId = $("#pastoralAddShip").val();
-    $.get('/common/oxs/getOxRegisterNumberListByPastoral', {
+    $.get('/common/getOxRegisterNumberListByPastoral', {
         'pastoralId': pastoralId
     }, function (data) {
         $("#oxRegisterNumberByPastoral").html(data);
@@ -37,7 +57,7 @@ function getOxRegisterNumberListByPastoral() {
 
 function getOxNameById() {
     var oxId = $("#oxRegisterNumberByPastoral").val();
-    $.get('/common/oxs/getOxNameById', {
+    $.get('/common/getOxNameById', {
         'oxId': oxId
     }, function (data) {
         $("#oxNameById").val(data);
@@ -81,10 +101,9 @@ function addShip() {
 
 function editShip(id) {
     oxId = id;
-    $.get('/common/oxs/getOxById', {
+    $.get('/common/getOxById', {
         'oxId': oxId
     }, function(data){
-        // alert(data['pastoral_id'])
         const selectPastoral = document.querySelector('#pastoralEditShip');
         const selectTransportCompany = document.querySelector('#transportCompanyEditShip');
         const selectSlaughterHouse = document.querySelector('#slaughterHouseEditShip');

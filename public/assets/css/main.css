@@ -1704,10 +1704,6 @@ section {
 	border: 0;
 }
 
-tbody tr:hover {
-	background-color: #d1d1d7;
-}
-
 a.disabled {
 	pointer-events: none;
 }

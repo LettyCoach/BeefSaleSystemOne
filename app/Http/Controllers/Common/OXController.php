@@ -63,21 +63,4 @@ class OXController extends Controller
     {
         //
     }
-
-    public function getOxNameById(Request $request) {
-        $oxId = $request->oxId;
-        if($oxId == 0) {
-            return "なし";
-        }
-        $oxen = Ox::where('id', $oxId)->get();
-        $oxName = $oxen[0]->name;
-        return $oxName;
-    }
-
-    public function getOxById(Request $request) {
-        $oxId = $request->oxId;
-
-        $ox = Ox::find($oxId);
-        return $ox;
-    }
 }

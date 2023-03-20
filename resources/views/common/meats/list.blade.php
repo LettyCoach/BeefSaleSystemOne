@@ -1,5 +1,4 @@
-
-<table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0"
+<table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0"
     style="min-width: 1200px; overflow-x: scroll; width:100%">
     <thead>
         <tr>

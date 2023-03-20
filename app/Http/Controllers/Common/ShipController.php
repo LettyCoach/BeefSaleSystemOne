@@ -19,8 +19,17 @@ class ShipController extends Controller
         $TransportCompanies = TransportCompany::all();
         $Pastorals = Pastoral::all();
         $SlaughterHouses = SlaughterHouse::all();
-        $todayDate = date('Y-m-d');
-        return view('common.ships.index',['TransportCompanies' => $TransportCompanies, 'Pastorals' => $Pastorals, 'SlaughterHouses' => $SlaughterHouses, 'todayDate'=>$todayDate]);
+        $todayDate = Date('Y-m-d');
+        $month = strtotime("-1 Months");
+        $firstDate = date('Y-m-d', $month);
+
+        return view('common.ships.index',[
+            'TransportCompanies' => $TransportCompanies,
+            'Pastorals' => $Pastorals,
+            'SlaughterHouses' => $SlaughterHouses,
+            'todayDate' => $todayDate,
+            'firstDate' => $firstDate
+        ]);
     }
 
     /**
@@ -119,5 +128,81 @@ class ShipController extends Controller
         $ox->save();
 
         return "OK";
+    }
+
+    public function getShipList(Request $request) {
+        
+        $pageNumber = $request->pageNumber;
+        $pageSize = $request->pageSize;
+        $pastoralId = $request->pastoralId;
+        $transportCompanyId = $request->transportCompanyId;
+        $slaughterHouseId = $request->slaughterHouseId;
+        $firstDate = $request->firstDate;
+        $lastDate = $request->lastDate;
+
+        $ships = Ox::whereNotNull('purchaseDate')
+            ->whereNotNull('loadDate')
+            ->whereNotNull('unloadDate')
+            ->whereNotNull('exportDate')
+            ->where('exportDate', '>=', $firstDate)
+            ->where('exportDate', '<=', $lastDate);
+        $totalCnt = $ships->count();
+
+        if($pastoralId != 0) {
+            $ships = $ships->where('pastoral_id', $pastoralId);
+            $totalCnt = $ships->count();
+        }
+
+        if($transportCompanyId != 0) {
+            $ships = $ships->where('slaughterTransport_Company_id', $transportCompanyId);
+            $totalCnt = $ships->count();
+        }
+
+        if($slaughterHouseId != 0) {
+            $ships = $ships->where('slaughterHouse_id', $slaughterHouseId);
+            $totalCnt = $ships->count();
+        }
+
+        $ships = $ships->orderBy('updated_at', 'desc')->limit($pageSize)->offset(($pageNumber - 1) * $pageSize)->get();
+
+        if(($totalCnt % $pageSize) == 0) {
+            $pageCnt = $totalCnt / $pageSize;
+        } else {
+            $pageCnt = $totalCnt / $pageSize;
+            $pageCnt = (int)$pageCnt + 1;
+        }
+
+        return view('common.ships.list')
+            ->with('ships', $ships)
+            ->with('pageNumber', $pageNumber)
+            ->with('pageSize', $pageSize)
+            ->with('totalCnt', $totalCnt)
+            ->with('pageCnt', $pageCnt);
+    }
+
+    public function getOxRegisterNumberListByPastoral(Request $request) {
+        $pastoralId = $request->pastoralId;
+        $oxen = Ox::where('pastoral_id', $pastoralId)->where('exportDate', NULL)->get();
+        if(count($oxen) == 0) {
+            return "<option value='0'>なし</option>";
+        }
+        return view('common.ships.OxRegisterNumberListByPastoral', ['oxen' => $oxen]);
+    }
+
+    public function getOxNameById(Request $request) {
+        $oxId = $request->oxId;
+        if($oxId == 0) {
+            return "なし";
+        }
+        $oxen = Ox::where('id', $oxId)->get();
+        $oxName = $oxen[0]->name;
+        return $oxName;
+    }
+
+    public function getOxById(Request $request) {
+        $oxId = $request->oxId;
+
+        $ox = Ox::find($oxId);
+        return $ox;
     }
 }

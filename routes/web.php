@@ -68,14 +68,18 @@ Route::post('/common/saveAppendInfo',               [FattenController::class, 's
 
 
 Route::get('/common/oxs/getOxNameById', [OXController::class, 'getOxNameById'])->middleware(['auth','verified']);
-Route::get('/common/oxs/getOxById', [OXController::class, 'getOxById'])->middleware(['auth','verified']);
 
 
-Route::resource('/common/purchases',PurchaseController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:purchase']);
-Route::get('/common/getPurchaseList',[PurchaseController::class,'getPurchaseList'])->middleware(['auth','verified']);
 
-Route::resource('/common/ship',ShipController::class)->only(['index','store','show','create','edit','update'])->middleware(['auth','verified','role:ship']);
-Route::get('/common/shipDestroy', [ShipController::class, 'destroy'])->middleware(['auth','verified']);
+Route::resource('/common/purchases',                    PurchaseController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:purchase']);
+Route::get('/common/getPurchaseList',                   [PurchaseController::class,'getPurchaseList'])->middleware(['auth','verified']);
+
+Route::resource('/common/ship',                         ShipController::class)->only(['index','store','create','edit','update'])->middleware(['auth','verified','role:ship']);
+Route::get('/common/getShipList',                       [ShipController::class, 'getShipList'])->middleware(['auth','verified','role:ship']);
+Route::get('/common/getOxRegisterNumberListByPastoral', [ShipController::class, 'getOxRegisterNumberListByPastoral'])->middleware(['auth','verified']);
+Route::get('/common/getOxNameById',                     [ShipController::class, 'getOxNameById'])->middleware(['auth','verified']);
+Route::get('/common/getOxById',                         [ShipController::class, 'getOxById'])->middleware(['auth','verified']);
+Route::get('/common/shipDestroy',                       [ShipController::class, 'destroy'])->middleware(['auth','verified']);
 
 Route::resource('/common/transportToSlaughterHouses',TransportToSlaughterHouseController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:transport']);
 Route::get('/common/getExportTransportCompanyList',[TransportToSlaughterHouseController::class,'getExportTransportCompanyList'])->middleware(['auth','verified']);
