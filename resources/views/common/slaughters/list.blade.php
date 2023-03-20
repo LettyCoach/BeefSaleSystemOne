@@ -11,9 +11,9 @@
             <th class="text-center">和牛登録名</th>
             <th class="text-center">生年月日</th>
             <th class="text-center">性別</th>
+            <th class="text-center">屠殺場</th>
             <th class="text-center" style="width:13%">登録日</th>
             <th class="text-center">登録</th>
-            <!-- <th class="text-center">取消</th> -->
         </tr>
     </thead>
     <tbody>
@@ -40,8 +40,11 @@
             <td class="text-center"><span class="text-gray-800 break-all">{{$ox->name}}</span></td>
             <td class="text-center"><span class="text-gray-800 break-all">{{$ox->birthday}}</span>
             </td>
+            
             <td class="text-center"><span class="text-gray-800 break-all">@if($ox->sex == 1 ) 雄
                     @else 雌 @endif</span></td>
+            <td class="text-center"><span class="text-gray-800 break-all">{{$ox->slaughterHouse->name}}</span>
+                    </td>
            <td>
                     <input type="date" name="slaughterFinishedDate" class="form-control slaughterFinishedDate"  id="slaughterFinishedDate{{$ox->id}}" class="text-xs"
                         value="{{$ox->slaughterFinishedDate}}" @if($ox->slaughterFinishedDate !=

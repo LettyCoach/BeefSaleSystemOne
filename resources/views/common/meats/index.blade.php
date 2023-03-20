@@ -171,7 +171,6 @@
     }
 
     function saveAppendInfo() {
-
         $.post(
             "{{route('meats.store')}}",
             $('#dataForm').serialize(),
@@ -182,6 +181,7 @@
                 }else{
                     $("#meatModal").modal('hide');
                     toastr.success('登録に成功しました。');
+                    getMeatList();
                 }
             });
     }

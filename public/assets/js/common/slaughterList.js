@@ -52,9 +52,9 @@ function register(pageNumber,ox_id) {
         if(data == "DateError"){
             toastr.warning('アクセス権はありません。');
             var str = "<tr><td colspan='11'></td></tr>";
-            $("#exportTransportCompanyList").html(str);
+            $("#slaughterList").html(str);
             return;
         }
-        $("#exportTransportCompanyList").html(data);
+        $("#slaughterList").html(data);
     });
 }

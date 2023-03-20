@@ -58,9 +58,9 @@ class MeatController extends Controller
                     'part_id'=>$part_id,
                     'weight'=>$weight,
                     'price'=>$price,
-                ]);
-                
+                ]);                
             }   
+            Ox::where('id',$ox_id)->update(['finishedState'=>1]);
             return response()->json(["msg"=>"ok"]);
         }
         
@@ -110,13 +110,14 @@ class MeatController extends Controller
 
         if($meatState != NULL){
             if($meatState ==1){
-                $OxModel = $OxModel::whereNotNull('slaughterFinishedDate');
+                $OxModel = $OxModel->where('finishedState','=',1);
+                $totalCnt = $OxModel->count();
             }
             if($meatState ==0){
-                $OxModel = $OxModel::whereNull('slaughterFinishedDate');
+                $OxModel = $OxModel->where('finishedState','=',0);
+                $totalCnt = $OxModel->count();
             }
         }
-
         if(($totalCnt % $pageSize) == 0) {
             $pageCnt = $totalCnt / $pageSize;
         } else {
