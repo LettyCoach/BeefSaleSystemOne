@@ -1700,6 +1700,14 @@ section {
 	color: #f05656;
 }
 
+.fa-times {
+	color: grey;
+}
+
+.fa-times:hover {
+	color: #f05656;
+}
+
 .btn {
 	border: 0;
 }

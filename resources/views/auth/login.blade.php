@@ -4,10 +4,10 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <div class="d-flex justify-content-center align-items-center pt-5 mb-4 mx-auto " style ="min-height:calc(100vh - 300px);width:60%;">
+    <div class="d-flex justify-content-center align-items-center pt-5 mb-4 mx-auto " style ="min-height:calc(100vh - 300px); width:80%;">
         <div class="col-md-6 mt-5 mx-auto">
             <!-- form user info -->
-            <div class="card card-outline-secondary">
+            <div class="card card-outline-secondary mt-5">
                 <div class="card-header">
                     <h3 class="mb-0 text-center">ログイン</h3>
 
