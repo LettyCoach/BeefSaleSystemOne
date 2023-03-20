@@ -14,6 +14,7 @@
             <th class="text-center">屠殺場</th>
             <th class="text-center" style="width:13%">登録日</th>
             <th class="text-center">登録</th>
+            <th class="text-center">削除</th>
         </tr>
     </thead>
     <tbody>
@@ -53,6 +54,8 @@
                 </span>
             </td>
             <td class="text-center"><a href="javascript:;register(undefined, {{$ox->id}})"><i class="fa fa-plus" aria-hidden="true"></i></a>
+            </td>
+            <td class="text-center"><a href="javascript:;cancel(undefined, {{$ox->id}})"><i class="fa fa-trash" aria-hidden="true"></i></a>
             </td>
 
         </tr>

@@ -53,6 +53,7 @@ return new class extends Migration
             $table->date('slaughterFinishedDate')->nullable();
             $table->decimal('acceptedWeight',11,2)->nullable();
             $table->integer('acceptedLevel')->nullable();
+            $table->integer('finishedState')->default(0);
             $table->timestamps();
         });
     }
