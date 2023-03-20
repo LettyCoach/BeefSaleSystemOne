@@ -17,6 +17,41 @@ class PartController extends Controller
             'parts'=>Part::orderByDesc('created_at')->get(),
         ]);
     }
+    public function getPartsList(Request $request){
+        $pageNumber = $request->pageNumber;
+        $pageSize = $request->pageSize;
+        
+        //Search
+        $partName = $request->partName;
+        $partPosition = $request->partPosition;
+
+        $partModel = part::whereNotNull('created_at');
+        $totalCnt = $partModel->count();
+
+        if($partName != NULL){
+            $partModel = $partModel->where('name','like','%' . $partName . '%');
+            $totalCnt = $partModel->count();
+        }
+       
+        if(($totalCnt % $pageSize) == 0) {
+            $pageCnt = $totalCnt / $pageSize;
+        } else {
+            $pageCnt = $totalCnt / $pageSize;
+            $pageCnt = (int)$pageCnt + 1;
+        }
+
+        $parts = $partModel->limit($pageSize)
+            ->offset(($pageNumber - 1) * $pageSize)
+            ->orderBy('created_at','desc')
+            ->get();
+        return view('admin/parts.list',[
+            'parts'=>$parts,
+            'pageCnt' => $pageCnt, 
+            'pageNumber' => $pageNumber, 
+            'pageSize' => $pageSize,
+            'totalCnt' => $totalCnt
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.

@@ -49,6 +49,10 @@ Route::get('/admin/users/getUserById', [UserController::class, 'getUserById'])->
 Route::post('/admin/userRoleAdd', [UserController::class, 'userRoleAdd'])->middleware(['auth','verified']);
 Route::get('/admin/userDestroy', [UserController::class, 'destroy'])->middleware(['auth','verified']);
 Route::get('/admin/getUserList', [UserController::class, 'getUserList'])->middleware(['auth','verified']);
+
+Route::get('/admin/getTransportCompaniesList',[TransportCompanyController::class,'getTransportCompaniesList'])->middleware(['auth','verified']);
+Route::get('/admin/getPastoralsList',[PastoralController::class,'getPastoralsList'])->middleware(['auth','verified']);
+Route::get('/admin/getPartsList',[PartController::class,'getPartsList'])->middleware(['auth','verified']);
 // Route::resource('/admin/oxs',OXController::class)->middleware(['auth','verified']);
 
 

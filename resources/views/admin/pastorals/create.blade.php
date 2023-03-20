@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="justify-content-center container mt-5 pt-5 mb-4">
+    <div class="d-flex justify-content-center align-items-center container mt-5 pt-5 mb-4"  style="min-height:calc(100vh - 300px);">
         <div class="col-md-6 mt-5 mx-auto">
             <!-- form user info -->
             <div class="card card-outline-secondary">
