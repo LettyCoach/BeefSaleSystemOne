@@ -84,7 +84,6 @@ function editShip(id) {
     $.get('/common/oxs/getOxById', {
         'oxId': oxId
     }, function(data){
-        // alert(data['pastoral_id'])
         const selectPastoral = document.querySelector('#pastoralEditShip');
         const selectTransportCompany = document.querySelector('#transportCompanyEditShip');
         const selectSlaughterHouse = document.querySelector('#slaughterHouseEditShip');

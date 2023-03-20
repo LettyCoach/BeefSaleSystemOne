@@ -33,7 +33,6 @@ function getPurchaseTransportList(pageNumber) {
         'loadState': loadState,
         'pageNumber': pageNumber
     }, function(data){
-        // alert(data);
         $("#purchaseTransportData").html(data);
     });
 }

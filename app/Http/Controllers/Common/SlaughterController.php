@@ -58,7 +58,17 @@ class SlaughterController extends Controller
                 'slaughterFinishedDate'=>$slaughterFinishedDate,
             ]);
         }
-
+        //cancel
+         
+        if($acceptedWeight !=NULL && $acceptedLevel !=NULL && $slaughterFinishedDate =="1900-01-01"){
+            Ox::where('id',$ox_id)->update([
+                'acceptedWeight'=>NULL,
+                'acceptedLevel'=>NULL,
+                'slaughterFinishedDate'=>NULL,
+            ]);
+        }
+    
+        
         $OxModel = Ox::whereNotNull('acceptedDateSlaughterHouse');
         $totalCnt = $OxModel->count();
 

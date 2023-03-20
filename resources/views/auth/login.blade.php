@@ -4,7 +4,7 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <div class="justify-content-center mt-5 pt-5 mb-4">
+    <div class="d-flex justify-content-center align-items-center pt-5 mb-4 mx-auto " style ="min-height:calc(100vh - 300px);width:60%;">
         <div class="col-md-6 mt-5 mx-auto">
             <!-- form user info -->
             <div class="card card-outline-secondary">
