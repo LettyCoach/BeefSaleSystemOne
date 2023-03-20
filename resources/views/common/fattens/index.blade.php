@@ -158,7 +158,6 @@
             'hideMethod': 'fadeOut',
         }
     })
-
 </script>
 @if (session('status'))
     <script>

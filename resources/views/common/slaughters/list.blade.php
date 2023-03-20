@@ -1,6 +1,6 @@
 
 <table id="dtBasicExample" class="table table-striped table-fixed table-bordered table-sm" cellspacing="0"
-    style="min-width: 1200px; overflow-x: scroll; width:100%">
+    style="min-width: 1000px; overflow-x: scroll; width:100%">
     <thead>
         <tr class="align-middle" style = "height:47px">
             <th class="text-center">No</th>
