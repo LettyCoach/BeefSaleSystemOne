@@ -2,26 +2,6 @@
 @section('content')
 <div class="container mx-auto mt-5 pt-5">
     <h2 class="text-center pt-5 fw-bold">精肉管理（牛の選択と価格の入力)</h2>
-
-    @if($message = Session::get('updateSuccess'))
-    <div class="alert alert-info alert-block">
-        <button type="button" class="close" data-dismiss="alert"><i class="fa fa-remove"
-                style="color:rgb(121, 121, 121)"></i></button>
-        <strong>{{$message}}</strong>
-    </div>
-    @endif @if($message = Session::get('registerSuccess'))
-    <div class="alert alert-info alert-block">
-        <button type="button" class="close" data-dismiss="alert"><i class="fa fa-remove"
-                style="color:rgb(121, 121, 121)"></i></button>
-        <strong>{{$message}}</strong>
-    </div>
-    @endif @if($message = Session::get('deleteSuccess'))
-    <div class="alert alert-info alert-block">
-        <button type="button" class="close" data-dismiss="alert"><i class="fa fa-remove"
-                style="color:rgb(121, 121, 121)"></i></button>
-        <strong>{{$message}}</strong>
-    </div>
-    @endif
     <div class="d-flex justify-content-between">
         <div class="rounded-md  ">
             <select name="pageSize" class="form-select" id="pageSize" onchange="getMeatList()">
@@ -144,6 +124,24 @@
     </div>
 </div>
    
+<div class="modal fade" id="confirmModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div id="oxIdConfirmModal" class="d-none"></div>
+                <h5 class="modal-title" id="staticBackdropLabel">削除を確認する</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h2 class="text-center">本当に削除しますか？</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;" onclick="trashMeat()"><i class="fas fa-check"></i> いいよ</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> 取消</button>
+            </div>
+        </div>
+    </div>
+</div>
     <script>
     function openMeatModal(id) {
         var sex;

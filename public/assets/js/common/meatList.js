@@ -22,3 +22,21 @@ function getMeatList(pageNumber) {
         $("#getMeatList").html(data);
     });
 }
+function showConfirmModal(id){
+    $('#oxIdConfirmModal').html(id);
+    $('#confirmModal').modal('show');
+}
+function trashMeat(){
+    
+    $('#confirmModal').modal('hide');
+    ox_id = $('#oxIdConfirmModal').html();
+
+    $.post('/common/meatCancel', {
+        '_token': $('meta[name="csrf-token"]').attr('content'),
+        'ox_id':ox_id,
+    }, function(data){
+        $("#getMeatList").html(data);
+        toastr.success('成果的に削除されました。');
+        getMeatList();
+    });
+}

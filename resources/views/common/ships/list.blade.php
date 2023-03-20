@@ -1,16 +1,16 @@
 <table id="" class="table table-bordered table-striped" style="min-width: 1000px; width: 100%; overflow-x: scroll;">
     <thead class="bg-light">
         <tr style="postion: sticky; top: 0;">
-            <th>番号</th>
-            <th>個体識別番号</th>
-            <th>和牛登録名</th>
-            <th>生年月日</th>
-            <th>性別</th>
-            <th>牧場</th>
-            <th>運送会社</th>
-            <th>行き先</th>
-            <th>編集</th>
-            <th>削除</th>
+            <th class="text-center">番号</th>
+            <th class="text-center">個体識別番号</th>
+            <th class="text-center">和牛登録名</th>
+            <th class="text-center">生年月日</th>
+            <th class="text-center">性別</th>
+            <th class="text-center">牧場</th>
+            <th class="text-center">運送会社</th>
+            <th class="text-center">行き先</th>
+            <th class="text-center">編集</th>
+            <th class="text-center">削除</th>
         </tr>
     </thead>
     <tbody>
@@ -25,28 +25,28 @@
                 $rowCnt ++;
             @endphp
             <tr>
-                <td>
+                <td class="text-center">
                     <span class="">{{ $no ++ }}</span>
                 </td>
-                <td>
+                <td class="text-center">
                     <span class="">{{$ship->registerNumber}}</span>
                 </td>
-                <td>
+                <td class="text-center">
                     <span class="">{{$ship->name}}</span>
                 </td>
-                <td>
+                <td class="text-center">
                     <span class="">{{$ship->birthday}}</span>
                 </td>
-                <td>
+                <td class="text-center">
                     <span class="ml-2 break-all text-gray-600">@if($ship->sex==1) 雄 @else 雌 @endif</span>
                 </td>
-                <td>
+                <td class="text-center">
                     <span class="">{{$ship->pastoral->name}}</span>
                 </td>
-                <td>
+                <td class="text-center">
                     <span class="">{{$ship->slaughterTransportCompany->name}}</span>
                 </td>
-                <td>
+                <td class="text-center">
                     <span class="">{{$ship->slaughterHouse->name}}</span>
                 </td>
                 <td class="text-center">

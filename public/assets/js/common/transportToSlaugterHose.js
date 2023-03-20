@@ -40,7 +40,7 @@ function register(pageNumber,ox_id) {
      var transportState = $('#transportState').val();
      var acceptedDateSlaughterHouse = $('#acceptedDateSlaughterHouse'+ox_id).val();
      if(acceptedDateSlaughterHouse == ""){
-        toastr.warning('アクセス権はありません。');
+        toastr.warning('受付日が選択されていません。');
         return ;
      }
     $.get('/common/getExportTransportCompanyList', {
@@ -61,5 +61,19 @@ function register(pageNumber,ox_id) {
             return;
         }
         $("#exportTransportCompanyList").html(data);
+    });
+}
+function cancel(ox_id) {
+    $.post('/common/transportToSlaughterCancel', {
+        '_token': $('meta[name="csrf-token"]').attr('content'),
+        'acceptedDateSlaughterHouse':"1900-01-01",
+        'ox_id':ox_id,
+    }, function(data){   
+        if(data == "CannotDelete"){
+            toastr.warning('すでに牛が屠殺されているのでキャンセルできません。');
+        } else{
+            toastr.success('正常にキャンセルされました。');
+            getExportTransportCompanyList();
+        }
     });
 }

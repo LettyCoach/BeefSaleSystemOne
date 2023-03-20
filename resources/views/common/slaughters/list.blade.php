@@ -30,8 +30,12 @@
         <tr class="align-middle">
             <td class="text-center">{{$no++}}</span></td>
             <td class="text-center"><span class="text-gray-800 break-all">
-                    <span class="@if($ox->slaughterFinishedDate != NULL) text-success @endif">@if($ox->slaughterFinishedDate != NULL) 完了 @else 未 @endif</span>
-                </span></td>
+                @if($ox->slaughterFinishedDate != NULL)
+                    <small style="padding: 5px" class="rounded text-white bg-success"> 完了 </small>
+                    @else
+                    <small style="padding: 5px" class="rounded text-white bg-danger"> 未 </small>
+                    @endif
+            </td>
             <td class="text-center"><span class="text-gray-800 break-all"><input type="text" class="form-control" value="{{$ox->acceptedWeight}}"
                             size="8" id="acceptedWeight{{$ox->id}}" @if($ox->slaughterFinishedDate != NULL) disabled @else @endif></span></td>
             <td class="text-center"><span class="text-gray-800 break-all"><input type="text" class="form-control" value="{{$ox->acceptedLevel}}"
@@ -55,7 +59,7 @@
             </td>
             <td class="text-center"><a href="javascript:;register(undefined, {{$ox->id}})"><i class="fa fa-plus" aria-hidden="true"></i></a>
             </td>
-            <td class="text-center"><a href="javascript:;cancel(undefined, {{$ox->id}})"><i class="fa fa-trash" aria-hidden="true"></i></a>
+            <td class="text-center"><a href="javascript:;cancel({{$ox->id}})"><i class="fa fa-times" aria-hidden="true"></i></a>
             </td>
 
         </tr>

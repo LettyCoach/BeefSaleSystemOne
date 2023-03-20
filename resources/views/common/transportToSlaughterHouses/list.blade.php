@@ -14,6 +14,7 @@
             <th class="text-center">屠殺場</th>
             <th class="text-center" style="width:13%;">登録日</th>
             <th class="text-center">登録</th>
+            <th class="text-center">削除</th>
         </tr>
     </thead>
     <tbody>
@@ -29,7 +30,11 @@
         <tr class="align-middle">
         <td class="text-center"><span class="">{{$no++}}</span></td>
                 <td class="text-xs text-center">
-                    <span class="@if($ox->acceptedDateSlaughterHouse != NULL) text-success @endif">@if($ox->acceptedDateSlaughterHouse != NULL) 完了 @else 未 @endif</span>
+                    @if($ox->acceptedDateSlaughterHouse != NULL)
+                    <small style="padding: 5px" class="rounded text-white bg-success"> 完了 </small>
+                    @else
+                    <small style="padding: 5px" class="rounded text-white bg-danger"> 未 </small>
+                    @endif
                 </td>
                 <td class="text-center"><span class="">{{$ox->registerNumber}}</span></td>
                 <td class="text-center"><span class="">{{$ox->name}}</span></td>
@@ -44,7 +49,9 @@
                     value="{{$ox->acceptedDateSlaughterHouse}}" @if($ox->acceptedDateSlaughterHouse != NULL) disabled @endif>
                 </td>
 
-                <td class="text-center"><a href="javascript:;register(undefined, {{$ox->id}})"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                <td class="text-center"><a href="javascript:;register(1, {{$ox->id}})"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                </td>
+                <td class="text-center"><a href="javascript:;cancel({{$ox->id}})"><i class="fa fa-times" aria-hidden="true"></i></a>
                 </td>
         </tr>
         @endforeach

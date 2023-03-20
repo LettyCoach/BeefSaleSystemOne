@@ -1,7 +1,8 @@
 $(document).ready(function () {
     getPurchaseList();
     var today = getTodayDate();
-    document.getElementById("inline-birthday").setAttribute('max', today);
+    document.getElementById("startDate").setAttribute('max', today);
+    document.getElementById("endDate").setAttribute('max', today);
 });
 function getTodayDate() {
     var today = new Date();

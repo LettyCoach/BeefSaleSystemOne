@@ -84,12 +84,15 @@ Route::get('/common/shipDestroy',                       [ShipController::class, 
 Route::resource('/common/transportToSlaughterHouses',TransportToSlaughterHouseController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:transport']);
 Route::get('/common/getExportTransportCompanyList',[TransportToSlaughterHouseController::class,'getExportTransportCompanyList'])->middleware(['auth','verified']);
 Route::post('/common/transportToSlaughterHouses',[TransportToSlaughterHouseController::class,'list'])->name('transportToSlaughterHouses.list')->middleware(['auth','verified']);
+Route::post('/common/transportToSlaughterCancel',[TransportToSlaughterHouseController::class,'cancel'])->middleware(['auth','verified']);
 
 Route::resource('/common/slaughters',SlaughterController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:slaughter']);
 Route::get('/common/slaughterList',[SlaughterController::class,'slaughterList'])->middleware(['auth','verified']);
+Route::post('/common/slaughterCancel',[SlaughterController::class,'cancel'])->middleware(['auth','verified']);
 
 Route::resource('/common/meats',MeatController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:meat']);
 Route::get('/common/getMeatList',[MeatController::class,'getMeatList'])->middleware(['auth','verified']);
+Route::post('/common/meatCancel',[MeatController::class,'meatCancel'])->middleware(['auth','verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -2,18 +2,18 @@
     <table id="" class="table table-bordered table-striped" style="min-width: 1000px; width: 100%; overflow-x: scroll;">
         <thead class="bg-light">
             <tr>
-                <th>番号</th>
-                <th>個体識別番号</th>
-                <th>和牛登録名</th>
-                <th>生年月日</th>
-                <th>性別</th>
-                <th>購入場所</th>
-                <th>運送会社</th>
-                <th>行き先</th>
-                <th>積み込み状態</th>
-                <th>積み込み日</th>
-                <th style="width: 5%;">記載</th>
-                <th style="width: 5%;">詳細</th>
+                <th class="text-center">番号</th>
+                <th class="text-center">個体識別番号</th>
+                <th class="text-center">和牛登録名</th>
+                <th class="text-center">生年月日</th>
+                <th class="text-center">性別</th>
+                <th class="text-center">購入場所</th>
+                <th class="text-center">運送会社</th>
+                <th class="text-center">行き先</th>
+                <th class="text-center">積み込み状態</th>
+                <th class="text-center">積み込み日</th>
+                <th class="text-center" style="width: 5%;">記載</th>
+                <th class="text-center" style="width: 5%;">詳細</th>
             </tr>
         </thead>
         <tbody>
@@ -28,34 +28,38 @@
                     $rowCnt ++;
                 @endphp
                 <tr>
-                    <td>
+                    <td class="text-center">
                         <span class="">{{ $no ++ }}</span>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <span class="">{{ $purchaseTransport->registerNumber }}</span>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <span class="">{{ $purchaseTransport->name }}</span>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <span class="">{{ $purchaseTransport->birthday }}</span>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <span class="ml-2 break-all text-gray-600">@if( $purchaseTransport->sex == 1 ) 雄 @else 雌 @endif</span>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <span class="" id = "marketName_{{ $purchaseTransport->id }}">{{ $purchaseTransport->market->name }}</span>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <span class="" id = "transportCompanyName_{{ $purchaseTransport->id }}">{{ $purchaseTransport->purchaseTransportCompany->name }}</span>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <span class="" id = "pastoralName_{{ $purchaseTransport->id }}">{{ $purchaseTransport->pastoral->name }}</span>
                     </td>
-                    <td>
-                        <span class="">@if($purchaseTransport->loadDate == null) 未 @else 完了 @endif</span>
+                    <td class="text-center">
+                        @if($purchaseTransport->loadDate == null)
+                        <small style="padding: 5px" class="rounded text-white bg-danger"> 未 </small>
+                        @else
+                        <small style="padding: 5px" class="rounded text-white bg-success"> 完了 </small>
+                        @endif
                     </td>
-                    <td>
+                    <td class="text-center">
                         <span class="ml-2 break-all text-gray-600">@if($purchaseTransport->loadDate == null) なし @else {{ $purchaseTransport->loadDate }} @endif</span>
                     </td>
                     @if($purchaseTransport->loadDate == null)
@@ -262,19 +266,19 @@
 @else
     <table id="" class="table table-bordered" style="min-width: 1000px; width: 100%; overflow-x: scroll;">
         <thead class="bg-light">
-            <tr style="postion: sticky; top: 0;">
-                <th>番号</th>
-                <th>個体識別番号</th>
-                <th>和牛登録名</th>
-                <th>生年月日</th>
-                <th>性別</th>
-                <th>購入場所</th>
-                <th>運送会社</th>
-                <th>行き先</th>
-                <th>積み下ろし状態</th>
-                <th>積み下ろし日</th>
-                <th style="width: 5%;">記載</th>
-                <th style="width: 5%;">詳細</th>
+            <tr>
+                <th class="text-center">番号</th>
+                <th class="text-center">個体識別番号</th>
+                <th class="text-center">和牛登録名</th>
+                <th class="text-center">生年月日</th>
+                <th class="text-center">性別</th>
+                <th class="text-center">購入場所</th>
+                <th class="text-center">運送会社</th>
+                <th class="text-center">行き先</th>
+                <th class="text-center">積み下ろし状態</th>
+                <th class="text-center">積み下ろし日</th>
+                <th class="text-center" style="width: 5%;">記載</th>
+                <th class="text-center" style="width: 5%;">詳細</th>
             </tr>
         </thead>
         <tbody>
@@ -289,34 +293,38 @@
                     $rowCnt ++;
                 @endphp
                 <tr>
-                    <td>
+                    <td class="text-center">
                         <span class="">{{ $no ++ }}</span>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <span class="">{{ $purchaseTransport->registerNumber}}</span>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <span class="">{{ $purchaseTransport->name}}</span>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <span class="">{{ $purchaseTransport->birthday}}</span>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <span class="ml-2 break-all text-gray-600">@if( $purchaseTransport->sex==1) 雄 @else 雌 @endif</span>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <span class="" id = "marketName_{{ $purchaseTransport->id }}">{{ $purchaseTransport->market->name }}</span>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <span class="" id = "transportCompanyName_{{ $purchaseTransport->id }}">{{ $purchaseTransport->purchaseTransportCompany->name }}</span>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <span class="" id = "pastoralName_{{ $purchaseTransport->id }}">{{ $purchaseTransport->pastoral->name }}</span>
                     </td>
-                    <td>
-                        <span class="">@if($purchaseTransport->unloadDate == null) 未 @else 完了 @endif</span>
+                    <td class="text-center">
+                        @if($purchaseTransport->unloadDate == null)
+                        <small style="padding: 5px" class="rounded text-white bg-danger"> 未 </small>
+                        @else
+                        <small style="padding: 5px" class="rounded text-white bg-success"> 完了 </small>
+                        @endif
                     </td>
-                    <td>
+                    <td class="text-center">
                         <span class="ml-2 break-all text-gray-600">@if($purchaseTransport->unloadDate == null) なし @else {{ $purchaseTransport->loadDate }} @endif</span>
                     </td>
                     @if($purchaseTransport->unloadDate == null)

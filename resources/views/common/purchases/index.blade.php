@@ -3,30 +3,7 @@
 
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <div class="mx-auto p-4 pt-5 mt-5">
-    <h2 class="text-center mt-5 mb-4 fw-bold">仕入リスト</h2>
-    
-    @if($message = Session::get('updateSuccess'))
-    <div class="alert alert-success alert-dismissible container mx-auto">
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        <strong>{{$message}}</strong>
-    </div>
-    @endif @if($message = Session::get('registerSuccess'))
-    <div class="alert alert-success alert-dismissible container mx-auto">
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        <strong>{{$message}}</strong>
-    </div>
-    @endif @if($message = Session::get('deleteSuccess'))
-    <div class="alert alert-success alert-dismissible container mx-auto">
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        <strong>{{$message}}</strong>
-    </div>
-    @endif @if($message = Session::get('deleteError'))
-    <div class="alert alert-warning alert-dismissible container mx-auto">
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        <strong>{{$message}}</strong>
-    </div>
-    @endif
-    
+    <h2 class="text-center mt-5 mb-4 fw-bold">仕入リスト</h2>    
     <div class="container panel panel-primary mx-auto" style="min-height: 500px; overflow-y: auto">
         <div class="d-flex justify-content-between items-center mb-2">
             
@@ -103,6 +80,7 @@
         </div>
     </div>
 </div>
+<!-- Toastr -->
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="{{asset('assets/js/common/purchase.js')}}"></script>
@@ -127,11 +105,29 @@
     })
 </script>
 @if (session('status'))
-<!-- Toastr -->
+
 <script>
     $(document).ready(function(){
         toastr.warning('アクセス権はありません。');
     })
 </script>
 @endif
+
+@if($message = Session::get('updateSuccess'))
+    <script>
+        toastr.success("{{$message}}");
+    </script>
+    @endif @if($message = Session::get('registerSuccess'))
+    <script>
+        toastr.success("{{$message}}");
+    </script>
+    @endif @if($message = Session::get('deleteSuccess'))
+    <script>
+        toastr.success("{{$message}}");
+    </script>
+    @endif @if($message = Session::get('deleteError'))
+    <script>
+        toastr.warning("{{$message}}");
+    </script>
+    @endif
 @endsection

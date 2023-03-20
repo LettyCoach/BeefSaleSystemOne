@@ -25,19 +25,23 @@
         @endphp
         <tr>
             <td class="text-center">
-                <span class="text-gray-800 break-all">{{$no++}}</span>
+                <span>{{$no++}}</span>
             </td>
             <td class="text-center">
-            <span class="@if($ox->meats()->count()>0) text-success @endif">@if($ox->meats()->count()>0) 完了 @else 未 @endif</span>
+                @if($ox->meats()->count()>0)
+                <small style="padding: 5px" class="rounded text-white bg-success"> 完了 </small>
+                @else
+                <small style="padding: 5px" class="rounded text-white bg-danger"> 未 </small>
+                @endif
             </td>
             <td class="text-center">
-                <span class="text-gray-800 break-all">{{$ox->registerNumber}}</span>
+                <span>{{$ox->registerNumber}}</span>
             </td>
             <td class="text-center">
-                <span class="text-gray-800 break-all">{{$ox->name}}</span>
+                <span>{{$ox->name}}</span>
             </td>
             <td class="text-center">
-                <span class="text-gray-800 break-all">{{$ox->birthday}}</span>
+                <span>{{$ox->birthday}}</span>
             </td>
             <td class="text-center">
                 <span class="ml-2 break-all text-gray-600">@if($ox->sex==1) 雄 @else 雌
@@ -45,32 +49,15 @@
             </td>
             <td class="text-center">
                 <a href="javascript:;openMeatModal({{ $ox->id }})"><i
-                        class="p-2 fa fa-plus" aria-hidden="true"></i></a>
+                        class="fa fa-plus" aria-hidden="true"></i></a>
             </td>
             <td class="text-center">
-                <a href="{{route('meats.show', $ox->id)}}"><i class="p-2 fa fa-info text-green-700"
+                <a href="{{route('meats.show', $ox->id)}}"><i class="fa fa-info text-green-700"
                         aria-hidden="true"></i></a>
             </td>
             <td class="text-center">
-                <form method="POST" id="deleteForm{{$ox->id}}"
-                    action="{{route('meats.destroy',$ox->id)}}" class="inline-block" role="button">
-                    @csrf
-                    @method('delete')
-                    <a onclick="deleteFunction({{$ox->id}})"><i
-                            class="p-2 fas fa-trash"></i></a>
-
-                    <script>
-                    function deleteFunction(id) {
-                        let text = "本当に削除しますか?";
-                        if (confirm(text) == true) {
-                            event.preventDefault();
-                            document.getElementById('deleteForm' + id).submit();
-                        } else
-                            event.preventDefault();
-                    }
-                    </script>
-                </form>
-
+                <a href="javascript:;showConfirmModal({{$ox->id}});"><i class="fa fa-trash text-green-700"
+                        aria-hidden="true"></i></a>
             </td>
         </tr>
         @endforeach
