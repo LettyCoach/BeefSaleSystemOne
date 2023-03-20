@@ -107,6 +107,28 @@ class SlaughterController extends Controller
         ]);
     }
 
+
+    public function cancel(Request $request){
+      
+        $acceptedWeight = $request->acceptedWeight;
+        $acceptedLevel = $request->acceptedLevel;
+        $slaughterFinishedDate = $request->slaughterFinishedDate;
+        $ox_id = $request->ox_id;
+        if($acceptedWeight !=NULL && $acceptedLevel !=NULL && $slaughterFinishedDate =="1900-01-01"){
+            if(Ox::find($ox_id)->finishedState != null){
+                return "CannotDelete";
+            }else{
+                Ox::where('id',$ox_id)->update([
+                    'acceptedWeight'=>NULL,
+                    'acceptedLevel'=>NULL,
+                    'slaughterFinishedDate'=>NULL,
+                ]);
+                return "ok";
+            }
+                
+        }
+    }
+
     public function show(string $id)
     {
         //

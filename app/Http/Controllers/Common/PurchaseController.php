@@ -173,6 +173,7 @@ class PurchaseController extends Controller
         $oxen = $OxModel->limit($pageSize)
                 ->offset(($pageNumber - 1) * $pageSize)
                 ->orderBy('purchaseDate', 'desc')
+                ->orderBy('created_at','desc')
                 ->get();
         
         if(($totalCnt % $pageSize) == 0) {

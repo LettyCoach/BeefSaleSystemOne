@@ -25,7 +25,6 @@ function slaughterList(pageNumber) {
 }
 
 function register(pageNumber,ox_id) {
-    alert('register')
     if(pageNumber == undefined) {
         pageNumber = 1;
     }   
@@ -59,37 +58,21 @@ function register(pageNumber,ox_id) {
     });
 }
 
-function cancel(pageNumber,ox_id) {
-    if(pageNumber == undefined) {
-        pageNumber = 1;
-    }   
-    var pageSize = $('#pageSize').val();
-     var SlaughterHouse = $('#SlaughterHouse').val();
+function cancel(ox_id) {
      var acceptedWeight = $('#acceptedWeight'+ox_id).val();
      var acceptedLevel = $('#acceptedLevel'+ox_id).val();
-     var slaughterState = $('#slaughterState').val();
-     var slaughterFinishedDate = $('#slaughterFinishedDate'+ox_id).val();
-     if(slaughterFinishedDate == ""){
-        toastr.warning('アクセス権はありません。');
-        return ;
-     }
-     
-    $.get('/common/slaughterList', {
-        'pageNumber': pageNumber,
-        'pageSize': pageSize,
-        'SlaughterHouse':SlaughterHouse,
+    $.post('/common/slaughterCancel', {
+        '_token': $('meta[name="csrf-token"]').attr('content'),
         'acceptedWeight':acceptedWeight,
         'acceptedLevel':acceptedLevel, 
         'slaughterFinishedDate':"1900-01-01",
         'ox_id':ox_id,
-        'slaughterState':slaughterState,
     }, function(data){
-        if(data == "DateError"){
-            toastr.warning('アクセス権はありません。');
-            var str = "<tr><td colspan='11'></td></tr>";
-            $("#slaughterList").html(str);
-            return;
+        if(data == "CannotDelete"){
+            toastr.warning('すでに牛が屠殺されているのでキャンセルできません。');
+        } else{
+            toastr.success('正常にキャンセルされました。');
+            slaughterList();
         }
-        $("#slaughterList").html(data);
     });
 }

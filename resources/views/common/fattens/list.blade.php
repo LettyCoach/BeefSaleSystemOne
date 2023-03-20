@@ -1,13 +1,13 @@
 <table id="" class="table table-bordered table-striped" style="min-width: 1000px; width: 100%; overflow-x: scroll;">
     <thead class="bg-light">
         <tr style="postion: sticky; top: 0;">
-            <th>番号</th>
-            <th>個体識別番号</th>
-            <th>和牛登録名</th>
-            <th>生年月日</th>
-            <th>性別</th>
-            <th style="width: 5%;">記載</th>
-            <th style="width: 5%;">詳細</th>
+            <th class="text-center">番号</th>
+            <th class="text-center">個体識別番号</th>
+            <th class="text-center">和牛登録名</th>
+            <th class="text-center">生年月日</th>
+            <th class="text-center">性別</th>
+            <th class="text-center" style="width: 5%;">記載</th>
+            <th class="text-center" style="width: 5%;">詳細</th>
         </tr>
     </thead>
     <tbody>
@@ -22,19 +22,19 @@
                 $rowCnt ++;
             @endphp
             <tr>
-                <td>
+                <td class="text-center">
                     <span class="">{{ $no ++ }}</span>
                 </td>
-                <td>
+                <td class="text-center">
                     <span class="">{{$ox->registerNumber}}</span>
                 </td>
-                <td>
+                <td class="text-center">
                     <span class="">{{$ox->name}}</span>
                 </td>
-                <td>
+                <td class="text-center">
                     <span class="">{{$ox->birthday}}</span>
                 </td>
-                <td>
+                <td class="text-center">
                     <span class="ml-2 break-all text-gray-600">@if($ox->sex==1) 雄 @else 雌 @endif</span>
                 </td>
                 <td class="text-center">

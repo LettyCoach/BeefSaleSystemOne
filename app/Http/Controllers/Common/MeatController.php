@@ -99,7 +99,13 @@ class MeatController extends Controller
         Ox::find($id)->delete();
         return redirect(route('meats.index'));
     }
-
+    public function meatCancel(Request $request)
+    {
+        $ox_id = $request->ox_id;
+        Meat::where('ox_id', $ox_id)->delete();
+        Ox::find($ox_id)->delete();
+        return "ok";
+    }
     public function getMeatList(Request $request){
         $pageNumber = $request->pageNumber;
         $pageSize = $request->pageSize; 

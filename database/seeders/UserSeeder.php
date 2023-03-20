@@ -64,14 +64,23 @@ class UserSeeder extends Seeder
                 'created_at' => date("Y-m-d"),
                 'updated_at' => date("Y-m-d"),
             ]);
-
-            DB::table('parts')->insert([
-                'name' => '部品名' . ($i + 1),
-                'created_at' => date("Y-m-d"),
-                'updated_at' => date("Y-m-d"),
-            ]);
         }
 
+        DB::table('parts')->insert([
+            'name' => '部品1',
+            'created_at' => date("Y-m-d"),
+            'updated_at' => date("Y-m-d"),
+        ]);
+        DB::table('parts')->insert([
+            'name' => '部品2',
+            'created_at' => date("Y-m-d"),
+            'updated_at' => date("Y-m-d"),
+        ]);
+        DB::table('parts')->insert([
+            'name' => '部品3',
+            'created_at' => date("Y-m-d"),
+            'updated_at' => date("Y-m-d"),
+        ]);
         DB::table('roles')->insert([
             'name' => 'admin',
             'showName' => '',

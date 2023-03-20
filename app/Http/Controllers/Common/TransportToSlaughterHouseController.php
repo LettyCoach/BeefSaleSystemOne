@@ -36,7 +36,10 @@ class TransportToSlaughterHouseController extends Controller
         //
         $acceptedDateSlaughterHouse = $request->acceptedDateSlaughterHouse;
         $ox_id = $request->ox_id;
+
+        //register
         Ox::where('id',$ox_id)->update(['acceptedDateSlaughterHouse'=>$acceptedDateSlaughterHouse]);
+        
         //search data
         $transportState =$request->transportState;
         $endDate = $request->endDate;
@@ -89,6 +92,20 @@ class TransportToSlaughterHouseController extends Controller
             'pageSize' => $pageSize,
             'totalCnt' => $totalCnt,
         ]);
+    }
+
+    public function cancel(Request $request){
+        $acceptedDateSlaughterHouse = $request->acceptedDateSlaughterHouse;
+        $ox_id = $request->ox_id;
+        //cancel
+        if($acceptedDateSlaughterHouse == "1900-01-01"){
+            if(Ox::find($ox_id)->slaughterFinishedDate != null) {
+                return "CannotDelete";
+            }else {
+                Ox::where('id',$ox_id)->update(['acceptedDateSlaughterHouse'=>NULL]);
+                return "ok";
+            }
+        }
     }
     /**
      * Show the form for creating a new resource.
