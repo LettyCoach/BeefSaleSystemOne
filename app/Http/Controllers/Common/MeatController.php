@@ -42,11 +42,12 @@ class MeatController extends Controller
         if(Meat::where('ox_id',$request->input('ox_id'))->count()>0)
             return response()->json(['msg'=>'already register']);
         else{
+            $partList = Part::all();
             $count =Meat::all()->count();
-            for($i=1;$i<=5;$i++){
-                $PartIdTemp = 'PartName'.$i;
-                $WeightTemp = 'Weight'.$i;
-                $PriceTemp = 'Price'.$i;
+            foreach($partList as $part){ //how to use 
+                $PartIdTemp = 'PartName'.$part->id;
+                $WeightTemp = 'Weight'.$part->id;
+                $PriceTemp = 'Price'.$part->id;
                 $ox_id = $request->input('ox_id');
                 $part_id = Part::where('name',$request->input($PartIdTemp))->first(['id'])->id;
                 $weight = $request->input($WeightTemp);
@@ -97,6 +98,46 @@ class MeatController extends Controller
         Meat::where('ox_id', $id)->delete();
         Ox::find($id)->delete();
         return redirect(route('meats.index'));
+    }
+
+    public function getMeatList(Request $request){
+        $pageNumber = $request->pageNumber;
+        $pageSize = $request->pageSize; 
+        $meatState = $request->meatState;
+
+        $OxModel = Ox::where('slaughterFinishedDate','<>',NULL);
+        $totalCnt = $OxModel->count();
+
+        if($meatState != NULL){
+            if($meatState ==1){
+                $OxModel = $OxModel::whereNotNull('slaughterFinishedDate');
+            }
+            if($meatState ==0){
+                $OxModel = $OxModel::whereNull('slaughterFinishedDate');
+            }
+        }
+
+        if(($totalCnt % $pageSize) == 0) {
+            $pageCnt = $totalCnt / $pageSize;
+        } else {
+            $pageCnt = $totalCnt / $pageSize;
+            $pageCnt = (int)$pageCnt + 1;
+        }
+        $oxen = $OxModel->limit($pageSize)
+        ->offset(($pageNumber - 1) * $pageSize)
+        // ->orderBy('acceptedDateSlaughterHouse', 'desc')
+        ->get();
+        
+        return view('common/meats.list',[
+            'oxen'=>$oxen,
+            // 'parts'=>Part::all(),
+            // 'partsCount'=>Part::all()->max(),
+            'pageCnt' => $pageCnt, 
+            'pageNumber' => $pageNumber, 
+            'pageSize' => $pageSize,
+            'totalCnt' => $totalCnt,
+        ]);
+        
     }
     
         

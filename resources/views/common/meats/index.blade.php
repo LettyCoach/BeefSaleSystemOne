@@ -1,22 +1,5 @@
 @extends('layouts.commonUser')
 @section('content')
-
-<style>
-table.dataTable thead .sorting:after,
-table.dataTable thead .sorting:before,
-table.dataTable thead .sorting_asc:after,
-table.dataTable thead .sorting_asc:before,
-table.dataTable thead .sorting_asc_disabled:after,
-table.dataTable thead .sorting_asc_disabled:before,
-table.dataTable thead .sorting_desc:after,
-table.dataTable thead .sorting_desc:before,
-table.dataTable thead .sorting_desc_disabled:after,
-table.dataTable thead .sorting_desc_disabled:before {
-    bottom: .5em;
-}
-</style>
-
-<link rel="stylesheet" href="{{ asset('assets/css/components/datatable.css')}}">
 <div class="container mx-auto mt-5 pt-5">
     <h2 class="text-center pt-5 fw-bold">精肉管理（牛の選択と価格の入力)</h2>
 
@@ -39,83 +22,28 @@ table.dataTable thead .sorting_desc_disabled:before {
         <strong>{{$message}}</strong>
     </div>
     @endif
+    <div class="d-flex justify-content-between">
+        <div class="rounded-md  ">
+            <select name="pageSize" class="form-select" id="pageSize" onchange="getMeatList()">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+            </select>
+        </div>
+        <div class="rounded-md ">
+            <select name="meatState" class="form-select" id="meatState" onchange="getMeatList()">
+                <option value="">全て(状態)</option>
+                <option value="0">未</option>
+                <option value="1">完了</option>
+            </select>
+        </div>
+    </div>
+    
     <div class="panel panel-primary my-4" style="min-height: 500px; overflow-y: auto">
         <div class="panel-body">
             <div style="width: 100%; padding-left: -10px;">
-                <div class="table-responsive">
-                    <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0"
-                        style="min-width: 1200px; overflow-x: scroll; width:100%">
-                        <thead>
-                            <tr>
-                                <th class="text-center">番号</th>
-                                <th>state</th>
-                                <th class="text-center">個体識別番号</th>
-                                <th class="text-center">和牛登録名</th>
-                                <th class="text-center">生年月日</th>
-                                <th class="text-center">性別</th>
-                                <th class="text-center">登録</th>
-                                <th class="text-center">詳細</th>
-                                <th class="text-center">削除</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                            $counter = 1;
-                            @endphp
-                            @foreach($oxen as $ox)
-                            <tr>
-                                <td class="text-center">
-                                    <span class="text-gray-800 break-all">{{$counter++}}</span>
-                                </td>
-                                <td class="text-center">
-                                <span class="@if($ox->meats()->count()>0) text-success @endif">@if($ox->meats()->count()>0) 完了 @else 未 @endif</span>
-                                </td>
-                                <td class="text-center">
-                                    <span class="text-gray-800 break-all">{{$ox->registerNumber}}</span>
-                                </td>
-                                <td class="text-center">
-                                    <span class="text-gray-800 break-all">{{$ox->name}}</span>
-                                </td>
-                                <td class="text-center">
-                                    <span class="text-gray-800 break-all">{{$ox->birthday}}</span>
-                                </td>
-                                <td class="text-center">
-                                    <span class="ml-2 break-all text-gray-600">@if($ox->sex==1) 雄 @else 雌
-                                        @endif</span>
-                                </td>
-                                <td class="text-center">
-                                    <a href="javascript:;openMeatModal({{ $ox->id }})"><i
-                                            class="p-2 fa fa-plus" aria-hidden="true"></i></a>
-                                </td>
-                                <td class="text-center">
-                                    <a href="{{route('meats.show', $ox->id)}}"><i class="p-2 fa fa-info text-green-700"
-                                            aria-hidden="true"></i></a>
-                                </td>
-                                <td class="text-center">
-                                    <form method="POST" id="deleteForm{{$ox->id}}"
-                                        action="{{route('meats.destroy',$ox->id)}}" class="inline-block" role="button">
-                                        @csrf
-                                        @method('delete')
-                                        <a onclick="deleteFunction({{$ox->id}})"><i
-                                                class="p-2 fas fa-trash"></i></a>
-
-                                        <script>
-                                        function deleteFunction(id) {
-                                            let text = "本当に削除しますか?";
-                                            if (confirm(text) == true) {
-                                                event.preventDefault();
-                                                document.getElementById('deleteForm' + id).submit();
-                                            } else
-                                                event.preventDefault();
-                                        }
-                                        </script>
-                                    </form>
-
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                <div class="table-responsive" id = "getMeatList">
                 </div>
             </div>
         </div>
@@ -215,13 +143,8 @@ table.dataTable thead .sorting_desc_disabled:before {
         </div>
     </div>
 </div>
-    <script src="{{ asset('assets/js/components/datatable.js') }}"></script>
+   
     <script>
-    $(document).ready(function() {
-        $('#dtBasicExample').DataTable();
-        $('.dataTables_length').addClass('bs-select');
-    });
-
     function openMeatModal(id) {
         var sex;
         $.get("{{route('meats.create')}}", {
@@ -274,7 +197,7 @@ table.dataTable thead .sorting_desc_disabled:before {
     </script>
 </div>
 
-@if (session('status'))
+<script src="{{asset('assets/js/common/meatList.js')}}"></script>
 <!-- Toastr -->
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
@@ -296,9 +219,13 @@ table.dataTable thead .sorting_desc_disabled:before {
                 'showMethod': 'fadeIn',
                 'hideMethod': 'fadeOut',
             }
-            toastr.warning('アクセス権はありません。');
         })
-        
     </script>
+@if (session('status'))
+<script>
+    $(document).ready(function(){
+        toastr.warning('アクセス権はありません。');
+    })
+</script>
 @endif
 @endsection

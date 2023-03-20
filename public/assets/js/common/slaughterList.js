@@ -12,6 +12,7 @@ function slaughterList(pageNumber) {
         'pageNumber': pageNumber,
         'pageSize': pageSize,    
         'slaughterState':slaughterState,
+        'SlaughterHouse':SlaughterHouse,
     }, function(data){
         if(data == "DateError"){
             toastr.warning('アクセス権はありません。');
@@ -37,6 +38,7 @@ function register(pageNumber,ox_id) {
         toastr.warning('アクセス権はありません。');
         return ;
      }
+     alert()
     $.get('/common/slaughterList', {
         'pageNumber': pageNumber,
         'pageSize': pageSize,
@@ -47,7 +49,6 @@ function register(pageNumber,ox_id) {
         'ox_id':ox_id,
         'slaughterState':slaughterState,
     }, function(data){
-        
         if(data == "DateError"){
             toastr.warning('アクセス権はありません。');
             var str = "<tr><td colspan='11'></td></tr>";

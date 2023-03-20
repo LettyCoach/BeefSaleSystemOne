@@ -14,8 +14,8 @@
         <div class="rounded-md ">
             <select name="slaughterState" class="form-select" id="slaughterState" onchange="slaughterList()">
                 <option value="">全て(状態)</option>
-                <option value="0">未</option>
                 <option value="1">完了</option>
+                <option value="0">未</option>
             </select>
         </div>
         <div class="d-flex justify-content-end">
