@@ -1,4 +1,4 @@
-<table id="" class="table table-bordered" style="min-width: 1000px; width: 100%; overflow-x: scroll;">
+<table id="" class="table table-bordered table-striped" style="min-width: 1000px; width: 100%; overflow-x: scroll;">
     <thead class="bg-light">
         <tr style="postion: sticky; top: 0;">
             <th>番号</th>

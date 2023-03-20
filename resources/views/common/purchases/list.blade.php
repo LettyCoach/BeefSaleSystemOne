@@ -1,4 +1,4 @@
-<table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0"  style="min-width: 1000px; overflow-x: scroll; width:100%">
+<table id="" class="table table-bordered table-bordered" cellspacing="0"  style="min-width: 1000px; overflow-x: scroll; width:100%">
     <thead >
         <tr>
             <th class="text-center">番号</th>

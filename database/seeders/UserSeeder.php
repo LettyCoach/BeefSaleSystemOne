@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
 
         for ($i=0; $i < 10; $i++) {
             DB::table('users')->insert([
-                'name' => '一般利用者' . $i,
+                'name' => '一般利用者' . ($i + 1),
                 'email' => Str::random(10).'@gmail.com',
                 'email_verified_at' => date("Y-m-d"),
                 'password' => Hash::make('password'),
@@ -34,39 +34,39 @@ class UserSeeder extends Seeder
             ]);
 
             DB::table('markets')->insert([
-                'name' => '市場名' . $i,
-                'position' => '市場位置' . $i,
-                'note' => 'メモ' . $i,
+                'name' => '市場名' . ($i + 1),
+                'position' => '市場位置' . ($i + 1),
+                'note' => 'メモ' . ($i + 1),
                 'created_at' => date("Y-m-d"),
                 'updated_at' => date("Y-m-d"),
             ]);
 
             DB::table('transport_companies')->insert([
-                'name' => '運送会社名' . $i,
-                'position' => '運送会社位置' . $i,
-                'note' => 'メモ' . $i,
+                'name' => '運送会社名' . ($i + 1),
+                'position' => '運送会社位置' . ($i + 1),
+                'note' => 'メモ' . ($i + 1),
                 'created_at' => date("Y-m-d"),
                 'updated_at' => date("Y-m-d"),
             ]);
 
             DB::table('pastorals')->insert([
-                'name' => '牧場名' . $i,
-                'position' => '牧場位置' . $i,
-                'note' => 'メモ' . $i,
+                'name' => '牧場名' . ($i + 1),
+                'position' => '牧場位置' . ($i + 1),
+                'note' => 'メモ' . ($i + 1),
                 'created_at' => date("Y-m-d"),
                 'updated_at' => date("Y-m-d"),
             ]);
 
             DB::table('slaughter_houses')->insert([
-                'name' => '屠殺場名' . $i,
-                'position' => '屠殺場位置' . $i,
-                'note' => 'メモ' . $i,
+                'name' => '屠殺場名' . ($i + 1),
+                'position' => '屠殺場位置' . ($i + 1),
+                'note' => 'メモ' . ($i + 1),
                 'created_at' => date("Y-m-d"),
                 'updated_at' => date("Y-m-d"),
             ]);
 
             DB::table('parts')->insert([
-                'name' => '部品名' . $i,
+                'name' => '部品名' . ($i + 1),
                 'created_at' => date("Y-m-d"),
                 'updated_at' => date("Y-m-d"),
             ]);

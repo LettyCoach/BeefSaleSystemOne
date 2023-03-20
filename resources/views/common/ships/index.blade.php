@@ -1,45 +1,49 @@
 @extends('layouts.commonUser')
 @section('content')
 
-<link rel="stylesheet" href="{{ asset('assets/css/components/datatable.css')}}">
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
-<style>
-    table.dataTable thead .sorting:after,
-    table.dataTable thead .sorting:before,
-    table.dataTable thead .sorting_asc:after,
-    table.dataTable thead .sorting_asc:before,
-    table.dataTable thead .sorting_asc_disabled:after,
-    table.dataTable thead .sorting_asc_disabled:before,
-    table.dataTable thead .sorting_desc:after,
-    table.dataTable thead .sorting_desc:before,
-    table.dataTable thead .sorting_desc_disabled:after,
-    table.dataTable thead .sorting_desc_disabled:before {
-        bottom: .5em;
-    }
-</style>
-
 
 <div class="mx-auto p-4 pt-5 mt-5">
     <h2 class="text-center mt-5 fw-bold">出荷指示</h2>
     <div class="container panel panel-primary mx-auto">
         <div class="panel-heading">
-            <div class="d-flex justify-content-between items-center mb-2">
+            <div class="d-flex justify-content-between items-center mb-2 mt-4">
                 <div class="rounded-md">
-                    <select name="selectPastoral" class="form-select" id="pastoralId" onchange="getShipList()">
-                        <option value="0">全て(牧場)</option>
+                    <select name="pageSize" class="form-select" id="pageSize" onchange="getShipList()">
+                        <option value="5" selected>5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>    
+                <div class="rounded-md">
+                    <select name="" class="form-select" id="pastoralId" onchange="getShipList()">
+                        <option value="0" selected>全て(牧場)</option>
                         @foreach($Pastorals as $Pastoral)
                         <option value="{{$Pastoral->id}}">{{$Pastoral->name}}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="rounded-md">
-                    <select name="selectPastoral" class="form-select" id="transportCompanyId" onchange="getShipList()">
+                    <select name="" class="form-select" id="transportCompanyId" onchange="getShipList()">
                         <option value="0" selected>全て(運送会社)</option>
                         @foreach($TransportCompanies as $TransportCompany)
                         <option value="{{$TransportCompany->id}}">{{$TransportCompany->name}}</option>
                         @endforeach
                     </select>
+                </div>
+                <div class="rounded-md">
+                    <select name="" class="form-select" id="slaughterHouseId" onchange="getShipList()">
+                        <option value="0" selected>全て(屠殺場)</option>
+                        @foreach($SlaughterHouses as $SlaughterHouse)
+                        <option value="{{$SlaughterHouse->id}}">{{$SlaughterHouse->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="rounded-md d-flex justify-content-center align-items-center">
+                    <input type="date" name="" id="firstDate" class="form-control form-input-disable" onchange="getShipList()" value="{{ $firstDate }}">
+                    <label for="" class="mx-2">~</label>
+                    <input type="date" name="" id="lastDate" class="form-control form-input-disable" onchange="getShipList()" value="{{ $todayDate }}">
                 </div>
                 <button class="rounded btn btn-danger" onclick="showAddShipModal()">
                     <i class="fas fa-plus"></i>&nbsp;
@@ -220,34 +224,38 @@
     </div>
 </div>
 
-@if (session('status'))
 <!-- Toastr -->
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        toastr.options = {
+            'closeButton': true,
+            'debug': false,
+            'newestOnTop': false,
+            'progressBar': true,
+            'positionClass': 'toast-top-right',
+            'preventDuplicates': false,
+            'showDuration': '1000',
+            'hideDuration': '1000',
+            'timeOut': '5000',
+            'extendedTimeOut': '1000',
+            'showEasing': 'swing',
+            'hideEasing': 'linear',
+            'showMethod': 'fadeIn',
+            'hideMethod': 'fadeOut',
+        }
+    });
+</script>
+
+@if (session('status'))
     <script>
         $(document).ready(function(){
-            toastr.options = {
-                'closeButton': true,
-                'debug': false,
-                'newestOnTop': false,
-                'progressBar': true,
-                'positionClass': 'toast-top-right',
-                'preventDuplicates': false,
-                'showDuration': '1000',
-                'hideDuration': '1000',
-                'timeOut': '5000',
-                'extendedTimeOut': '1000',
-                'showEasing': 'swing',
-                'hideEasing': 'linear',
-                'showMethod': 'fadeIn',
-                'hideMethod': 'fadeOut',
-            }
             toastr.warning('アクセス権はありません。');
-        })
-        
+        });
     </script>
 @endif
 
 <script src="{{ asset('assets/js/common/ship.js') }}"></script>
-<script src="{{ asset('assets/js/components/datatable.js') }}"></script>
 @endsection
