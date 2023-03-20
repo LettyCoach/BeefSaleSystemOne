@@ -4,7 +4,7 @@
     <thead>
         <tr>
             <th class="text-center">番号</th>
-            <th>state</th>
+            <th class="text-center">状態</th>
             <th class="text-center">個体識別番号</th>
             <th class="text-center">和牛登録名</th>
             <th class="text-center">生年月日</th>
