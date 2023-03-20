@@ -1,38 +1,6 @@
 <x-app-layout>
-<style>
-        table.dataTable thead .sorting:after,
-        table.dataTable thead .sorting:before,
-        table.dataTable thead .sorting_asc:after,
-        table.dataTable thead .sorting_asc:before,
-        table.dataTable thead .sorting_asc_disabled:after,
-        table.dataTable thead .sorting_asc_disabled:before,
-        table.dataTable thead .sorting_desc:after,
-        table.dataTable thead .sorting_desc:before,
-        table.dataTable thead .sorting_desc_disabled:after,
-        table.dataTable thead .sorting_desc_disabled:before {
-            bottom: .5em;
-        }
-        </style>
-
-        <link rel="stylesheet" href="{{ asset('assets/css/components/datatable.css')}}">
     <div class="container mt-5 pt-5 mb-4">
         <h2 class="text-center fw-bold pt-5">屠殺場リスト</h2>
-        @if($message = Session::get('updateSuccess'))
-        <div class="alert alert-success alert-dismissible container mx-auto">
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            <strong>{{$message}}</strong>
-        </div>
-        @endif @if($message = Session::get('registerSuccess'))
-        <div class="alert alert-success alert-dismissible container mx-auto">
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            <strong>{{$message}}</strong>
-        </div>
-        @endif @if($message = Session::get('deleteSuccess'))
-        <div class="alert alert-success alert-dismissible container mx-autoss">
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            <strong>{{$message}}</strong>
-        </div>
-        @endif
         <div class="m-2 rounded-md d-flex justify-content-end">
             <a href="{{ route('slaughterHouses.create') }}" class="btn btn-primary" style="background-color:#f05656;"><i
                     class="fa fa-plus" aria-hidden="true"></i> 添加</a>
@@ -42,7 +10,7 @@
                 <div style="width: 100%; padding-left: -10px;">
                     <div class="table-responsive">
                         <table id="dtBasicExample" class="table table-striped table-fixed table-bordered table-sm"
-                            cellspacing="0" style="min-width: 1200px; overflow-x: scroll; width:100%">
+                            cellspacing="0" style="min-width: 1000px; overflow-x: scroll; width:100%">
                             <thead>
                                 <tr>
                                     <th class="text-center">No</th>
