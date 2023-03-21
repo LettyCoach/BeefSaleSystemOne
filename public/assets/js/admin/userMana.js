@@ -2,8 +2,22 @@ $(document).ready(function() {
     getUserList();
 });
 
-function getUserList() {
-    $.get('/admin/getUserList', function(data){
+function getUserList(pageNumber) {
+
+    if(pageNumber == undefined) {
+        pageNumber = 1;
+    }
+    
+    var pageSize = $('#pageSize').val();
+    var userName = $('#userName').val();
+    var userEmail = $('#userEmail').val();
+
+    $.get('/admin/getUserList', {
+        'pageSize': pageSize,
+        'pageNumber': pageNumber,
+        'userName': userName,
+        'userEmail': userEmail
+    }, function(data){
         $('#userData').html(data);
     });
 }

@@ -15,8 +15,8 @@ class SlaughterHouseController extends Controller
      */
     public function index(Request $request):View
     {
-        return view('admin/slaughterHouses.index',[
-            'slaughterHouses'=>SlaughterHouse::orderByDesc('created_at')->get(),
+        return view('admin.slaughterHouses.index',[
+            'slaughterHouses' => SlaughterHouse::orderByDesc('created_at')->get(),
         ]);
     }
 
@@ -92,6 +92,44 @@ class SlaughterHouseController extends Controller
        /// $this->authorize('delete',$slaughterHouse);
         $slaughterHouse->delete();
         return redirect(route('slaughterHouses.index'))->with('deleteSuccess',"正確に削除されました。");
+    }
+
+    public function getSlaughterHousesList(Request $request) {
+        $pageNumber = $request->pageNumber;
+        $pageSize = $request->pageSize;
+        $slaughterHouseName = $request->slaughterHouseName;
+        $slaughterHousePosition = $request->slaughterHousePosition;
+
+        $slaughterHousesLists = SlaughterHouse::whereNotNull('created_at');
+        $totalCnt = $slaughterHousesLists->count();
+
+        if($slaughterHouseName != "") {
+            $slaughterHousesLists = $slaughterHousesLists->where('name', 'like', '%' . $slaughterHouseName . '%');
+            $totalCnt = $slaughterHousesLists->count();
+        }
+
+        if($slaughterHousePosition != "") {
+            $slaughterHousesLists = $slaughterHousesLists->where('position', 'like', '%' . $slaughterHousePosition . '%');
+            $totalCnt = $slaughterHousesLists->count();
+        }
+
+        if(($totalCnt % $pageSize) == 0) {
+            $pageCnt = $totalCnt / $pageSize;
+        } else {
+            $pageCnt = $totalCnt / $pageSize;
+            $pageCnt = (int)$pageCnt + 1;
+        }
+
+        $slaughterHousesLists = $slaughterHousesLists->limit($pageSize)
+            ->offset(($pageNumber - 1) * $pageSize)
+            ->get();
+
+        return view('admin.slaughterHouses.list')
+            ->with('slaughterHousesLists', $slaughterHousesLists)
+            ->with('pageCnt', $pageCnt)
+            ->with('pageNumber', $pageNumber)
+            ->with('pageSize', $pageSize)
+            ->with('totalCnt', $totalCnt);
     }
     
 }
