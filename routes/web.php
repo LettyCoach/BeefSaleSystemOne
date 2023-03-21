@@ -44,13 +44,16 @@ Route::resource('/admin/markets',                       MarketController::class)
 Route::get('/admin/getMarketsList',                     [MarketController::class, 'getMarketsList'])->middleware(['auth','verified']);
 
 Route::resource('/admin/pastorals',                     PastoralController::class)->only(['index','store','create','edit','update','destroy'])->middleware(['auth','verified']);
+Route::get('/admin/getPastoralsList',                   [PastoralController::class,'getPastoralsList'])->middleware(['auth','verified']);
 
 Route::resource('/admin/transportCompanies',            TransportCompanyController::class)->only(['index','store','create','edit','update','destroy'])->middleware(['auth','verified']);
+Route::get('/admin/getTransportCompaniesList',          [TransportCompanyController::class,'getTransportCompaniesList'])->middleware(['auth','verified']);
 
 Route::resource('/admin/slaughterHouses',               SlaughterHouseController::class)->only(['index','store','create','edit','update','destroy'])->middleware(['auth','verified']);
 Route::get('/admin/getSlaughterHousesList',             [SlaughterHouseController::class, 'getSlaughterHousesList'])->middleware(['auth','verified']);
 
 Route::resource('/admin/parts',                         PartController::class)->only(['index','store','create','edit','update','destroy'])->middleware(['auth','verified']);
+Route::get('/admin/getPartsList',                       [PartController::class,'getPartsList'])->middleware(['auth','verified']);
 
 Route::resource('/admin/users',                         UserController::class)->only(['index','store','create','edit','update'])->middleware(['auth','verified']);
 Route::get('/admin/users/getUserById',                  [UserController::class, 'getUserById'])->middleware(['auth','verified']);

@@ -28,6 +28,45 @@ class PastoralController extends Controller
             'pastoral'=>$pastoral,
         ]);
     }
+    public function getPastoralsList(Request $request){
+        $pageNumber = $request->pageNumber;
+        $pageSize = $request->pageSize;
+        
+        //Search
+        $pastoralName = $request->pastoralName;
+        $pastoralPosition = $request->pastoralPosition;
+
+        $pastoralModel = Pastoral::whereNotNull('created_at');
+        $totalCnt = $pastoralModel->count();
+
+        if($pastoralName != NULL){
+            $pastoralModel = $pastoralModel->where('name','like','%' . $pastoralName . '%');
+            $totalCnt = $pastoralModel->count();
+        }
+        if($pastoralPosition != NULL){
+            $pastoralModel = $pastoralModel->where('name','like','%' . $pastoralPosition . '%');
+            $totalCnt = $pastoralModel->count();
+        }
+
+        if(($totalCnt % $pageSize) == 0) {
+            $pageCnt = $totalCnt / $pageSize;
+        } else {
+            $pageCnt = $totalCnt / $pageSize;
+            $pageCnt = (int)$pageCnt + 1;
+        }
+
+        $pastorals = $pastoralModel->limit($pageSize)
+            ->offset(($pageNumber - 1) * $pageSize)
+            ->orderBy('created_at','desc')
+            ->get();
+        return view('admin/pastorals.list',[
+            'pastorals'=>$pastorals,
+            'pageCnt' => $pageCnt, 
+            'pageNumber' => $pageNumber, 
+            'pageSize' => $pageSize,
+            'totalCnt' => $totalCnt
+        ]);
+    }
 
     /**
      * Store a newly created resource in storage.

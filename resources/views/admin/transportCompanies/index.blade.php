@@ -1,100 +1,31 @@
 <x-app-layout>
-<style>
-        table.dataTable thead .sorting:after,
-        table.dataTable thead .sorting:before,
-        table.dataTable thead .sorting_asc:after,
-        table.dataTable thead .sorting_asc:before,
-        table.dataTable thead .sorting_asc_disabled:after,
-        table.dataTable thead .sorting_asc_disabled:before,
-        table.dataTable thead .sorting_desc:after,
-        table.dataTable thead .sorting_desc:before,
-        table.dataTable thead .sorting_desc_disabled:after,
-        table.dataTable thead .sorting_desc_disabled:before {
-            bottom: .5em;
-        }
-        </style>
-         <link rel="stylesheet" href="{{ asset('assets/css/components/datatable.css')}}">
     <div class="container mt-5 pt-5 mb-4">
         <h2 class="text-center mt-5 fw-bold">運送会社リスト</h2>
-        @if($message = Session::get('updateSuccess'))
-        <div class="alert alert-success alert-dismissible container mx-auto">
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            <strong>{{$message}}</strong>
-        </div>
-        @endif @if($message = Session::get('registerSuccess'))
-        <div class="alert alert-success alert-dismissible container mx-auto">
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            <strong>{{$message}}</strong>
-        </div>
-        @endif @if($message = Session::get('deleteSuccess'))
-        <div class="alert alert-success alert-dismissible container mx-autoss">
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            <strong>{{$message}}</strong>
-        </div>
-        @endif
-        <div class="m-2 rounded-md d-flex justify-content-end">
-            <a href="{{ route('transportCompanies.create') }}" class="btn btn-primary" style="background-color:#f05656;"><i
-                    class="fa fa-plus" aria-hidden="true"></i> 添加</a>
-        </div>
         <div class="panel panel-primary container mx-auto"  style="min-height: 500px; overflow-y: auto">
             <div class="panel-body">
                 <div style="width: 100%; padding-left: -10px;">
-                    <div class="table-responsive">
-                        <table id="dtBasicExample" class="table table-striped table-fixed table-bordered table-sm"
-                            cellspacing="0" style="min-width: 1200px; overflow-x: scroll; width:100%">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">No</th>
-                                    <th class="text-center">名前</th>
-                                    <th class="text-center">場所</th>
-                                    <th class="text-center">メモ</th>
-                                    <th class="text-center">時間</th>
-                                    <th class="text-center">編集</th>
-                                    <th class="text-center">削除</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                $counter = 1;
-                                @endphp
-                                @foreach ($transportCompanies as $transportCompany)
-                                <tr>
-                                    <td class="text-center">
-                                        <span class="text-gray-800 break-all">{{ $counter++;}}</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <span class="text-gray-800 break-all">{{ $transportCompany->name }}</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <span class="text-gray-800 break-all">{{ $transportCompany->position }}</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <span class="text-gray-800 break-all">{{ $transportCompany->note }}</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <small
-                                            class="ml-2 break-all text-gray-600">{{ $transportCompany->created_at->format('j M Y, g:i a') }}</small>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="{{route('transportCompanies.edit', $transportCompany)}}" class="p-2"><i
-                                                class="fa fa-edit"></i></a>
-                                    </td>
-                                    <td class="text-center">
-                                        <form method="POST" id="deleteForm{{$transportCompany->id}}"
-                                            action="{{ route('transportCompanies.destroy', $transportCompany) }}"
-                                            class="inline-block ">
-                                            @csrf
-                                            @method('delete')
-                                            <a href="javascript:;showConfirmModal({{$transportCompany->id}})">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </form>
-                                    </td>
-
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                    <div class="rounded-md d-flex justify-content-between mb-2 mt-2">
+                        <div class="rounded-md">
+                            <select name="pageSize" class="form-select" id="pageSize" onchange="getTransportCompaniesList()">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                            </select>
+                        </div>
+                        <div class="rounded-md">
+                            <input type="text" class = "form-control" onkeyup="getTransportCompaniesList()" placeholder="運送会社を入力してください" id="transportCompanyName">
+                        </div>
+                        <div class="rounded-md">
+                            <input type="text" class = "form-control" onkeyup="getTransportCompaniesList()" placeholder="運送会社の場所を入力してください" id="transportCompanyPosition">
+                        </div>
+                        <div class="rounded-md">
+                            <a href="{{ route('transportCompanies.create') }}" class="btn btn-primary" style="background-color:#f05656;"><i
+                                class="fa fa-plus" aria-hidden="true"></i> 添加</a>
+                        </div>
+                    </div>
+                    <div class="table-responsive" id = "transportCompaniesList">
+                       
                     </div>
                 </div>
             </div>
@@ -120,24 +51,48 @@
                 </div>
             </div>
         </div>
-
-        <script src="{{ asset('assets/js/components/datatable.js') }}"></script>
+        <script src="{{asset('assets/js/admin/transportCompanyMana.js')}}"></script>
+        <!-- Toastr -->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
         <script>
-        $(document).ready(function() {
-            $('#dtBasicExample').DataTable();
-            $('.dataTables_length').addClass('bs-select');
-        });
+            $(document).ready(function(){
+                toastr.options = {
+                    'closeButton': true,
+                    'debug': false,
+                    'newestOnTop': false,
+                    'progressBar': true,
+                    'positionClass': 'toast-top-right',
+                    'preventDuplicates': false,
+                    'showDuration': '1000',
+                    'hideDuration': '1000',
+                    'timeOut': '5000',
+                    'extendedTimeOut': '1000',
+                    'showEasing': 'swing',
+                    'hideEasing': 'linear',
+                    'showMethod': 'fadeIn',
+                    'hideMethod': 'fadeOut',
+                }
+            })
         </script>
-        <script type="text/javascript">
-        function showConfirmModal(id) {
-            $('#confirmModal').modal('show');
-            $('#transportCompany_id').html(id);
-        }
-
-        function trashTransportCompany() {
-            id=$('#transportCompany_id').html();
-            $('#deleteForm'+id).submit();
-            $('#confirmModal').modal('hide');
-        }
-        </script>
+       
+            @if($message = Session::get('updateSuccess'))
+            <script>
+                toastr.success("{{$message}}");
+            </script>
+            @endif @if($message = Session::get('registerSuccess'))
+            <script>
+                toastr.success("{{$message}}");
+            </script>
+            @endif @if($message = Session::get('deleteSuccess'))
+            <script>
+                toastr.success("{{$message}}");
+            </script>
+            @endif @if($message = Session::get('deleteError'))
+            <script>
+                toastr.warning("{{$message}}");
+            </script>
+            @endif
 </x-app-layout>
+
+
