@@ -1,4 +1,4 @@
-<table id="dtBasicExample" class="table table-striped table-fixed table-bordered table-sm"
+<table id="dtBasicExample" class="table table-striped table-fixed table-bordered"
     cellspacing="0" style="min-width: 1000px; overflow-x: scroll; width:100%">
     <thead>
         <tr>
@@ -23,20 +23,20 @@
         @endphp
         <tr>
             <td class="text-center">
-                <span class="text-gray-800 break-all">{{ $no++;}}</span>
+                <span>{{ $no++;}}</span>
             </td>
             <td class="text-center">
-                <span class="text-gray-800 break-all">{{ $transportCompany->name }}</span>
+                <span>{{ $transportCompany->name }}</span>
             </td>
             <td class="text-center">
-                <span class="text-gray-800 break-all">{{ $transportCompany->position }}</span>
+                <span>{{ $transportCompany->position }}</span>
             </td>
             <td class="text-center">
-                <span class="text-gray-800 break-all">{{ $transportCompany->note }}</span>
+                <span>{{ $transportCompany->note }}</span>
             </td>
             <td class="text-center">
-                <small
-                    class="ml-2 break-all text-gray-600">{{ $transportCompany->created_at->format('j M Y, g:i a') }}</small>
+                <span
+                    class="ml-2 break-all text-gray-600">{{ $transportCompany->created_at->format('Y-m-d') }}</span>
             </td>
             <td class="text-center">
                 <a href="{{route('transportCompanies.edit', $transportCompany)}}" class="p-2"><i
