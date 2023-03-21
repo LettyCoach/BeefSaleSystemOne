@@ -103,10 +103,42 @@ class UserController extends Controller
         return "OK";
     }
 
-    public function getUserList() {
-        $users = User::where('id', '>', 1)->get();
-        return view('admin/users.list',[
-            "users"=>$users
-        ]);
+    public function getUserList(Request $request) {
+
+        $pageSize = $request->pageSize;
+        $pageNumber = $request->pageNumber;
+        $userName = $request->userName;
+        $userEmail = $request->userEmail;
+
+        $users = User::where('id', '>', 1);
+        $totalCnt = $users->count();
+
+        if($userName != "") {
+            $users = $users->where('name', 'like', '%' . $userName . '%');
+            $totalCnt = $users->count();
+        }
+
+        if($userEmail != "") {
+            $users = $users->where('email', 'like', '%' . $userEmail . '%');
+            $totalCnt = $users->count();
+        }
+
+        if(($totalCnt % $pageSize) == 0) {
+            $pageCnt = $totalCnt / $pageSize;
+        } else {
+            $pageCnt = $totalCnt / $pageSize;
+            $pageCnt = (int)$pageCnt + 1;
+        }
+
+        $users = $users->limit($pageSize)
+            ->offset(($pageNumber - 1) * $pageSize)
+            ->get();
+        
+        return view('admin.users.list')
+            ->with('users', $users)
+            ->with('pageCnt', $pageCnt)
+            ->with('pageNumber', $pageNumber)
+            ->with('pageSize', $pageSize)
+            ->with('totalCnt', $totalCnt);
     }
 }

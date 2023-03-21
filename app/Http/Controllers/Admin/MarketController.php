@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+
+use DB;
+
 class MarketController extends Controller
 {
     /**
@@ -14,7 +17,7 @@ class MarketController extends Controller
     public function index(Request $request):View
     {
         return view('admin/markets.index',[
-            'markets'=>Market::orderByDesc('created_at')->get(),
+            'markets' => Market::orderByDesc('created_at')->get(),
         ]);
     }
 
@@ -92,4 +95,41 @@ class MarketController extends Controller
         return redirect(route('markets.index'))->with('deleteSuccess',"正確に削除されました。");
     }
     
+    public function getMarketsList(Request $request) {
+        $pageNumber = $request->pageNumber;
+        $pageSize = $request->pageSize;
+        $marketName = $request->marketName;
+        $marketPosition = $request->marketPosition;
+
+        $marketsLists = Market::whereNotNull('created_at');
+        $totalCnt = $marketsLists->count();
+
+        if($marketName != "") {
+            $marketsLists = $marketsLists->where('name', 'like', '%' . $marketName . '%');
+            $totalCnt = $marketsLists->count();
+        }
+
+        if($marketPosition != "") {
+            $marketsLists = $marketsLists->where('position', 'like', '%' . $marketPosition . '%');
+            $totalCnt = $marketsLists->count();
+        }
+
+        if(($totalCnt % $pageSize) == 0) {
+            $pageCnt = $totalCnt / $pageSize;
+        } else {
+            $pageCnt = $totalCnt / $pageSize;
+            $pageCnt = (int)$pageCnt + 1;
+        }
+
+        $marketsLists = $marketsLists->limit($pageSize)
+            ->offset(($pageNumber - 1) * $pageSize)
+            ->get();
+
+        return view('admin.markets.list')
+            ->with('marketsLists', $marketsLists)
+            ->with('pageCnt', $pageCnt)
+            ->with('pageNumber', $pageNumber)
+            ->with('pageSize', $pageSize)
+            ->with('totalCnt', $totalCnt);
+    }
 }
