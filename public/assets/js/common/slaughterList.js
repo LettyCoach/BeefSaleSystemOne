@@ -35,7 +35,7 @@ function register(pageNumber,ox_id) {
      var slaughterFinishedDate = $('#slaughterFinishedDate'+ox_id).val();
      var slaughterState = $('#slaughterState').val();
      if(slaughterFinishedDate == ""){
-        toastr.warning('アクセス権はありません。');
+        toastr.warning('資料を入力してください。');
         return ;
      }
     $.get('/common/slaughterList', {

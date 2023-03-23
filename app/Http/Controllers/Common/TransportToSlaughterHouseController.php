@@ -48,7 +48,10 @@ class TransportToSlaughterHouseController extends Controller
         $slaughterHouse_id = $request->slaughterHouse;
 
 
-        $OxModel = Ox::whereNotNull('exportDate');
+        $OxModel = Ox::whereNotNull('purchaseDate')
+                        ->whereNotNull('loadDate')
+                        ->whereNotNull('unloadDate')
+                        ->whereNotNull('exportDate');
         $totalCnt = $OxModel->count();
         
 

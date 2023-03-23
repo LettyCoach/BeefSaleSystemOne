@@ -21,21 +21,21 @@ return new class extends Migration
                 ->nullable()
                 ->constrained()
                 ->onUpdate('cascade')
-                ->onDelete('set null');
+                ->onDelete('cascade');
             $table->date('purchaseDate')->nullable();
             $table->decimal('purchasePrice',11,2)->nullable();
             $table->foreignId('purchaseTransport_Company_id')
                 ->nullable()
                 ->constrained('transport_companies')
                 ->onUpdate('cascade')
-                ->onDelete('set null');
+                ->onDelete('cascade');
             $table->date('loadDate')->nullable();
             $table->date('unloadDate')->nullable();
             $table->foreignId('pastoral_id')
                 ->nullable()    
                 ->constrained()
                 ->onUpdate('cascade')
-                ->onDelete('set null');
+                ->onDelete('cascade');
             $table->date('accessDate')->nullable();
             $table->date('exportDate')->nullable();
             $table->text('appendInfo')->nullable();
@@ -43,12 +43,12 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('transport_companies')
                 ->onUpdate('cascade')
-                ->onDelete('set null');
+                ->onDelete('cascade');
             $table->foreignId('slaughterHouse_id')
                 ->nullable()
                 ->constrained('slaughter_houses')
                 ->onUpdate('cascade')
-                ->onDelete('set null');
+                ->onDelete('cascade');
             $table->date('acceptedDateSlaughterHouse')->nullable();
             $table->date('slaughterFinishedDate')->nullable();
             $table->decimal('acceptedWeight',11,2)->nullable();

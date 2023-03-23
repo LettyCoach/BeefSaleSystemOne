@@ -59,13 +59,13 @@
                     <li class="dropdown">
                         <a href="#"><span>レポート</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                         <ul>
-                            <li><a href="#">仕入レポート</a></li>
-                            <li><a href="#">運送レポート</a></li>
-                            <li><a href="#">肥育レポート</a></li>
-                            <li><a href="#">運送レポート</a></li>
-                            <li><a href="#">出荷レポート</a></li>
-                            <li><a href="#">屠殺レポート</a></li>
-                            <li><a href="#">精肉レポート</a></li>
+                            <li><a href="{{route('purchaseReport.index')}}">仕入レポート</a></li>
+                            <li><a href="{{route('purchaseTransportReport.index')}}">運送レポート</a></li>
+                            <li><a href="{{route('fattenReport.index')}}">肥育レポート</a></li>
+                            <li><a href="{{route('shipReport.index')}}">出荷レポート</a></li>
+                            <li><a href="{{route('transportToSlaughterHouseReport.index')}}">運送レポート</a></li></li>
+                            <li><a href="{{route('slaughterReport.index')}}">屠殺レポート</a></li>
+                            <li><a href="{{route('meatReport.index')}}">精肉レポート</a></li>
                         </ul>
                     </li>
                     @if (Auth::user() && Auth::user()->hasRole('admin'))

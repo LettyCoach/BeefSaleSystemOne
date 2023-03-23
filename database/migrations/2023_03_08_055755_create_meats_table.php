@@ -17,12 +17,12 @@ return new class extends Migration
                 ->nullable()
                 ->constrained()
                 ->onUpdate('cascade')
-                ->onDelete('set null');
+                ->onDelete('cascade');
             $table->foreignId('part_id')
                 ->nullable()
                 ->constrained()
                 ->onUpdate('cascade')
-                ->onDelete('set null');
+                ->onDelete('cascade');
             $table->decimal('weight',11,2);
             $table->decimal('price',11,2);
             $table->timestamps();

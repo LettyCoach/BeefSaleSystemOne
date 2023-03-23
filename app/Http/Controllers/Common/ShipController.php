@@ -182,7 +182,11 @@ class ShipController extends Controller
 
     public function getOxRegisterNumberListByPastoral(Request $request) {
         $pastoralId = $request->pastoralId;
-        $oxen = Ox::where('pastoral_id', $pastoralId)->where('exportDate', NULL)->get();
+        $oxen = Ox::where('pastoral_id', $pastoralId)
+        ->whereNotNull('purchaseDate')
+        ->whereNotNull('loadDate')
+        ->whereNotNull('unloadDate')
+        ->where('exportDate', NULL)->get();
         if(count($oxen) == 0) {
             return "<option value='0'>なし</option>";
         }
