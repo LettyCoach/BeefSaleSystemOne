@@ -43,6 +43,7 @@
                     </div>
                     <div class="modal-body">
                         <h2 class="text-center">本当に削除しますか？</h2>
+                        <p class="text-center">この牧場のすべてのデータを失う可能性があります。</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;"

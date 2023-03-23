@@ -72,7 +72,10 @@ class FattenController extends Controller
         $pastoralId = $request->pastoralId;
 
         if($pastoralId == 0) {
-            $totalCnt = Ox::whereNotNull('unloadDate')->count();
+            $totalCnt = Ox::whereNotNull('purchaseDate')
+                ->whereNotNull('loadDate')
+                ->whereNotNull('unloadDate')
+                ->count();
             
             if(($totalCnt % $pageSize) == 0) {
                 $pageCnt = $totalCnt / $pageSize;
@@ -81,14 +84,18 @@ class FattenController extends Controller
                 $pageCnt = (int)$pageCnt + 1;
             }
 
-            $oxs = Ox::whereNotNull('unloadDate')
+            $oxs = Ox::whereNotNull('purchaseDate')
+                ->whereNotNull('loadDate')
+                ->whereNotNull('unloadDate')
                 ->orderBy('unloadDate', 'desc')
                 ->limit($pageSize)
                 ->offset(($pageNumber - 1) * $pageSize)
                 ->get();
                 
         } else {
-            $totalCnt = Ox::whereNotNull('unloadDate')
+            $totalCnt = Ox::whereNotNull('purchaseDate')
+                ->whereNotNull('loadDate')
+                ->whereNotNull('unloadDate')
                 ->where('pastoral_id', $pastoralId)
                 ->count();
 
@@ -99,7 +106,9 @@ class FattenController extends Controller
                 $pageCnt = (int)$pageCnt + 1;
             }
 
-            $oxs = Ox::whereNotNull('unloadDate')
+            $oxs = Ox::whereNotNull('purchaseDate')
+                ->whereNotNull('loadDate')
+                ->whereNotNull('unloadDate')
                 ->where('pastoral_id', $pastoralId)
                 ->orderBy('unloadDate', 'desc')
                 ->limit($pageSize)

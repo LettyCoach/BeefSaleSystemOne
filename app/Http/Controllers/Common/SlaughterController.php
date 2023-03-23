@@ -69,7 +69,11 @@ class SlaughterController extends Controller
         }
     
         
-        $OxModel = Ox::whereNotNull('acceptedDateSlaughterHouse');
+        $OxModel = Ox::whereNotNull('purchaseDate')
+                ->whereNotNull('loadDate')
+                ->whereNotNull('unloadDate')
+                ->whereNotNull('exportDate')
+                ->whereNotNull('acceptedDateSlaughterHouse');
         $totalCnt = $OxModel->count();
 
         if($slaughterHouse_id != NULL){

@@ -111,7 +111,12 @@ class MeatController extends Controller
         $pageSize = $request->pageSize; 
         $meatState = $request->meatState;
 
-        $OxModel = Ox::where('slaughterFinishedDate','<>',NULL);
+        $OxModel = Ox::whereNotNull('purchaseDate')
+                ->whereNotNull('loadDate')
+                ->whereNotNull('unloadDate')
+                ->whereNotNull('exportDate')
+                ->whereNotNull('acceptedDateSlaughterHouse')
+                ->where('slaughterFinishedDate','<>',NULL);
         $totalCnt = $OxModel->count();
 
         if($meatState != NULL){
