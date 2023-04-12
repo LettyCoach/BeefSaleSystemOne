@@ -6,6 +6,7 @@
             <th class="text-center">和牛登録名</th>
             <th class="text-center">生年月日</th>
             <th class="text-center">性別</th>
+            <th class="text-center">牧場名</th>
             <th class="text-center" style="width: 5%;">記載</th>
             <th class="text-center" style="width: 5%;">詳細</th>
         </tr>
@@ -36,6 +37,9 @@
                 </td>
                 <td class="text-center">
                     <span class="ml-2 break-all text-gray-600">@if($ox->sex==1) 雄 @else 雌 @endif</span>
+                </td>
+                <td class="text-center">
+                    <span class="">{{$ox->pastoral->name}}</span>
                 </td>
                 <td class="text-center">
                     <span class="">

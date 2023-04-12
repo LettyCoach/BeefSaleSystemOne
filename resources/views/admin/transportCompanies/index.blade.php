@@ -1,6 +1,12 @@
 <x-app-layout>
     <div class="container mt-5 pt-5 mb-4">
-        <h2 class="text-center mt-5 fw-bold">運送会社リスト</h2>
+        <nav aria-label="breadcrumb" class="mt-4 pt-4">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">運送会社</li>
+            </ol>
+        </nav>
+        <h2 class="text-center fw-bold">運送会社リスト</h2>
         <div class="panel panel-primary container mx-auto"  style="min-height: 500px; overflow-y: auto">
             <div class="panel-body">
                 <div style="width: 100%; padding-left: -10px;">
@@ -21,7 +27,7 @@
                         </div>
                         <div class="rounded-md">
                             <a href="{{ route('transportCompanies.create') }}" class="btn btn-primary" style="background-color:#f05656;"><i
-                                class="fa fa-plus" aria-hidden="true"></i> 添加</a>
+                                class="fa fa-plus" aria-hidden="true"></i> 追加</a>
                         </div>
                     </div>
                     <div class="table-responsive" id = "transportCompaniesList">
@@ -45,7 +51,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;"
-                            onclick="trashTransportCompany()"><i class="fas fa-check"></i> いいよ</button>
+                            onclick="trashTransportCompany()"><i class="fas fa-check"></i> はい</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
                                 class="fas fa-times"></i> 取消</button>
                     </div>

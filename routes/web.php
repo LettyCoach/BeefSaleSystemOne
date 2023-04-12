@@ -26,6 +26,8 @@ use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\MailController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -76,6 +78,9 @@ Route::get('/common/getPurchaseTransDataByOxId',        [TransportController::cl
 Route::get('/common/registerLoadDate',                  [TransportController::class,'registerLoadDate'])->middleware(['auth','verified']);
 Route::resource('/common/purchaseTransportReport',      PurchaseTransportReportController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:transport']);
 Route::get('/common/getPurchaseTransportReportList',    [PurchaseTransportReportController::class,'getPurchaseTransportReportList'])->middleware(['auth','verified']);
+Route::get('/common/cancelPurchaseTransLoad',           [TransportController::class,'cancelPurchaseTransLoad'])->middleware(['auth','verified']);
+Route::get('/common/cancelPurchaseTransUnload',           [TransportController::class,'cancelPurchaseTransUnload'])->middleware(['auth','verified']);
+
 
 // 肥育（牛の生育状況の登録）
 Route::resource('/common/fatten',                       FattenController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:fatten']);
@@ -132,5 +137,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/pagination',                               [PaginationController::class, 'index'])->name('pagination.index');
 Route::get('pagination/fetch_data',                     [PaginationController::class, 'fetch_data'])->name('pagination.fetch_data');
+
+Route::get('send-mail', [MailController::class, 'index']);
 
 require __DIR__.'/auth.php';

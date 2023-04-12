@@ -3,8 +3,14 @@
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
 <div class="mx-auto p-4 pt-5 mt-5" >
-    <h2 class="text-center font-bold mt-5 fw-bold">肥育（牛の生育状況の登録）</h2>
     <div class="container panel panel-primary mx-auto">
+        <nav aria-label="breadcrumb" class="mt-4 pt-4">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">肥育</li>
+            </ol>
+        </nav>
+        <h2 class="text-center font-bold fw-bold">肥育（牛の生育状況の登録）</h2>
         <div class="panel-heading">
             <div class="d-flex justify-content-between items-center mb-2">
                 <div class="rounded-md">

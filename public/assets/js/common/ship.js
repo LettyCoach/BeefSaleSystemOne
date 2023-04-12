@@ -75,11 +75,6 @@ function addShip() {
         toastr.warning('牛が選択されていない。<br>牛を選択してもう一度やり直してください。');
         return;
     }
-    
-    if(exportDate > getTodayDate()) {
-        toastr.warning('日付入力時にエラーが発生しました。<br>もう一度お試しください。');
-        return;
-    }
 
     $.post('/common/ship', {
         _token: $('meta[name="csrf-token"]').attr('content'),

@@ -101,9 +101,9 @@ class PurchaseController extends Controller
             'name'=>'required|string|max:255',
             'registerNumber'=>'required|string|max:255',
             'birthday'=>'required|string|max:255',
-            'purchasePrice'=>'required|decimal:0,2',
+            'purchasePrice'=>'required',
         ]);
-        if(Ox::where('registerNumber',$validateData['registerNumber'])->count() == 1){       
+        if(Ox::where('id','<>',$ox_id)->where('registerNumber',$validateData['registerNumber'])->count() == 1){       
             return back()->with('info','個人識別番号が重複しています。');
         }else{
             Ox::where('id', $ox_id)       

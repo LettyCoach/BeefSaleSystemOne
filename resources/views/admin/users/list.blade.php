@@ -24,7 +24,9 @@
                     <span class="break-all">{{ $no ++ }}</span>
                 </td>
                 <td class="text-center">
-                    <span class="break-all" id = "userName{{ $user->id }}">{{ $user->name }}</span>
+                    <a href="/">
+                        <span class="break-all" id = "userName{{ $user->id }}">{{ $user->name }}</span>
+                    </a>
                 </td>
                 <td class="text-center">
                     <span class="break-all" id = "userEmail{{ $user->id }}">{{ $user->email }}</span>

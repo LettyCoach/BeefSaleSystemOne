@@ -174,4 +174,31 @@ class TransportController extends Controller {
         
         return $rlt;
     }
+
+    public function cancelPurchaseTransLoad(Request $request){
+        $id = $request->ox_id;
+        if(Ox::where('id',$id)->whereNotNull('unloadDate')->count() > 0){
+            return "CannotDelete";
+        }else{
+            Ox::find($id)->update([
+                'loadDate' => NULL,
+            ]);
+            return "success cancel";
+        }
+        
+    }
+
+    public function cancelPurchaseTransUnload(Request $request){
+        $id = $request->ox_id;
+        if(Ox::where('id',$id)->whereNotNull('exportDate')->count() > 0){
+            return "CannotDelete";
+        }else{
+            Ox::find($id)->update([
+                'unloadDate' => NULL,
+            ]);
+            return "success cancel";
+        }
+        
+    }
+
 }

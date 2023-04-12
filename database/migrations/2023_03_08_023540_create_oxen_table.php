@@ -23,7 +23,8 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->date('purchaseDate')->nullable();
-            $table->decimal('purchasePrice',11,2)->nullable();
+            $table->bigInt('purchasePrice')->nullable();
+            $table->bigInteger('purchasePrice')->nullable();
             $table->foreignId('purchaseTransport_Company_id')
                 ->nullable()
                 ->constrained('transport_companies')
@@ -52,7 +53,7 @@ return new class extends Migration
             $table->date('acceptedDateSlaughterHouse')->nullable();
             $table->date('slaughterFinishedDate')->nullable();
             $table->decimal('acceptedWeight',11,2)->nullable();
-            $table->integer('acceptedLevel')->nullable();
+            $table->string('acceptedLevel')->nullable();
             $table->integer('finishedState')->default(0);
             $table->timestamps();
         });

@@ -1,7 +1,13 @@
 @extends('layouts.commonUser')
 @section('content')
 <div class="mt-5 pt-5 container mx-auto">
-    <h2 class="text-center pt-5 fw-bold">屠殺（牛の価格の報告）</h2>
+    <nav aria-label="breadcrumb" class="mt-4 pt-4">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">屠殺</li>
+        </ol>
+    </nav>
+    <h2 class="text-center fw-bold">屠殺（牛の価格の報告）</h2>
     <div class="panel-body d-flex justify-content-between">
         <div class="rounded-md  ">
             <select name="pageSize" class="form-select" id="pageSize" onchange="slaughterList()">

@@ -12,7 +12,7 @@
             <th class="text-center">生年月日</th>
             <th class="text-center">性別</th>
             <th class="text-center">屠殺場</th>
-            <th class="text-center" style="width:13%">登録日</th>
+            <th class="text-center" style="width:13%">屠殺日</th>
             <th class="text-center">登録</th>
             <th class="text-center">削除</th>
         </tr>
@@ -38,8 +38,16 @@
             </td>
             <td class="text-center"><span class="text-gray-800 break-all"><input type="text" class="form-control" value="{{$ox->acceptedWeight}}"
                             size="8" id="acceptedWeight{{$ox->id}}" @if($ox->slaughterFinishedDate != NULL) disabled @else @endif></span></td>
-            <td class="text-center"><span class="text-gray-800 break-all"><input type="text" class="form-control" value="{{$ox->acceptedLevel}}"
-                        size="8" id="acceptedLevel{{$ox->id}}" @if($ox->slaughterFinishedDate != NULL) disabled @else @endif></span></td>
+           
+            <td class="text-center">                
+                <select name="acceptedLevel" class = "form-select" id="acceptedLevel{{$ox->id}}" @if($ox->slaughterFinishedDate != NULL) disabled @else @endif>
+                @php 
+                    $acceptedLevel =array("A1","A2","A3","A4","A5","B1","B2","B3","B4","B5","C1","C2","C3","C4","C5","D1","D2","D3","D4","D5","E1","E2","E3","E4","E5");
+                @endphp              
+                @foreach($acceptedLevel as $item)
+                    <option value="{{$item}}"  @if($ox->acceptedLevel == $item) selected @else @endif>{{$item}}</option>
+                @endforeach
+            </td>
             <td class="text-center"><span
                     class="text-gray-800 break-all">{{$ox->registerNumber}}</span></td>
             <td class="text-center"><span class="text-gray-800 break-all">{{$ox->name}}</span></td>

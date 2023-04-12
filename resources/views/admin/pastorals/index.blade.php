@@ -1,7 +1,13 @@
 <x-app-layout>
     <div class="container mt-5 pt-5 mb-4">
-        <h2 class="text-center fw-bold pt-5">牧場リスト</h2>
-        <div style="width: 100%; padding-left: -10px;">
+        <nav aria-label="breadcrumb" class="mt-4 pt-4">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">牧場</li>
+            </ol>
+        </nav>
+        <h2 class="text-center fw-bold">牧場リスト</h2>
+        <div class="container" style="width: 100%; padding-left: -10px;">
             <div class="rounded-md d-flex justify-content-between mb-2 mt-2">
                 <div class="rounded-md">
                     <select name="pageSize" class="form-select" id="pageSize" onchange="getPastoralsList()">
@@ -19,7 +25,7 @@
                 </div>
                 <div class="rounded-md">
                     <a href="{{ route('pastorals.create') }}" class="btn btn-primary" style="background-color:#f05656;"><i
-                        class="fa fa-plus" aria-hidden="true"></i> 添加</a>
+                        class="fa fa-plus" aria-hidden="true"></i> 追加</a>
                 </div>
             </div>
         </div>
@@ -47,7 +53,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;"
-                            onclick="trashPastoral()"><i class="fas fa-check"></i> いいよ</button>
+                            onclick="trashPastoral()"><i class="fas fa-check"></i> はい</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
                                 class="fas fa-times"></i> 取消</button>
                     </div>
