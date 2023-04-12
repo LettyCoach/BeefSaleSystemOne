@@ -4,8 +4,14 @@
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
 <div class="mx-auto p-4 pt-5 mt-5">
-    <h2 class="text-center mt-5 fw-bold">出荷指示</h2>
     <div class="container panel panel-primary mx-auto">
+        <nav aria-label="breadcrumb" class="mt-4 pt-4">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">出荷指示</li>
+            </ol>
+        </nav>
+        <h2 class="text-center fw-bold">出荷指示</h2>
         <div class="panel-heading">
             <div class="d-flex justify-content-between items-center mb-2 mt-4">
                 <div class="rounded-md">
@@ -107,7 +113,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col">
-                        <label for="">日付選択</label>
+                        <label for="">出荷日</label>
                         <input type="date" id="exportDateAddShip" class="form-control rounded" value="{{$todayDate}}"
                             placeholder="" />
                     </div>
@@ -178,7 +184,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col">
-                        <label for="">日付選択</label>
+                        <label for="">出荷日</label>
                         <input type="date" id="exportDateEditShip" class="form-control rounded" value="{{$todayDate}}"
                             placeholder="" />
                     </div>
@@ -217,7 +223,7 @@
                 <h2 class="text-center">本当に削除しますか？</h2>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;" onclick="trashShip()"><i class="fas fa-check"></i> いいよ</button>
+                <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;" onclick="trashShip()"><i class="fas fa-check"></i>はい</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> 取消</button>
             </div>
         </div>

@@ -161,3 +161,27 @@ function getTodayDate() {
     today = yyyy + '-' + mm + '-' + dd;
     return today;
 }
+function cancelPurchaseTransLoad(id){
+    $.get('/common/cancelPurchaseTransLoad', {
+        'ox_id':id
+    }, function(data){
+        if(data == "CannotDelete"){
+            toastr.warning('積み下ろし完了したためキャンセルできません。');
+        } else{
+            toastr.success('正常にキャンセルされました。');
+            getPurchaseTransportList();
+        }
+    });
+}
+function cancelPurchaseTransUnload(id){
+    $.get('/common/cancelPurchaseTransUnload', {
+        'ox_id':id
+    }, function(data){
+        if(data == "CannotDelete"){
+            toastr.warning('牧場にすでに受付されているためキャンセルできません。');
+        } else{
+            toastr.success('正常にキャンセルされました。');
+            getPurchaseTransportList();
+        }
+    });
+}

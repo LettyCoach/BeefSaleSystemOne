@@ -14,6 +14,7 @@
                 <th class="text-center">積み込み日</th>
                 <th class="text-center" style="width: 5%;">記載</th>
                 <th class="text-center" style="width: 5%;">詳細</th>
+                <th class="text-center" style="width: 5%;">取消</th>
             </tr>
         </thead>
         <tbody>
@@ -83,6 +84,13 @@
                         <span class="">
                             <a href="javascript:;showPurchaseTransViewModal({{  $purchaseTransport->id }})">
                                 <i class="fa fa-info"></i>
+                            </a>
+                        </span>
+                    </td>
+                    <td class="text-center">
+                        <span class="">
+                            <a href="javascript:;cancelPurchaseTransLoad({{  $purchaseTransport->id }})">
+                                <i class="fa fa-times"></i>
                             </a>
                         </span>
                     </td>
@@ -279,6 +287,7 @@
                 <th class="text-center">積み下ろし日</th>
                 <th class="text-center" style="width: 5%;">記載</th>
                 <th class="text-center" style="width: 5%;">詳細</th>
+                <th class="text-center" style="width: 5%;">取消</th>
             </tr>
         </thead>
         <tbody>
@@ -348,6 +357,13 @@
                         <span class="">
                             <a href="javascript:;showPurchaseTransViewModal({{  $purchaseTransport->id }})">
                                 <i class="fa fa-info"></i>
+                            </a>
+                        </span>
+                    </td>
+                    <td class="text-center">
+                        <span class="">
+                            <a href="javascript:;cancelPurchaseTransUnload({{  $purchaseTransport->id }})">
+                                <i class="fa fa-times"></i>
                             </a>
                         </span>
                     </td>

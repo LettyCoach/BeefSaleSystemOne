@@ -1,6 +1,6 @@
 
 
-<table id="dtBasicExample" class="table table-striped table-fixed table-bordered table-sm"
+<table id="dtBasicExample" class="table table-striped table-fixed table-bordered"
     cellspacing="0" style="min-width: 1200px; overflow-x: scroll; width:100%">
     <thead>
         <tr>

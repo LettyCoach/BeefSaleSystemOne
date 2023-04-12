@@ -3,11 +3,15 @@
 
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <div class="mx-auto p-4 pt-5 mt-5">
-    <h2 class="text-center mt-5 mb-4 fw-bold">仕入リスト</h2>    
+     
     <div class="container panel panel-primary mx-auto" style="min-height: 500px; overflow-y: auto">
-        <div class="d-flex justify-content-between items-center mb-2">
-            
-        </div>
+        <nav aria-label="breadcrumb" class="mt-4 pt-4">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">仕入</li>
+            </ol>
+        </nav>
+        <h2 class="text-center mb-4 fw-bold">仕入リスト</h2>
         <div class="panel-heading d-flex justify-content-between mb-2">
             <div class="rounded-md  ">
                 <select name="pageSize" class="form-select" id="pageSize" onchange="getPurchaseList()">
@@ -48,7 +52,7 @@
             </div>
             <div class=" ">
                 <div class="rounded-md">
-                    <a type="button" href="{{ route('purchases.create') }}" class="btn btn-success" style="background-color: #f05656; border: 0;"><i class="fa fa-plus"></i> 添加</a>
+                    <a type="button" href="{{ route('purchases.create') }}" class="btn btn-success" style="background-color: #f05656; border: 0;"><i class="fa fa-plus"></i> 追加</a>
                 </div>
             </div>
         </div>
@@ -74,7 +78,7 @@
                 <h2 class="text-center">本当に削除しますか？</h2>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;" onclick="trashPurchase()"><i class="fas fa-check"></i> いいよ</button>
+                <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;" onclick="trashPurchase()"><i class="fas fa-check"></i> はい</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> 取消</button>
             </div>
         </div>

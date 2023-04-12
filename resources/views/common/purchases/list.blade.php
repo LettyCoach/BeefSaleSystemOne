@@ -51,8 +51,8 @@
             <td class="text-center">
                 <span class="text-gray-800 break-all">{{$ox->pastoral->name}}</span>
             </td>
-            <td class="text-center">
-                <span class="text-gray-800 break-all">{{$ox->purchasePrice}}</span>
+            <td class="text-center">  
+                <span class="text-gray-800 break-all">{{number_format($ox->purchasePrice, 0, '', ',')}}</span>
             </td>
             <td class="text-center">
                 <span class="text-gray-800 break-all">{{$ox->purchaseDate}}</span>

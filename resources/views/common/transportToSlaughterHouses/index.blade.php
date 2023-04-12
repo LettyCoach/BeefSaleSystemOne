@@ -2,7 +2,13 @@
 @section('content')
 
 <div class="container mx-auto mt-5 pt-5">
-    <h2 class="mt-5 text-center mb-4 fw-bold">運搬（運送済みの牛の報告）</h2>
+    <nav aria-label="breadcrumb" class="mt-4 pt-4">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">出荷運搬</li>
+        </ol>
+    </nav>
+    <h2 class="text-center mb-4 fw-bold">運搬（運送済みの牛の報告）</h2>
     <div class="d-flex justify-content-between">
         <div class="rounded-md">
             <select name="pageSize" class="form-select" id="pageSize" onchange="getExportTransportCompanyList()">

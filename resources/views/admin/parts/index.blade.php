@@ -1,6 +1,12 @@
 <x-app-layout>
     <div class="container mt-5 pt-5 mb-4">
-        <h2 class="text-center fw-bold pt-5">部位カットリスト</h2>
+        <nav aria-label="breadcrumb" class="mt-4 pt-4">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">部位カット</li>
+            </ol>
+        </nav>
+        <h2 class="text-center fw-bold">部位カットリスト</h2>
         <div class="panel panel-primary container mx-auto"  style="min-height: 500px; overflow-y: auto">
             <div class="rounded-md d-flex justify-content-between mb-2 mt-2">
                 <div class="rounded-md">
@@ -15,7 +21,7 @@
                     <input type="text" class = "form-control" onkeyup="getPartsList()" placeholder="部位カッを入力してください" id="partName">
                 </div>
                 <div class="rounded-md">
-                    <a href="{{ route('parts.create') }}" class="btn btn-primary" style="background-color:#f05656;"><i class="fa fa-plus" aria-hidden="true"></i> 添加</a>
+                    <a href="{{ route('parts.create') }}" class="btn btn-primary" style="background-color:#f05656;"><i class="fa fa-plus" aria-hidden="true"></i> 追加</a>
                 </div>
             </div>
             <div class="panel-body">
@@ -40,7 +46,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;"
-                            onclick="trashPart()"><i class="fas fa-check"></i> いいよ</button>
+                            onclick="trashPart()"><i class="fas fa-check"></i> はい</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
                                 class="fas fa-times"></i> 取消</button>
                     </div>
@@ -48,7 +54,7 @@
             </div>
         </div>
     </div>
-    <script src="{{asset('assets/js/admin/partMana.js')}}"></script>
+    <script src="{{asset('assets/js/admin/PartMana.js')}}"></script>
          <!-- Toastr -->
          <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>

@@ -1,8 +1,15 @@
 @extends('layouts.commonUser')
 @section('content')
-<div class="mx-auto p-4 pt-5 mt-5" >
-    <h2 class="text-center font-bold mt-5 fw-bold">運送(買った牛を運び込みと積み下ろしの報告)</h2>
+<div class="mx-auto p-4 pt-5 mt-5" >    
     <div class="container panel panel-primary mx-auto">
+        <nav aria-label="breadcrumb" class="mt-4 pt-4">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">仕入運送
+            </li>
+            </ol>
+        </nav>
+        <h2 class="text-center font-bold fw-bold">運送(買った牛を運び込みと積み下ろしの報告)</h2>
         <div class="panel-heading">
             <div class="d-flex justify-content-between items-center mb-2 mt-4">
                 <div class="rounded-md">
@@ -252,3 +259,26 @@
 
 <script src="{{ asset('assets/js/common/purchaseTransport.js') }}"></script>
 @endsection
+<!-- Toastr -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script>
+    $(document).ready(function(){
+        toastr.options = {
+            'closeButton': true,
+            'debug': false,
+            'newestOnTop': false,
+            'progressBar': true,
+            'positionClass': 'toast-top-right',
+            'preventDuplicates': false,
+            'showDuration': '1000',
+            'hideDuration': '1000',
+            'timeOut': '5000',
+            'extendedTimeOut': '1000',
+            'showEasing': 'swing',
+            'hideEasing': 'linear',
+            'showMethod': 'fadeIn',
+            'hideMethod': 'fadeOut',
+        }
+    })
+</script>

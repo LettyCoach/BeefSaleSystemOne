@@ -1,6 +1,12 @@
 <x-app-layout>
     <div class="container mt-5 pt-5 mb-4">
-        <h2 class="text-center fw-bold pt-5">利用者管理</h2>
+        <nav aria-label="breadcrumb" class="mt-4 pt-4">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">ユーザー管理</li>
+            </ol>
+        </nav>
+        <h2 class="text-center fw-bold">ユーザー管理</h2>
         <div class="d-flex justify-content-between mt-4 mb-2">
             <div class="rounded">
                 <select name="" id="pageSize" class="form-select" onchange="getUserList()">
@@ -39,7 +45,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;"
-                        onclick="deleteUser()"><i class="fas fa-check"></i> いいよ</button>
+                        onclick="deleteUser()"><i class="fas fa-check"></i> はい</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
                             class="fas fa-times"></i> 取消</button>
                 </div>

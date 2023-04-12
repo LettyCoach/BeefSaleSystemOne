@@ -1,7 +1,13 @@
 @extends('layouts.commonUser')
 @section('content')
 <div class="container mx-auto mt-5 pt-5">
-    <h2 class="text-center pt-5 fw-bold">精肉管理（牛の選択と価格の入力)</h2>
+    <nav aria-label="breadcrumb" class="mt-4 pt-4">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">精肉管理</li>
+        </ol>
+    </nav>
+    <h2 class="text-center fw-bold">精肉管理（牛の選択と価格の入力)</h2>
     <div class="d-flex justify-content-between">
         <div class="rounded-md  ">
             <select name="pageSize" class="form-select" id="pageSize" onchange="getMeatList()">
@@ -136,7 +142,7 @@
                 <h2 class="text-center">本当に削除しますか？</h2>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;" onclick="trashMeat()"><i class="fas fa-check"></i> いいよ</button>
+                <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;" onclick="trashMeat()"><i class="fas fa-check"></i> はい</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> 取消</button>
             </div>
         </div>
