@@ -52,7 +52,7 @@
                     <input type="date" name="" id="lastDate" class="form-control form-input-disable" onchange="getShipList()" value="{{ $todayDate }}">
                 </div>
                 <button class="rounded btn btn-danger" onclick="showAddShipModal()">
-                    <i class="fas fa-plus"></i>&nbsp;
+                    <i class="fa fa-plus"></i>&nbsp;
                     出荷指示追加
                 </button>
             </div>
@@ -223,8 +223,8 @@
                 <h2 class="text-center">本当に削除しますか？</h2>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;" onclick="trashShip()"><i class="fas fa-check"></i>はい</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> 取消</button>
+                <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;" onclick="trashShip()"><i class="fa fa-check"></i>はい</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i> 取消</button>
             </div>
         </div>
     </div>

@@ -78,8 +78,8 @@
                 <h2 class="text-center">本当に削除しますか？</h2>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;" onclick="trashPurchase()"><i class="fas fa-check"></i> はい</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> 取消</button>
+                <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;" onclick="trashPurchase()"><i class="fa fa-check"></i> はい</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i> 取消</button>
             </div>
         </div>
     </div>
