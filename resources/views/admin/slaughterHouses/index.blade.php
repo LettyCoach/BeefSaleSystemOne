@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="container mt-5 pt-5 mb-4" style="min-height: calc(100vh - 350px)">
+    <div class="container mt-5 pt-5 mb-4" style="min-height: calc(100vh - 300px)">
         <nav aria-label="breadcrumb" class="mt-4 pt-4">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -52,8 +52,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;"
-                        onclick="trashSlaughterHouse()"><i class="fas fa-check"></i> はい</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i>
+                        onclick="trashSlaughterHouse()"><i class="fa fa-check"></i> はい</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i>
                         取消</button>
                 </div>
             </div>

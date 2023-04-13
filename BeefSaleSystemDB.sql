@@ -1,6 +1,6 @@
 /*
 SQLyog Community v13.1.6 (64 bit)
-MySQL - 10.4.27-MariaDB : Database - laravel
+MySQL - 10.4.27-MariaDB : Database - LA04203877-sdgs
 *********************************************************************
 */
 
@@ -12,9 +12,9 @@ MySQL - 10.4.27-MariaDB : Database - laravel
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`laravel` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`LA04203877-sdgs` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 
-USE `laravel`;
+USE `LA04203877-sdgs`;
 
 /*Table structure for table `chirps` */
 
@@ -94,20 +94,16 @@ CREATE TABLE `meats` (
   KEY `meats_part_id_foreign` (`part_id`),
   CONSTRAINT `meats_ox_id_foreign` FOREIGN KEY (`ox_id`) REFERENCES `oxen` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `meats_part_id_foreign` FOREIGN KEY (`part_id`) REFERENCES `parts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `meats` */
 
 insert  into `meats`(`id`,`ox_id`,`part_id`,`weight`,`price`,`created_at`,`updated_at`) values 
-(16,24,1,200.00,34.00,'2023-03-23 22:25:50','2023-03-23 22:25:50'),
-(17,24,2,300.00,345.00,'2023-03-23 22:25:50','2023-03-23 22:25:50'),
-(18,24,3,200.00,123.00,'2023-03-23 22:25:51','2023-03-23 22:25:51'),
-(19,28,1,100.00,2.00,'2023-03-23 23:17:05','2023-03-23 23:17:05'),
-(20,28,2,200.00,34.00,'2023-03-23 23:17:05','2023-03-23 23:17:05'),
-(21,28,3,200.00,4.00,'2023-03-23 23:17:05','2023-03-23 23:17:05'),
-(22,27,1,200.00,2.00,'2023-03-23 23:25:58','2023-03-23 23:25:58'),
-(23,27,2,200.00,3.00,'2023-03-23 23:25:58','2023-03-23 23:25:58'),
-(24,27,3,100.00,3.00,'2023-03-23 23:25:58','2023-03-23 23:25:58');
+(50,38,1,2323.00,12334.00,'2023-04-13 16:02:08','2023-04-13 16:02:08'),
+(51,38,2,12323.00,12323.00,'2023-04-13 16:02:08','2023-04-13 16:02:08'),
+(52,38,3,123.00,123.00,'2023-04-13 16:02:08','2023-04-13 16:02:08'),
+(53,38,14,123.00,123.00,'2023-04-13 16:02:08','2023-04-13 16:02:08'),
+(54,38,15,123.00,123.00,'2023-04-13 16:02:08','2023-04-13 16:02:08');
 
 /*Table structure for table `migrations` */
 
@@ -148,9 +144,10 @@ CREATE TABLE `oxen` (
   `name` varchar(255) NOT NULL,
   `birthday` date NOT NULL,
   `sex` int(11) NOT NULL,
+  `user_id` bigint(20) unsigned DEFAULT NULL,
   `market_id` bigint(20) unsigned DEFAULT NULL,
   `purchaseDate` date DEFAULT NULL,
-  `purchasePrice` decimal(11,2) DEFAULT NULL,
+  `purchasePrice` bigint(20) DEFAULT NULL,
   `purchaseTransport_Company_id` bigint(20) unsigned DEFAULT NULL,
   `loadDate` date DEFAULT NULL,
   `unloadDate` date DEFAULT NULL,
@@ -163,7 +160,7 @@ CREATE TABLE `oxen` (
   `acceptedDateSlaughterHouse` date DEFAULT NULL,
   `slaughterFinishedDate` date DEFAULT NULL,
   `acceptedWeight` decimal(11,2) DEFAULT NULL,
-  `acceptedLevel` int(11) DEFAULT NULL,
+  `acceptedLevel` varchar(255) DEFAULT NULL,
   `finishedState` int(11) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -174,24 +171,21 @@ CREATE TABLE `oxen` (
   KEY `oxen_purchasetransport_company_id_foreign` (`purchaseTransport_Company_id`),
   KEY `oxen_slaughterhouse_id_foreign` (`slaughterHouse_id`),
   KEY `oxen_slaughtertransport_company_id_foreign` (`slaughterTransport_Company_id`),
+  KEY `oxen_user_id_foreign` (`user_id`),
   CONSTRAINT `oxen_market_id_foreign` FOREIGN KEY (`market_id`) REFERENCES `markets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `oxen_pastoral_id_foreign` FOREIGN KEY (`pastoral_id`) REFERENCES `pastorals` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `oxen_purchasetransport_company_id_foreign` FOREIGN KEY (`purchaseTransport_Company_id`) REFERENCES `transport_companies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `oxen_slaughterhouse_id_foreign` FOREIGN KEY (`slaughterHouse_id`) REFERENCES `slaughter_houses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `oxen_slaughtertransport_company_id_foreign` FOREIGN KEY (`slaughterTransport_Company_id`) REFERENCES `transport_companies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  CONSTRAINT `oxen_slaughtertransport_company_id_foreign` FOREIGN KEY (`slaughterTransport_Company_id`) REFERENCES `transport_companies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `oxen_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `oxen` */
 
-insert  into `oxen`(`id`,`registerNumber`,`name`,`birthday`,`sex`,`market_id`,`purchaseDate`,`purchasePrice`,`purchaseTransport_Company_id`,`loadDate`,`unloadDate`,`pastoral_id`,`accessDate`,`exportDate`,`appendInfo`,`slaughterTransport_Company_id`,`slaughterHouse_id`,`acceptedDateSlaughterHouse`,`slaughterFinishedDate`,`acceptedWeight`,`acceptedLevel`,`finishedState`,`created_at`,`updated_at`) values 
-(22,'001','001','2023-03-23',1,3,'2023-03-23',5000.00,1,'2023-03-23',NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2023-03-23 22:17:29','2023-03-23 22:21:08'),
-(23,'002','002','2023-03-23',1,3,'2023-03-23',6000.00,1,'2023-03-23',NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2023-03-23 22:17:44','2023-03-23 22:21:20'),
-(24,'003','003','2023-03-23',0,5,'2023-03-23',7000.00,1,'2023-03-23','2023-03-23',1,NULL,'2023-03-23','123',2,4,'2023-03-07','2023-03-11',700.00,1,1,'2023-03-23 22:18:08','2023-03-23 22:25:51'),
-(25,'004','004','2023-03-23',0,3,'2023-03-06',7800.00,1,'2023-03-23','2023-03-23',3,NULL,NULL,'234',NULL,NULL,NULL,NULL,NULL,NULL,0,'2023-03-23 22:18:31','2023-03-23 22:22:46'),
-(26,'005','005','2023-03-23',0,4,'2023-03-23',7000.00,1,NULL,NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2023-03-23 22:18:49','2023-03-23 22:18:49'),
-(27,'006','006','2023-03-23',1,4,'2023-03-23',9000.00,2,'2023-03-23','2023-03-23',2,NULL,'2023-03-23','3456',1,1,'2023-03-23','2023-03-14',500.00,2,1,'2023-03-23 22:19:20','2023-03-23 23:25:58'),
-(28,'007','007','2023-03-23',1,3,'2023-03-02',7700.00,1,'2023-03-23','2023-03-23',2,NULL,'2023-03-23',NULL,1,2,'2023-03-08','2023-03-23',500.00,2,1,'2023-03-23 22:19:49','2023-03-23 23:17:05'),
-(29,'123345','123','2023-03-29',1,3,'2023-03-29',234.00,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2023-03-29 16:03:39','2023-03-29 16:03:39');
+insert  into `oxen`(`id`,`registerNumber`,`name`,`birthday`,`sex`,`user_id`,`market_id`,`purchaseDate`,`purchasePrice`,`purchaseTransport_Company_id`,`loadDate`,`unloadDate`,`pastoral_id`,`accessDate`,`exportDate`,`appendInfo`,`slaughterTransport_Company_id`,`slaughterHouse_id`,`acceptedDateSlaughterHouse`,`slaughterFinishedDate`,`acceptedWeight`,`acceptedLevel`,`finishedState`,`created_at`,`updated_at`) values 
+(38,'01','01','2023-04-13',1,2,3,'2023-04-13',12345,1,'2023-04-13','2023-04-13',1,NULL,'2023-04-13',NULL,1,1,'2023-04-18','2023-04-10',123.00,'A5',1,'2023-04-13 15:58:50','2023-04-13 17:46:35'),
+(39,'02','02','2023-04-13',1,3,3,'2023-04-13',3456,1,'2023-04-13','2023-04-13',1,NULL,'2023-04-13',NULL,1,1,'2023-04-04','2023-04-03',123.00,'D2',0,'2023-04-13 15:59:03','2023-04-13 16:01:07'),
+(47,'123','123','2023-04-13',1,1,3,'2023-04-13',123,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2023-04-13 16:39:50','2023-04-13 16:39:50');
 
 /*Table structure for table `parts` */
 
@@ -203,14 +197,16 @@ CREATE TABLE `parts` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `parts` */
 
 insert  into `parts`(`id`,`name`,`created_at`,`updated_at`) values 
 (1,'部品名0','2023-03-20 00:00:00','2023-03-20 00:00:00'),
 (2,'部品名1','2023-03-20 00:00:00','2023-03-20 00:00:00'),
-(3,'部品名2','2023-03-20 00:00:00','2023-03-20 00:00:00');
+(3,'部品名2','2023-03-20 00:00:00','2023-03-20 00:00:00'),
+(14,'123','2023-04-12 15:08:50','2023-04-12 15:08:50'),
+(15,'234234','2023-04-12 17:14:45','2023-04-12 17:14:45');
 
 /*Table structure for table `password_reset_tokens` */
 
@@ -293,20 +289,39 @@ CREATE TABLE `role_users` (
   KEY `role_users_role_id_foreign` (`role_id`),
   CONSTRAINT `role_users_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `role_users_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `role_users` */
 
 insert  into `role_users`(`id`,`user_id`,`role_id`,`created_at`,`updated_at`) values 
 (1,1,1,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
-(3,3,4,'2023-03-21 14:46:52','2023-03-21 14:46:52'),
-(4,2,5,'2023-03-21 14:47:06','2023-03-21 14:47:06'),
-(8,4,2,'2023-03-21 14:47:15','2023-03-21 14:47:15'),
-(9,4,3,'2023-03-21 14:47:15','2023-03-21 14:47:15'),
-(10,4,5,'2023-03-21 14:47:15','2023-03-21 14:47:15'),
 (11,12,3,'2023-03-21 15:05:31','2023-03-21 15:05:31'),
 (12,12,4,'2023-03-21 15:05:31','2023-03-21 15:05:31'),
-(13,12,5,'2023-03-21 15:05:31','2023-03-21 15:05:31');
+(13,12,5,'2023-03-21 15:05:31','2023-03-21 15:05:31'),
+(20,2,2,'2023-04-13 16:56:47','2023-04-13 16:56:47'),
+(21,2,3,'2023-04-13 16:56:47','2023-04-13 16:56:47'),
+(22,2,4,'2023-04-13 16:56:47','2023-04-13 16:56:47'),
+(23,2,5,'2023-04-13 16:56:47','2023-04-13 16:56:47'),
+(24,2,6,'2023-04-13 16:56:47','2023-04-13 16:56:47'),
+(25,2,7,'2023-04-13 16:56:48','2023-04-13 16:56:48'),
+(26,3,2,'2023-04-13 16:56:53','2023-04-13 16:56:53'),
+(27,3,3,'2023-04-13 16:56:53','2023-04-13 16:56:53'),
+(28,3,4,'2023-04-13 16:56:53','2023-04-13 16:56:53'),
+(29,3,5,'2023-04-13 16:56:53','2023-04-13 16:56:53'),
+(30,3,6,'2023-04-13 16:56:54','2023-04-13 16:56:54'),
+(31,3,7,'2023-04-13 16:56:54','2023-04-13 16:56:54'),
+(32,4,2,'2023-04-13 16:57:02','2023-04-13 16:57:02'),
+(33,4,2,'2023-04-13 16:57:02','2023-04-13 16:57:02'),
+(34,4,3,'2023-04-13 16:57:02','2023-04-13 16:57:02'),
+(35,4,3,'2023-04-13 16:57:02','2023-04-13 16:57:02'),
+(36,4,4,'2023-04-13 16:57:02','2023-04-13 16:57:02'),
+(37,4,4,'2023-04-13 16:57:02','2023-04-13 16:57:02'),
+(38,4,5,'2023-04-13 16:57:02','2023-04-13 16:57:02'),
+(39,4,5,'2023-04-13 16:57:02','2023-04-13 16:57:02'),
+(40,4,6,'2023-04-13 16:57:02','2023-04-13 16:57:02'),
+(41,4,6,'2023-04-13 16:57:02','2023-04-13 16:57:02'),
+(42,4,7,'2023-04-13 16:57:03','2023-04-13 16:57:03'),
+(43,4,7,'2023-04-13 16:57:03','2023-04-13 16:57:03');
 
 /*Table structure for table `roles` */
 

@@ -103,8 +103,8 @@
                     </div>
                     <div class="row">
                         <div class="col d-flex justify-content-center ">
-                            <button type="button" class="btn btn-primary m-2" style="background-color: #6ea924; border: 0;" onclick="saveAppendInfo()"><i class="fas fa-check"></i> セーブ</button>
-                            <button type="button" class="btn btn-secondary m-2" onclick="closeModal()"><i class="fas fa-times"></i> 取消</button>
+                            <button type="button" class="btn btn-primary m-2" style="background-color: #6ea924; border: 0;" onclick="saveAppendInfo()"><i class="fa fa-check"></i> セーブ</button>
+                            <button type="button" class="btn btn-secondary m-2" onclick="closeModal()"><i class="fa fa-times"></i> 取消</button>
                         </div>
                     </div>
                 </div>
@@ -124,7 +124,7 @@
                 <h2 class="text-center">正常に更新されました!</h2>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-check"></i> わかった</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-check"></i> わかった</button>
             </div>
         </div>
     </div>
@@ -142,8 +142,8 @@
                 <h2 class="text-center">本当に削除しますか？</h2>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;" onclick="trashMeat()"><i class="fas fa-check"></i> はい</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> 取消</button>
+                <button type="button" class="btn btn-primary" style="background-color: #6ea924; border: 0;" onclick="trashMeat()"><i class="fa fa-check"></i> はい</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i> 取消</button>
             </div>
         </div>
     </div>
