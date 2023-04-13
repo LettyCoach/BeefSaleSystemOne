@@ -13,7 +13,7 @@
             <th class="text-center">性別</th>
             <th class="text-center">屠殺場</th>
             <th class="text-center" style="width:13%">屠殺日</th>
-            <th class="text-center">登録</th>
+            <th class="text-center">登録・編集</th>
             <th class="text-center">削除</th>
         </tr>
     </thead>

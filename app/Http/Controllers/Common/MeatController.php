@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class MeatController extends Controller
 {
@@ -19,6 +20,7 @@ class MeatController extends Controller
         return view('common/meats.index',[
             'oxen'=>Ox::where('slaughterFinishedDate','<>',NULL)->get(),
             'parts'=>Part::all(),
+            'meats'=>Meat::all(),
             'partsCount'=>Part::all()->max(),
         ]);
     }
@@ -39,9 +41,10 @@ class MeatController extends Controller
      */
     public function store(Request $request)
     {
-        if(Meat::where('ox_id',$request->input('ox_id'))->count()>0)
-            return response()->json(['msg'=>'already register']);
-        else{
+        if(Meat::where('ox_id',$request->input('ox_id'))->count()>0){
+           // return response()->json(['msg'=>'already register']);
+           Meat::where('ox_id',$request->input('ox_id'))->delete();
+        }
             $partList = Part::all();
             $count =Meat::all()->count();
             foreach($partList as $part){ //how to use 
@@ -62,7 +65,7 @@ class MeatController extends Controller
             }   
             Ox::where('id',$ox_id)->update(['finishedState'=>1]);
             return response()->json(["msg"=>"ok"]);
-        }
+        
         
     }
 
@@ -117,6 +120,11 @@ class MeatController extends Controller
                 ->whereNotNull('exportDate')
                 ->whereNotNull('acceptedDateSlaughterHouse')
                 ->where('slaughterFinishedDate','<>',NULL);
+
+        //if current user is not admin
+        if(!Auth::user()->hasRole('admin'))
+        $OxModel = $OxModel->where('user_id',Auth::user()->id);
+
         $totalCnt = $OxModel->count();
 
         if($meatState != NULL){
@@ -135,6 +143,7 @@ class MeatController extends Controller
             $pageCnt = $totalCnt / $pageSize;
             $pageCnt = (int)$pageCnt + 1;
         }
+        
         $oxen = $OxModel->limit($pageSize)
         ->offset(($pageNumber - 1) * $pageSize)
         // ->orderBy('acceptedDateSlaughterHouse', 'desc')

@@ -8,6 +8,7 @@ use App\Models\Admin\TransportCompany;
 use App\Models\Common\Ox;
 use App\Models\Admin\Pastoral;
 use App\Models\Admin\SlaughterHouse ;
+use Illuminate\Support\Facades\Auth;
 
 
 class TransportToSlaughterHouseController extends Controller
@@ -52,6 +53,12 @@ class TransportToSlaughterHouseController extends Controller
                         ->whereNotNull('loadDate')
                         ->whereNotNull('unloadDate')
                         ->whereNotNull('exportDate');
+
+
+        //if current user is not admin
+        if(!Auth::user()->hasRole('admin'))
+        $OxModel = $OxModel->where('user_id',Auth::user()->id);
+    
         $totalCnt = $OxModel->count();
         
 

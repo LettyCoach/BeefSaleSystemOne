@@ -6,6 +6,7 @@ use App\Models\Admin\Pastoral;
 use App\Models\Common\Ox;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TransportController extends Controller {
     /**
@@ -16,16 +17,16 @@ class TransportController extends Controller {
 
         $TransportCompanies = TransportCompany::all();
         $Pastorals = Pastoral::all();
-        $todayDate = Date('Y-m-d');
-        $month = strtotime("-1 Months");
-        $firstDate = date('Y-m-d', $month);
+        $todayDate = Date( 'Y-m-d' );
+        $month = strtotime( '-1 Months' );
+        $firstDate = date( 'Y-m-d', $month );
 
         return view( 'common.transports.index', [
             'TransportCompanies' => $TransportCompanies,
             'Pastorals' => $Pastorals,
             'todayDate' => $todayDate,
             'firstDate' => $firstDate,
-        ]);
+        ] );
     }
 
     /**
@@ -44,20 +45,20 @@ class TransportController extends Controller {
         $registerType = $request->registerType;
         $OxId = $request->OxId;
         $LoadDate = $request->LoadDate;
-        
-        $Ox = Ox::find($OxId);
 
-        if($registerType == 'load') {
+        $Ox = Ox::find( $OxId );
+
+        if ( $registerType == 'load' ) {
             $Ox->loadDate = $LoadDate;
             $Ox->save();
         }
 
-        if($registerType == 'unload') {
+        if ( $registerType == 'unload' ) {
             $Ox->unloadDate = $LoadDate;
             $Ox->save();
         }
 
-        return "OK";
+        return 'OK';
     }
 
     /**
@@ -92,7 +93,7 @@ class TransportController extends Controller {
         //
     }
 
-    public function getPurchaseTransportList(Request $request) {
+    public function getPurchaseTransportList( Request $request ) {
         $transportCompanyId = $request->transportCompanyId;
         $firstDate = $request->firstDate;
         $lastDate = $request->lastDate;
@@ -102,103 +103,107 @@ class TransportController extends Controller {
         $loadState = $request->loadState;
         $pageNumber = $request->pageNumber;
 
-        if($firstDate > $lastDate) {
-            return "Date Error";
+        if ( $firstDate > $lastDate ) {
+            return 'Date Error';
         }
 
-        $purchaseTransports =  Ox::whereNotNull('purchaseDate');
+        $purchaseTransports =  Ox::whereNotNull( 'purchaseDate' );
+        //if current user is not admin
+        if ( !Auth::user()->hasRole( 'admin' ) )
+        $purchaseTransports = $purchaseTransports->where( 'user_id', Auth::user()->id );
+        
         $totalCnt = $purchaseTransports->count();
 
-        if($transportCompanyId != 0) {
-            $purchaseTransports = $purchaseTransports->where('purchaseTransport_Company_id', $transportCompanyId);
+        if ( $transportCompanyId != 0 ) {
+            $purchaseTransports = $purchaseTransports->where( 'purchaseTransport_Company_id', $transportCompanyId );
             $totalCnt = $purchaseTransports->count();
         }
 
-        if($pastoralId != 0) {
-            $purchaseTransports = $purchaseTransports->where('pastoral_id', $pastoralId);
+        if ( $pastoralId != 0 ) {
+            $purchaseTransports = $purchaseTransports->where( 'pastoral_id', $pastoralId );
             $totalCnt = $purchaseTransports->count();
         }
 
-        if($loadType == 0 && $loadState == 1) {
-            $purchaseTransports = $purchaseTransports->whereNull('loadDate')->whereNull('unloadDate');
+        if ( $loadType == 0 && $loadState == 1 ) {
+            $purchaseTransports = $purchaseTransports->whereNull( 'loadDate' )->whereNull( 'unloadDate' );
             $totalCnt = $purchaseTransports->count();
         }
 
-        if($loadType == 0 && $loadState == 2) {
+        if ( $loadType == 0 && $loadState == 2 ) {
             $purchaseTransports = $purchaseTransports
-                ->whereNotNull('loadDate')
-                ->where('loadDate', '>=', $firstDate)
-                ->where('loadDate', '<=', $lastDate);
+            ->whereNotNull( 'loadDate' )
+            ->where( 'loadDate', '>=', $firstDate )
+            ->where( 'loadDate', '<=', $lastDate );
             $totalCnt = $purchaseTransports->count();
         }
 
-        if($loadType == 1 && $loadState == 0) {
-            $purchaseTransports = $purchaseTransports->whereNotNull('loadDate');
+        if ( $loadType == 1 && $loadState == 0 ) {
+            $purchaseTransports = $purchaseTransports->whereNotNull( 'loadDate' );
             $totalCnt = $purchaseTransports->count();
         }
 
-        if($loadType == 1 && $loadState == 1) {
-            $purchaseTransports = $purchaseTransports->whereNotNull('loadDate')->whereNull('unloadDate');
+        if ( $loadType == 1 && $loadState == 1 ) {
+            $purchaseTransports = $purchaseTransports->whereNotNull( 'loadDate' )->whereNull( 'unloadDate' );
             $totalCnt = $purchaseTransports->count();
         }
 
-        if($loadType == 1 && $loadState == 2) {
-            $purchaseTransports = $purchaseTransports->whereNotNull('loadDate')->whereNotNull('unloadDate');
+        if ( $loadType == 1 && $loadState == 2 ) {
+            $purchaseTransports = $purchaseTransports->whereNotNull( 'loadDate' )->whereNotNull( 'unloadDate' );
             $totalCnt = $purchaseTransports->count();
         }
+        
+        $purchaseTransports = $purchaseTransports->orderBy( 'updated_at', 'desc' )
+        ->limit( $pageSize )->
+        offset( ( $pageNumber - 1 ) * $pageSize )
+        ->get();
 
-        $purchaseTransports = $purchaseTransports->orderBy('updated_at', 'desc')
-            ->limit($pageSize)->
-            offset(($pageNumber - 1) * $pageSize)
-            ->get();
-
-        if(($totalCnt % $pageSize) == 0) {
+        if ( ( $totalCnt % $pageSize ) == 0 ) {
             $pageCnt = $totalCnt / $pageSize;
         } else {
             $pageCnt = $totalCnt / $pageSize;
-            $pageCnt = (int)$pageCnt + 1;
+            $pageCnt = ( int )$pageCnt + 1;
         }
-        
-        return view('common.transports.list')
-            ->with('purchaseTransports', $purchaseTransports)
-            ->with('pageNumber', $pageNumber)
-            ->with('pageSize', $pageSize)
-            ->with('totalCnt', $totalCnt)
-            ->with('loadType', $loadType)
-            ->with('pageCnt', $pageCnt);
+
+        return view( 'common.transports.list' )
+        ->with( 'purchaseTransports', $purchaseTransports )
+        ->with( 'pageNumber', $pageNumber )
+        ->with( 'pageSize', $pageSize )
+        ->with( 'totalCnt', $totalCnt )
+        ->with( 'loadType', $loadType )
+        ->with( 'pageCnt', $pageCnt );
     }
 
-    public function getPurchaseTransDataByOxId(Request $request) {
+    public function getPurchaseTransDataByOxId( Request $request ) {
         $id = $request->OxId;
-        $rlt = Ox::find($id);
-        
+        $rlt = Ox::find( $id );
+
         return $rlt;
     }
 
-    public function cancelPurchaseTransLoad(Request $request){
+    public function cancelPurchaseTransLoad( Request $request ) {
         $id = $request->ox_id;
-        if(Ox::where('id',$id)->whereNotNull('unloadDate')->count() > 0){
-            return "CannotDelete";
-        }else{
-            Ox::find($id)->update([
+        if ( Ox::where( 'id', $id )->whereNotNull( 'unloadDate' )->count() > 0 ) {
+            return 'CannotDelete';
+        } else {
+            Ox::find( $id )->update( [
                 'loadDate' => NULL,
-            ]);
-            return "success cancel";
+            ] );
+            return 'success cancel';
         }
-        
+
     }
 
-    public function cancelPurchaseTransUnload(Request $request){
+    public function cancelPurchaseTransUnload( Request $request ) {
         $id = $request->ox_id;
-        if(Ox::where('id',$id)->whereNotNull('exportDate')->count() > 0){
-            return "CannotDelete";
-        }else{
-            Ox::find($id)->update([
+        if ( Ox::where( 'id', $id )->whereNotNull( 'exportDate' )->count() > 0 ) {
+            return 'CannotDelete';
+        } else {
+            Ox::find( $id )->update( [
                 'unloadDate' => NULL,
-            ]);
-            return "success cancel";
+            ] );
+            return 'success cancel';
         }
-        
+
     }
 
 }

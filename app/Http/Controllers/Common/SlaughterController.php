@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class SlaughterController extends Controller
 {
@@ -74,6 +75,11 @@ class SlaughterController extends Controller
                 ->whereNotNull('unloadDate')
                 ->whereNotNull('exportDate')
                 ->whereNotNull('acceptedDateSlaughterHouse');
+
+         //if current user is not admin
+         if(!Auth::user()->hasRole('admin'))
+         $OxModel = $OxModel->where('user_id',Auth::user()->id);
+
         $totalCnt = $OxModel->count();
 
         if($slaughterHouse_id != NULL){

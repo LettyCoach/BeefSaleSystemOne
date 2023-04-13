@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
 {
@@ -43,8 +44,9 @@ class PurchaseController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request):RedirectResponse
-    {
+    {   
         
+       // dd(Auth::user()->id);
         $validated = $request->validate([
             'name'=>'required|string|max:255',
             'registerNumber'=>'required|string|max:255',
@@ -52,7 +54,7 @@ class PurchaseController extends Controller
             'purchasePrice'=>'required|decimal:0,2',
         ]);
         $validateData = $request->all();
-
+        $currentUser_id = Auth::user()->id;
         if(Ox::where('registerNumber',$validateData['registerNumber'])->count() == 1){
             return back()->with('info','個人識別番号が重複しています。');
         }else{
@@ -61,6 +63,7 @@ class PurchaseController extends Controller
                 'registerNumber' => $validateData['registerNumber'],
                 'birthday' => $validateData['birthday'],
                 'sex' => (int)$validateData['sex'],
+                'user_id' =>(int)$currentUser_id,
                 'market_id' => (int)$validateData['market_id'],
                 'purchaseTransport_Company_id' => (int)$validateData['purchaseTransport_Company_id'],
                 'pastoral_id' => (int)$validateData['pastoral_id'],
@@ -149,9 +152,17 @@ class PurchaseController extends Controller
         $startDate = $request->startDate;
         $endDate = $request->endDate;
 
+        //
+        
+        //
         if($startDate>$endDate) return "DateError";
          
         $OxModel = Ox::whereNotNull('created_at');
+        
+        //if current user is not admin
+        if(!Auth::user()->hasRole('admin'))
+        $OxModel = $OxModel->where('user_id',Auth::user()->id);
+
         $totalCnt = $OxModel->count();
         if($market_id != NULL){
             $OxModel=$OxModel->where('market_id','=',$market_id);
@@ -170,6 +181,7 @@ class PurchaseController extends Controller
             ->where('purchaseDate','<=',$endDate) ;
             $totalCnt = $OxModel->count();
         }
+    
         $oxen = $OxModel->limit($pageSize)
                 ->offset(($pageNumber - 1) * $pageSize)
                 ->orderBy('purchaseDate', 'desc')

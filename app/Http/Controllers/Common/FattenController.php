@@ -6,6 +6,7 @@ use App\Models\Common\Ox;
 use App\Models\Admin\Pastoral;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FattenController extends Controller
 {
@@ -71,11 +72,17 @@ class FattenController extends Controller
         $pageSize = $request->pageSize;
         $pastoralId = $request->pastoralId;
 
+            $OxModel = Ox::whereNotNull('purchaseDate')
+            ->whereNotNull('loadDate')
+            ->whereNotNull('unloadDate');
+
+            //if current user is not admin
+            if(!Auth::user()->hasRole('admin'))
+            $OxModel = $OxModel->where('user_id',Auth::user()->id);
+
         if($pastoralId == 0) {
-            $totalCnt = Ox::whereNotNull('purchaseDate')
-                ->whereNotNull('loadDate')
-                ->whereNotNull('unloadDate')
-                ->count();
+
+            $totalCnt = $OxModel->count();
             
             if(($totalCnt % $pageSize) == 0) {
                 $pageCnt = $totalCnt / $pageSize;
@@ -84,19 +91,13 @@ class FattenController extends Controller
                 $pageCnt = (int)$pageCnt + 1;
             }
 
-            $oxs = Ox::whereNotNull('purchaseDate')
-                ->whereNotNull('loadDate')
-                ->whereNotNull('unloadDate')
-                ->orderBy('unloadDate', 'desc')
+            $oxs = $OxModel->orderBy('unloadDate', 'desc')
                 ->limit($pageSize)
                 ->offset(($pageNumber - 1) * $pageSize)
                 ->get();
                 
         } else {
-            $totalCnt = Ox::whereNotNull('purchaseDate')
-                ->whereNotNull('loadDate')
-                ->whereNotNull('unloadDate')
-                ->where('pastoral_id', $pastoralId)
+            $totalCnt = $OxModel->where('pastoral_id', $pastoralId)
                 ->count();
 
             if(($totalCnt % $pageSize) == 0) {
@@ -106,10 +107,7 @@ class FattenController extends Controller
                 $pageCnt = (int)$pageCnt + 1;
             }
 
-            $oxs = Ox::whereNotNull('purchaseDate')
-                ->whereNotNull('loadDate')
-                ->whereNotNull('unloadDate')
-                ->where('pastoral_id', $pastoralId)
+            $oxs = $OxModel->where('pastoral_id', $pastoralId)
                 ->orderBy('unloadDate', 'desc')
                 ->limit($pageSize)
                 ->offset(($pageNumber - 1) * $pageSize)

@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="panel-body">
-            <div style="min-height: calc(100vh - 400px);">
+            <div style="min-height: calc(100vh - 550px)">
                 <div class="table-responsive" id="FattenData">
                     
                 </div>

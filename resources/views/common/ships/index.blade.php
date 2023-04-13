@@ -57,7 +57,7 @@
                 </button>
             </div>
         </div>
-        <div class="panel-body" style="min-height: 500px; overflow-y: auto">
+        <div class="panel-body" style="min-height: calc(100vh - 550px)">
             <div style="width: 100%; padding-left: -10px;">
                 <div class="table-responsive" id="shipData">
 

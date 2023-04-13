@@ -17,6 +17,11 @@ return new class extends Migration
             $table->string('name');
             $table->date('birthday');
             $table->integer('sex');
+            $table->foreignId('user_id')
+                ->nullable()
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->foreignId('market_id')
                 ->nullable()
                 ->constrained()
