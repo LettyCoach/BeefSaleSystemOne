@@ -37,7 +37,7 @@
     </div>
 </div>
 <div class="mt-2 mb-4">
-    <div class="panel panel-primary container mx-auto" style="min-height: 500px; overflow-y: auto">
+    <div class="panel panel-primary container mx-auto" style="min-height: calc(100vh - 550px)">
         <div class="panel-body">
             <div style="width: 100%; padding-left: -10px;">
                 <div class="table-responsive"  id="slaughterList">

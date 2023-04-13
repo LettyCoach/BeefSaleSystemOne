@@ -26,7 +26,7 @@
         </div>
     </div>
     
-    <div class="panel panel-primary my-4" style="min-height: 500px; overflow-y: auto">
+    <div class="panel panel-primary my-4" style="min-height: calc(100vh - 550px)">
         <div class="panel-body">
             <div style="width: 100%; padding-left: -10px;">
                 <div class="table-responsive" id = "getMeatList">
@@ -88,14 +88,14 @@
                             @foreach($parts as $part)
                             <div class="row mb-2">
                                 <div class="col">
-                                    <input type="text" size='12' name="PartName{{$part->id}}" class="form-control"
+                                    <input type="text" size='12' id="PartName{{$part->id}}" name="PartName{{$part->id}}" class="form-control"
                                         value="{{$part->name}}" readonly>
                                 </div>
                                 <div class="col">
-                                    <input type="text" size='12' name="Weight{{$part->id}}" class="form-control ml-2 mr-2">
+                                    <input type="text" size='12' id="Weight{{$part->id}}" name="Weight{{$part->id}}" class="form-control ml-2 mr-2"  required>
                                 </div>
                                 <div class="col">
-                                    <input type="text" size='12' name="Price{{$part->id}}" class="form-control">
+                                    <input type="text" size='12'  id="Price{{$part->id}}" name="Price{{$part->id}}" class="form-control" required>
                                 </div>
                             </div>
                             @endforeach
@@ -173,21 +173,36 @@
         $("#meatModal").modal('hide');
         $("#successModal").modal('hide');
     }
-
+  
     function saveAppendInfo() {
-        $.post(
-            "{{route('meats.store')}}",
-            $('#dataForm').serialize(),
-            function(data) {
-                if (data.msg == "already register") {
-                    $("#meatModal").modal('hide');
-                    toastr.warning('すでに登録されています。');
-                }else{
-                    $("#meatModal").modal('hide');
-                    toastr.success('登録に成功しました。');
-                    getMeatList();
+            let validation = true;
+            let text = $('#dataForm').serialize();
+            const myArray = text.split("&");
+            myArray.forEach(element => {
+                if(element.endsWith('=')) {
+                    validation = false;
+                    return;
                 }
             });
+            if(validation){
+                $.post(
+                    "{{route('meats.store')}}",
+                    $('#dataForm').serialize(),
+                    function(data) {
+                        if (data.msg == "already register") {
+                            $("#meatModal").modal('hide');
+                            toastr.warning('すでに登録されています。');
+                        }else{
+                            $("#meatModal").modal('hide');
+                            toastr.success('登録に成功しました。');
+                            getMeatList();
+                        }
+                });
+            }else{
+                toastr.warning('すべての重量と価格を入力してください');
+                return;
+            }
+                
     }
 
     function selectPastoral() {

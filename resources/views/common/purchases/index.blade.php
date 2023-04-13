@@ -4,7 +4,7 @@
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <div class="mx-auto p-4 pt-5 mt-5">
      
-    <div class="container panel panel-primary mx-auto" style="min-height: 500px; overflow-y: auto">
+    <div class="container panel panel-primary mx-auto" >
         <nav aria-label="breadcrumb" class="mt-4 pt-4">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -56,7 +56,7 @@
                 </div>
             </div>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" style="min-height: calc(100vh - 550px)">
             <div style="width: 100%; padding-left: -10px;">
                 <div class="table-responsive" id="purchaseData">
                    

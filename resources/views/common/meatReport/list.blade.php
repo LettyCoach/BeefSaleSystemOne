@@ -19,7 +19,7 @@
     <div class="tab-content">
       <div id="home" class="container tab-pane active"><br>
         <h3 class="text-center mt-3">牧場統計資料</h3>
-        <table id="" class="table table-bordered table-striped" cellspacing="0"  style="min-width: 1000px; overflow-x: scroll; width:100%">
+        <table id="" class="table table-bordered table-striped" cellspacing="0"  style="min-width: 3000px; overflow-x: scroll; width:100%">
             <thead >
                 <tr>
                     <th class="text-center">番号</th>
@@ -112,7 +112,7 @@
       </div>
       <div id="menu1" class="container tab-pane fade"><br>
         <h3 class="text-center mt-3">運送会社統計資料</h3>
-        <table id="" class="table table-bordered table-striped" cellspacing="0"  style="min-width: 1000px; overflow-x: scroll; width:100%">
+        <table id="" class="table table-bordered table-striped" cellspacing="0"  style="min-width: 3000px; overflow-x: scroll; width:100%">
             <thead >
                 <tr>
                     <th class="text-center">番号</th>
@@ -204,7 +204,7 @@
       </div>
       <div id="menu2" class="container tab-pane fade"><br>
         <h3 class="text-center mt-3">屠殺場統計資料</h3>
-        <table id="" class="table table-bordered table-striped" cellspacing="0"  style="min-width: 1000px; overflow-x: scroll; width:100%">
+        <table id="" class="table table-bordered table-striped" cellspacing="0"  style="min-width: 3000px; overflow-x: scroll; width:100%">
             <thead >
                 <tr>
                     <th class="text-center">番号</th>
@@ -296,7 +296,7 @@
       </div>
       <div id="menu3" class="container tab-pane fade"><br>
         <h3 class="text-center mt-3">日付統計資料</h3>
-        <table id="" class="table table-bordered table-striped" cellspacing="0"  style="min-width: 1000px; overflow-x: scroll; width:100%">
+        <table id="" class="table table-bordered table-striped" cellspacing="0"  style="min-width: 3000px; overflow-x: scroll; width:100%">
             <thead >
                 <tr>
                     <th class="text-center">番号</th>

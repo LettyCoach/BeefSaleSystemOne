@@ -8,6 +8,7 @@ use App\Models\Admin\Pastoral;
 use App\Models\Common\Ox;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ShipController extends Controller
 {
@@ -146,6 +147,12 @@ class ShipController extends Controller
             ->whereNotNull('exportDate')
             ->where('exportDate', '>=', $firstDate)
             ->where('exportDate', '<=', $lastDate);
+
+
+         //if current user is not admin
+         if(!Auth::user()->hasRole('admin'))
+         $ships = $ships->where('user_id',Auth::user()->id);
+
         $totalCnt = $ships->count();
 
         if($pastoralId != 0) {

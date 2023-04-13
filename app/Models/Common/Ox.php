@@ -20,6 +20,7 @@ class Ox extends Model
         'name',
         'birthday',
         'sex',
+        'user_id',
         'market_id',
         'purchaseDate',
         'purchasePrice',

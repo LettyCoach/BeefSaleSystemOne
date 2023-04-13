@@ -53,7 +53,7 @@
     </div>
 </div>
 
-<div class="panel panel-primary container mx-auto mb-4" style="min-height: 500px; overflow-y: auto">
+<div class="panel panel-primary container mx-auto mb-4" style="min-height: calc(100vh - 550px)">
     <div class="panel-body">
         <div style="width: 100%; padding-left: -10px;">
             <div class="table-responsive" id="exportTransportCompanyList">

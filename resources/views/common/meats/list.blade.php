@@ -8,7 +8,7 @@
             <th class="text-center">和牛登録名</th>
             <th class="text-center">生年月日</th>
             <th class="text-center">性別</th>
-            <th class="text-center">登録</th>
+            <th class="text-center">登録・編集</th>
             <th class="text-center">詳細</th>
             <th class="text-center">削除</th>
         </tr>

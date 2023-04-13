@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="container mt-5 pt-5 mb-4">
+    <div class="container mt-5 pt-5 mb-4" style="min-height: calc(100vh - 350px)">
         <nav aria-label="breadcrumb" class="mt-4 pt-4">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -7,7 +7,7 @@
             </ol>
         </nav>
         <h2 class="text-center fw-bold">運送会社リスト</h2>
-        <div class="panel panel-primary container mx-auto"  style="min-height: 500px; overflow-y: auto">
+        <div class="panel panel-primary container mx-auto">
             <div class="panel-body">
                 <div style="width: 100%; padding-left: -10px;">
                     <div class="rounded-md d-flex justify-content-between mb-2 mt-2">
