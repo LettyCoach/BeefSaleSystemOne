@@ -74,20 +74,70 @@ class MeatController extends Controller
      */
     public function show(int $id)
     {
-        return view('common/meats.show',['ox'=>Ox::find($id),'part'=>Part::all()]);
+       
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * index part of ox 
      */
-    public function edit(string $id)
+    public function edit(int $id)
     {
-        //
+        return view('common/meats.register',['ox'=>Ox::find($id),'parts'=>Part::all()]);
     }
-      /**
+   
+    public function getRegisterList(Request $request){
+        $id = $request->input('ox_id');
+        return view('common/meats.registerList',['ox'=>Ox::find($id)]);
+    }
+   public function addPartRegister(Request $request){
+        $ox_id = $request->input('ox_id');
+        $part_id = $request->input('part_id');
+        $weight = $request->input('weight');
+        $price = $request->input('price');
+        $exist = Meat::where('ox_id','=',$ox_id)
+            ->where('part_id','=',$part_id)
+            ->count();
+        if($exist>0)
+            return "Duplicate";
+        else
+            Meat::create([
+                'ox_id' => $ox_id,
+                'part_id' => $part_id,
+                'weight' => $weight,
+                'price' => $price,
+            ]);
+        return view('common/meats.registerList',['ox'=>Ox::find($ox_id)]);
+   }
+
+   public function updatePartRegister(Request $request){
+        $ox_id = $request->input('ox_id');
+        $part_id = $request->input('part_id');
+        $weight = $request->input('weight');
+        $price = $request->input('price');
+        $partName = $request->input('partName');
+        Meat::where('ox_id','=',$ox_id)
+            ->where('part_id','=',$part_id)
+            ->update([
+                'weight' => $weight,
+                'price' => $price,
+            ]);
+        return view('common/meats.registerList',['ox'=>Ox::find($ox_id)]);
+    }
+    public function deletePartRegister(Request $request){
+        $ox_id = $request->input('ox_id');
+        $part_id = $request->input('part_id');
+        $meat = Meat::where('ox_id','=',$ox_id)
+            ->where('part_id','=',$part_id);
+        $meat->delete();
+        return view('common/meats.registerList',['ox'=>Ox::find($ox_id)]);
+    }
+    
+   
+   
+    /**
      * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+     */  
+     public function update(Request $request, string $id)
     {
         //
     }

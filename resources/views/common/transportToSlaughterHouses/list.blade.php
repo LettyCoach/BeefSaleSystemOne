@@ -14,7 +14,7 @@
             <th class="text-center">屠殺場</th>
             <th class="text-center" style="width:13%;">登録日</th>
             <th class="text-center">登録</th>
-            <th class="text-center">削除</th>
+            <th class="text-center">修正</th>
         </tr>
     </thead>
     <tbody>

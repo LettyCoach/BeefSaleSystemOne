@@ -59,7 +59,7 @@
             </td>
             <td class="text-center">
                 <a href="{{route('purchases.edit', $ox)}}" class="p-2 text-center">
-                    <i class="fas fa-edit text-green-700" aria-hidden="true"></i>
+                    <i class="fa fa-edit text-green-700" aria-hidden="true"></i>
                 </a>
             </td>
             <td class="text-center">
@@ -67,7 +67,7 @@
                     @csrf
                     @method('delete')
                     <a href="javascript:;showConfirmModal({{ $ox->id }})" class="p-2 mx-auto">
-                        <i class="fas fa-trash" aria-hidden="true"></i>
+                        <i class="fa fa-trash" aria-hidden="true"></i>
                     </a>
                 </form>
             </td>

@@ -34,6 +34,11 @@ function getPurchaseTransportList(pageNumber) {
         'pageNumber': pageNumber
     }, function(data){
         $("#purchaseTransportData").html(data);
+        if(loadType == 0) {
+            $("#transportTitle").html("運送(積み込み)");
+        } else {
+            $("#transportTitle").html("運送(積み下ろし)");
+        }
     });
 }
 
