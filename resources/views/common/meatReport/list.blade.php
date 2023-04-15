@@ -34,7 +34,6 @@
                         <th>価格</th>   
                     @endforeach
                     <th>総重量</th>
-                    <th>平均価格</th>
                     <th>総金額</th>
                 </tr>
             </thead>
@@ -73,37 +72,37 @@
                     </td>
                     @php
                         $totalWeight = 0;
-                        $totalPrice = 0;
+                        $totalAmount = 0;
                     @endphp
                      @foreach ($parts as $partItem)
                         @php
                             $weight[$partItem->id] = 0;
                             $price[$partItem->id] = 0;
+                            $avePrice[$partItem->id] = 0;
                         @endphp    
                     @endforeach
                     @foreach ($pastoralOxenList as $oxItem)
-                        @foreach ($parts as $partItem)
+
+                        @foreach ($oxItem->parts as $partItem)
                             @php
-                                $weight[$partItem->id] += $oxItem->meats()->where('part_id','=', $partItem->id)->value('weight');
-                                $price[$partItem->id] += $oxItem->meats()->where('part_id','=', $partItem->id)->value('price');
+                                $weight[$partItem->id] += $partItem->pivot->weight;
+                                $price[$partItem->id] += $partItem->pivot->price;
                             @endphp
                         @endforeach
                     @endforeach
                     @foreach ($parts as $partItem)
                         @php
                             $totalWeight += $weight[$partItem->id];
-                            $totalPrice += $price[$partItem->id];
+                            $avePrice[$partItem->id] = $price[$partItem->id]/$pastoralOxenList->count();
+                            $partTotalAmount= $weight[$partItem->id]*$avePrice[$partItem->id];
+                            $totalAmount += $partTotalAmount;
                         @endphp
                         <td>{{$weight[$partItem->id]}}</td> 
-                        <td>{{$price[$partItem->id]}}</td>   
+                        <td>{{$avePrice[$partItem->id]}}</td>   
                     @endforeach
-                        @php
-                            $totalPrice /=$parts->count();
-                            $totalPrice = floor($totalPrice);
-                        @endphp
+                        
                     <td>{{$totalWeight}}</td>
-                    <td>{{$totalPrice}}</td>
-                    <td>{{$totalWeight*$totalPrice}}</td>
+                    <td>{{$totalAmount}}</td>
                     
                  </tr>
                 @endforeach
@@ -116,7 +115,7 @@
             <thead >
                 <tr>
                     <th class="text-center">番号</th>
-                    <th class="text-center">牧場</th>
+                    <th class="text-center">運送会社</th>
                     <th class="text-center">総牛マリー数</th>
                     <th class="text-center">雄</th>
                     <th class="text-center">雌</th>
@@ -127,7 +126,6 @@
                         <th>価格</th>   
                     @endforeach
                     <th>総重量</th>
-                    <th>平均価格</th>
                     <th>総金額</th>
                 </tr>
             </thead>
@@ -135,7 +133,7 @@
                 @php
                     $no = 1;    
                 @endphp
-                @foreach ($trasnsportCompanyOxen as $slaughterTransport_Company_id => $trasnsportCompanyOxenList)
+                 @foreach ($trasnsportCompanyOxen as $slaughterTransport_Company_id => $trasnsportCompanyOxenList)
                 <tr>
                     <td class="text-center">
                         <span>{{$no++ }}</span>
@@ -166,38 +164,39 @@
                     </td>
                     @php
                         $totalWeight = 0;
-                        $totalPrice = 0;
+                        $totalAmount = 0;
                     @endphp
                      @foreach ($parts as $partItem)
                         @php
                             $weight[$partItem->id] = 0;
                             $price[$partItem->id] = 0;
+                            $avePrice[$partItem->id] = 0;
                         @endphp    
                     @endforeach
-                    @foreach ($trasnsportCompanyOxenList as $oxItem)
-                        @foreach ($parts as $partItem)
+                    @foreach ($pastoralOxenList as $oxItem)
+
+                        @foreach ($oxItem->parts as $partItem)
                             @php
-                                $weight[$partItem->id] += $oxItem->meats()->where('part_id','=', $partItem->id)->value('weight');
-                                $price[$partItem->id] += $oxItem->meats()->where('part_id','=', $partItem->id)->value('price');
+                                $weight[$partItem->id] += $partItem->pivot->weight;
+                                $price[$partItem->id] += $partItem->pivot->price;
                             @endphp
                         @endforeach
                     @endforeach
                     @foreach ($parts as $partItem)
                         @php
                             $totalWeight += $weight[$partItem->id];
-                            $totalPrice += $price[$partItem->id];
+                            $avePrice[$partItem->id] = $price[$partItem->id]/$pastoralOxenList->count();
+                            $partTotalAmount= $weight[$partItem->id]*$avePrice[$partItem->id];
+                            $totalAmount += $partTotalAmount;
                         @endphp
                         <td>{{$weight[$partItem->id]}}</td> 
-                        <td>{{$price[$partItem->id]}}</td>   
+                        <td>{{$avePrice[$partItem->id]}}</td>   
                     @endforeach
-                        @php
-                            $totalPrice /=$parts->count();
-                            $totalPrice = floor($totalPrice);
-                        @endphp
+                        
                     <td>{{$totalWeight}}</td>
-                    <td>{{$totalPrice}}</td>
-                    <td>{{$totalWeight*$totalPrice}}</td>
-                </tr>
+                    <td>{{$totalAmount}}</td>
+                    
+                 </tr>
                 @endforeach
             </tbody>
         </table>
@@ -208,7 +207,7 @@
             <thead >
                 <tr>
                     <th class="text-center">番号</th>
-                    <th class="text-center">牧場</th>
+                    <th class="text-center">屠殺場</th>
                     <th class="text-center">総牛マリー数</th>
                     <th class="text-center">雄</th>
                     <th class="text-center">雌</th>
@@ -219,7 +218,6 @@
                         <th>価格</th>   
                     @endforeach
                     <th>総重量</th>
-                    <th>平均価格</th>
                     <th>総金額</th>
                 </tr>
             </thead>
@@ -258,37 +256,38 @@
                     </td>
                     @php
                         $totalWeight = 0;
-                        $totalPrice = 0;
+                        $totalAmount = 0;
                     @endphp
                      @foreach ($parts as $partItem)
                         @php
                             $weight[$partItem->id] = 0;
                             $price[$partItem->id] = 0;
+                            $avePrice[$partItem->id] = 0;
                         @endphp    
                     @endforeach
                     @foreach ($slaughterHouseOxenList as $oxItem)
-                        @foreach ($parts as $partItem)
+
+                        @foreach ($oxItem->parts as $partItem)
                             @php
-                                $weight[$partItem->id] += $oxItem->meats()->where('part_id','=', $partItem->id)->value('weight');
-                                $price[$partItem->id] += $oxItem->meats()->where('part_id','=', $partItem->id)->value('price');
+                                $weight[$partItem->id] += $partItem->pivot->weight;
+                                $price[$partItem->id] += $partItem->pivot->price;
                             @endphp
                         @endforeach
                     @endforeach
                     @foreach ($parts as $partItem)
                         @php
                             $totalWeight += $weight[$partItem->id];
-                            $totalPrice += $price[$partItem->id];
+                            $avePrice[$partItem->id] = $price[$partItem->id]/$pastoralOxenList->count();
+                            $partTotalAmount= $weight[$partItem->id]*$avePrice[$partItem->id];
+                            $totalAmount += $partTotalAmount;
                         @endphp
                         <td>{{$weight[$partItem->id]}}</td> 
-                        <td>{{$price[$partItem->id]}}</td>   
+                        <td>{{$avePrice[$partItem->id]}}</td>   
                     @endforeach
-                        @php
-                            $totalPrice /=$parts->count();
-                            $totalPrice = floor($totalPrice);
-                        @endphp
+                        
                     <td>{{$totalWeight}}</td>
-                    <td>{{$totalPrice}}</td>
-                    <td>{{$totalWeight*$totalPrice}}</td>
+                    <td>{{$totalAmount}}</td>
+                    
                  </tr>
                 @endforeach
             </tbody>
@@ -300,7 +299,7 @@
             <thead >
                 <tr>
                     <th class="text-center">番号</th>
-                    <th class="text-center">牧場</th>
+                    <th class="text-center">日付</th>
                     <th class="text-center">総牛マリー数</th>
                     <th class="text-center">雄</th>
                     <th class="text-center">雌</th>
@@ -311,7 +310,6 @@
                         <th>価格</th>   
                     @endforeach
                     <th>総重量</th>
-                    <th>平均価格</th>
                     <th>総金額</th>
                 </tr>
             </thead>
@@ -350,37 +348,38 @@
                     </td>
                     @php
                         $totalWeight = 0;
-                        $totalPrice = 0;
+                        $totalAmount = 0;
                     @endphp
                      @foreach ($parts as $partItem)
                         @php
                             $weight[$partItem->id] = 0;
                             $price[$partItem->id] = 0;
+                            $avePrice[$partItem->id] = 0;
                         @endphp    
                     @endforeach
                     @foreach ($purchaseDateList as $oxItem)
-                        @foreach ($parts as $partItem)
+
+                        @foreach ($oxItem->parts as $partItem)
                             @php
-                                $weight[$partItem->id] += $oxItem->meats()->where('part_id','=', $partItem->id)->value('weight');
-                                $price[$partItem->id] += $oxItem->meats()->where('part_id','=', $partItem->id)->value('price');
+                                $weight[$partItem->id] += $partItem->pivot->weight;
+                                $price[$partItem->id] += $partItem->pivot->price;
                             @endphp
                         @endforeach
                     @endforeach
                     @foreach ($parts as $partItem)
                         @php
                             $totalWeight += $weight[$partItem->id];
-                            $totalPrice += $price[$partItem->id];
+                            $avePrice[$partItem->id] = $price[$partItem->id]/$purchaseDateList->count();
+                            $partTotalAmount= $weight[$partItem->id]*$avePrice[$partItem->id];
+                            $totalAmount += $partTotalAmount;
                         @endphp
                         <td>{{$weight[$partItem->id]}}</td> 
-                        <td>{{$price[$partItem->id]}}</td>   
+                        <td>{{$avePrice[$partItem->id]}}</td>   
                     @endforeach
-                        @php
-                            $totalPrice /=$parts->count();
-                            $totalPrice = floor($totalPrice);
-                        @endphp
+                        
                     <td>{{$totalWeight}}</td>
-                    <td>{{$totalPrice}}</td>
-                    <td>{{$totalWeight*$totalPrice}}</td>
+                    <td>{{$totalAmount}}</td>
+                    
                  </tr>
                 @endforeach
             </tbody>
