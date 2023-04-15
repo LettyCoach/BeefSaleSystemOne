@@ -64,6 +64,6 @@ class Ox extends Model
     // }
     public function parts(): BelongsToMany
     {
-        return $this->belongsToMany(Part::class,'meats','ox_id','part_id')->withPivot('weight', 'price');
+        return $this->belongsToMany(Part::class,'meats','ox_id','part_id')->withPivot('id','weight', 'price');
     }
 }
