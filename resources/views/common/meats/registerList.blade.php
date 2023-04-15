@@ -4,7 +4,6 @@
             <th class="text-center">番号</th>
             <th class="text-center">部位</th>
             <th class="text-center">重さ</th>
-            <th class="text-center">値段</th>
             <th class="text-center">編集</th>
             <th class="text-center">削除</th>
         </tr>
@@ -20,9 +19,6 @@
             </td>
             <td class="text-center" id = "price{{$item->id}}">
                 {{$item->pivot->price}}
-            </td>
-            <td class="text-center">
-                {{$ox->id}}
             </td>
             <td class="text-center">
                 <a href="javascript:;showUpdateModal({{$item->id}},{{$ox->id}})"><i class="fa fa-check text-green-700"
