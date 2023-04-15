@@ -1,7 +1,7 @@
 @extends('layouts.commonUser')
 @section('content')
 <div class="mx-auto p-4 pt-5 mt-5">
-    <div class="container panel panel-primary mx-auto" style="min-height: 500px; overflow-y: auto">
+    <div class="container panel panel-primary mx-auto" style="min-height:calc(100vh - 350px)">
         <nav aria-label="breadcrumb" class="mt-4 pt-4">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
