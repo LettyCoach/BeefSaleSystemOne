@@ -126,6 +126,10 @@ Route::get('/common/getSlaughterReportList',            [SlaughterReportControll
 Route::resource('/common/meats',                        MeatController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:meat']);
 Route::get('/common/getMeatList',                       [MeatController::class,'getMeatList'])->middleware(['auth','verified']);
 Route::post('/common/meatCancel',                       [MeatController::class,'meatCancel'])->middleware(['auth','verified']);
+Route::get('/common/getRegisterList',                   [MeatController::class,'getRegisterList'])->middleware(['auth','verified']);
+Route::get('/common/addPartRegister',                   [MeatController::class,'addPartRegister'])->middleware(['auth','verified']);
+Route::get('/common/updatePartRegister',                [MeatController::class,'updatePartRegister'])->middleware(['auth','verified']);
+Route::get('/common/deletePartRegister',                [MeatController::class,'deletePartRegister'])->middleware(['auth','verified']);
 Route::resource('/common/meatReport',                   MeatReportController::class)->only(['index','store','show','create','edit','update','destroy'])->middleware(['auth','verified','role:meat']);
 Route::get('/common/getMeatReportList',                 [MeatReportController::class,'getMeatReportList'])->middleware(['auth','verified']);
 

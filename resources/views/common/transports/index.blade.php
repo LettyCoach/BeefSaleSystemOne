@@ -9,7 +9,7 @@
             </li>
             </ol>
         </nav>
-        <h2 class="text-center font-bold fw-bold">運送(買った牛を運び込みと積み下ろしの報告)</h2>
+        <h2 class="text-center font-bold fw-bold" id="transportTitle">運送(積み込み)</h2>
         <div class="panel-heading">
             <div class="d-flex justify-content-between items-center mb-2 mt-4">
                 <div class="rounded-md">

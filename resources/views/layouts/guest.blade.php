@@ -30,6 +30,9 @@
     <!-- Template Main CSS File -->
     <link href="assets/css/main.css" rel="stylesheet">
 
+    <!--Custom css Files-->
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+
     <!-- Font Awesome Icon -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -40,12 +43,16 @@
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center shadow">
         <div class="container d-flex align-items-center justify-content-between">
-
-            <a href="/" class="logo d-flex align-items-center me-auto me-lg-0">
-                <!-- Uncomment the line below if you also wish to use an image logo -->
-                <!-- <img src="assets/img/logo.png" alt=""> -->
-                <h1>SGDs</h1>
-            </a>
+            <div class="usernameStyle">
+                <a href="/" class="logo d-flex align-items-center me-auto me-lg-0">
+                    <!-- Uncomment the line below if you also wish to use an image logo -->
+                    <!-- <img src="assets/img/logo.png" alt=""> -->
+                    <h1>SGDs</h1>
+                </a>
+                @if (Auth::user())
+                    <span>{{Auth::user()->name}}</span>
+                @endif
+            </div>      
 
             <nav id="navbar" class="navbar">
                 <ul>
@@ -69,15 +76,24 @@
                         </ul>
                     </li>
                     @if (Auth::user() && Auth::user()->hasRole('admin'))
-                    <li><a href="{{route('markets.index')}}">管理者</a></li>                    
-                @endif
+                        <li><a href="{{route('markets.index')}}">管理者</a></li>                    
+                    @endif
                 </ul>
             </nav><!-- .navbar -->
 
             @if (Route::has('login'))
             <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
                 @auth
-                <a class="btn-book-a-table" style="margin-left: 0;" href="/logout">ログアウト</a>
+                <nav  id="navbar" class="navbar">
+                    <ul>
+                        <li class="dropdown ms-5">
+                            <a href="#"><span>{{Auth::user()->name}}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                            <ul>
+                                <li><a href="/logout">ログアウト</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
                 @else
                 <a class="btn-book-a-table" style="margin-left: 0;" href="{{ route('login') }}">ログイン</a>
                 <a class="btn-book-a-table" style="margin-left: 0;" href="{{ route('register') }}">会員登録</a>

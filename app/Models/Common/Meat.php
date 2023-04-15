@@ -15,9 +15,9 @@ class Meat extends Model
         'weight',
         'price',
     ];
-    public function part(): BelongsTo
-    {
-        return $this->belongsTo(Part::class);
-    }
+    // public function part(): BelongsTo
+    // {
+    //     return $this->belongsTo(Part::class);
+    // }
   
 }

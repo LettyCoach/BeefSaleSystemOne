@@ -14,7 +14,7 @@
                 <th class="text-center">積み込み日</th>
                 <th class="text-center" style="width: 5%;">記載</th>
                 <th class="text-center" style="width: 5%;">詳細</th>
-                <th class="text-center" style="width: 5%;">取消</th>
+                <th class="text-center" style="width: 5%;">修正</th>
             </tr>
         </thead>
         <tbody>
@@ -287,7 +287,7 @@
                 <th class="text-center">積み下ろし日</th>
                 <th class="text-center" style="width: 5%;">記載</th>
                 <th class="text-center" style="width: 5%;">詳細</th>
-                <th class="text-center" style="width: 5%;">取消</th>
+                <th class="text-center" style="width: 5%;">修正</th>
             </tr>
         </thead>
         <tbody>

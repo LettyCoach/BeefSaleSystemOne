@@ -7,3 +7,13 @@
 html, body {
     margin: 0;
 }
+
+.usernameStyle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.usernameStyle span {
+    padding-left: 20px;
+}

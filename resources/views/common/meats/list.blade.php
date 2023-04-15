@@ -9,7 +9,6 @@
             <th class="text-center">生年月日</th>
             <th class="text-center">性別</th>
             <th class="text-center">登録・編集</th>
-            <th class="text-center">詳細</th>
             <th class="text-center">削除</th>
         </tr>
     </thead>
@@ -28,7 +27,7 @@
                 <span>{{$no++}}</span>
             </td>
             <td class="text-center">
-                @if($ox->meats()->count()>0)
+                @if($ox->parts()->count()>0)
                 <small style="padding: 5px" class="rounded text-white bg-success"> 完了 </small>
                 @else
                 <small style="padding: 5px" class="rounded text-white bg-danger"> 未 </small>
@@ -48,12 +47,12 @@
                     @endif</span>
             </td>
             <td class="text-center">
+                <!--
                 <a href="javascript:;openMeatModal({{ $ox->id }})"><i
                         class="fa fa-plus" aria-hidden="true"></i></a>
-            </td>
-            <td class="text-center">
-                <a href="{{route('meats.show', $ox->id)}}"><i class="fa fa-info text-green-700"
-                        aria-hidden="true"></i></a>
+                -->
+                <a href="{{route('meats.edit', $ox->id)}}"><i class="fa fa-plus text-green-700"
+                    aria-hidden="true"></i></a>
             </td>
             <td class="text-center">
                 <a href="javascript:;showConfirmModal({{$ox->id}});"><i class="fa fa-trash text-green-700"
