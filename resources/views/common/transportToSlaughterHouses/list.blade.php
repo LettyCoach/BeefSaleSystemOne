@@ -58,9 +58,11 @@
     </tbody>
 </table>
 <div class="d-flex  justify-content-between">
-    <div class="d-flex justify-content-start">
-        {{ $totalCnt }} エントリ中 {{ $firstRow }} から {{ $firstRow + $rowCnt - 1 }} を表示
-    </div>
+    @if($totalCnt > 0)
+    {{ $totalCnt }} エントリ中 {{ $firstRow }} から {{ $firstRow + $rowCnt - 1 }} を表示
+    @else
+    表示するデータはありません。
+    @endif
     <ul class="pagination justify-content-end">
         @if($pageCnt <= 5)
             @if($pageNumber == 1)
