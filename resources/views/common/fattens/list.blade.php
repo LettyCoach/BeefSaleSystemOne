@@ -12,62 +12,58 @@
         </tr>
     </thead>
     <tbody>
-        @if(count($oxs) > 0)
-            @php
-                $no = ($pageNumber - 1) * $pageSize + 1;
-                $firstRow = $no;
-                $rowCnt = 0;
-            @endphp
-            @foreach ($oxs as $ox)
-            @php
-                $rowCnt ++;
-            @endphp
-            <tr>
-                <td class="text-center">
-                    <span class="">{{ $no ++ }}</span>
-                </td>
-                <td class="text-center">
-                    <span class="">{{$ox->registerNumber}}</span>
-                </td>
-                <td class="text-center">
-                    <span class="">{{$ox->name}}</span>
-                </td>
-                <td class="text-center">
-                    <span class="">{{$ox->birthday}}</span>
-                </td>
-                <td class="text-center">
-                    <span class="ml-2 break-all text-gray-600">@if($ox->sex==1) 雄 @else 雌 @endif</span>
-                </td>
-                <td class="text-center">
-                    <span class="">{{$ox->pastoral->name}}</span>
-                </td>
-                <td class="text-center">
-                    <span class="">
-                        <a href="javascript:;showAppendInfoAddModal({{ $ox->id }})" class="text-sm">
-                            <i class="fa fa-plus"></i>
-                        </a>
-                    </span>
-                </td>
-                <td class="text-center">
-                    <span class="">
-                        <a href="javascript:;showAppendInfoViewModal({{ $ox->id }})">
-                            <i class="fa fa-info"></i>
-                        </a>
-                    </span>
-                </td>
-            </tr>
-            @endforeach
-        @else
-            <tr>
-                <td class="text-center" colspan="7">表にデータがありません</td>
-            </tr>
-        @endif
+        @php
+            $no = ($pageNumber - 1) * $pageSize + 1;
+            $firstRow = $no;
+            $rowCnt = 0;
+        @endphp
+        @foreach ($oxs as $ox)
+        @php
+            $rowCnt ++;
+        @endphp
+        <tr>
+            <td class="text-center">
+                <span class="">{{ $no ++ }}</span>
+            </td>
+            <td class="text-center">
+                <span class="">{{$ox->registerNumber}}</span>
+            </td>
+            <td class="text-center">
+                <span class="">{{$ox->name}}</span>
+            </td>
+            <td class="text-center">
+                <span class="">{{$ox->birthday}}</span>
+            </td>
+            <td class="text-center">
+                <span class="ml-2 break-all text-gray-600">@if($ox->sex==1) 雄 @else 雌 @endif</span>
+            </td>
+            <td class="text-center">
+                <span class="">{{$ox->pastoral->name}}</span>
+            </td>
+            <td class="text-center">
+                <span class="">
+                    <a href="javascript:;showAppendInfoAddModal({{ $ox->id }})" class="text-sm">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </span>
+            </td>
+            <td class="text-center">
+                <span class="">
+                    <a href="javascript:;showAppendInfoViewModal({{ $ox->id }})">
+                        <i class="fa fa-info"></i>
+                    </a>
+                </span>
+            </td>
+        </tr>
+        @endforeach
     </tbody>
 </table>
 <div class="d-flex  justify-content-between">
     <div class="d-flex justify-content-start">
-        @if(count($oxs) > 0)
-            {{ $totalCnt }} エントリ中 {{ $firstRow }} から {{ $firstRow + $rowCnt - 1 }} を表示
+        @if($totalCnt > 0)
+        {{ $totalCnt }} エントリ中 {{ $firstRow }} から {{ $firstRow + $rowCnt - 1 }} を表示
+        @else
+        表示するデータはありません。
         @endif
     </div>
     <ul class="pagination justify-content-end">
