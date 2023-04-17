@@ -18,12 +18,6 @@ class ShipController extends Controller
      */
     public function index()
     {
-        $user = User::find(2);
-        Auth::login($user);
-        var_dump(Auth::user()->id); // returns 1
-       // Auth::logout();
-
-
         $TransportCompanies = TransportCompany::all();
         $Pastorals = Pastoral::all();
         $SlaughterHouses = SlaughterHouse::all();
