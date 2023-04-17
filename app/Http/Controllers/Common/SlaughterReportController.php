@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Common;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Common\Ox;
-
+use Auth;
 class SlaughterReportController extends Controller
 {
     /**
@@ -17,46 +17,63 @@ class SlaughterReportController extends Controller
     }
 
     public function getSlaughterReportList(Request $request){
-        $pastoralOxen = Ox::whereNotNull('purchaseDate')
+
+        $OxModel = Ox::whereNotNull('purchaseDate')
         ->whereNotNull('loadDate')
         ->whereNotNull('unloadDate')
         ->whereNotNull('exportDate')
-        ->whereNotNull('acceptedDateSlaughterHouse')
-        
-        ->orderBy('pastoral_id')
+        ->whereNotNull('acceptedDateSlaughterHouse');
+
+        //if current user is not admin
+        if(!Auth::user()->hasRole('admin'))
+            $OxModel = $OxModel->where('user_id',Auth::user()->id);
+
+        $pastoralOxen=$OxModel->orderBy('pastoral_id')
         ->get()
         ->groupBy(function($data) {
             return $data->pastoral_id;
     });
-    $trasnsportCompanyOxen = Ox::whereNotNull('purchaseDate')
+    $OxModel = Ox::whereNotNull('purchaseDate')
         ->whereNotNull('loadDate')
         ->whereNotNull('unloadDate')
         ->whereNotNull('exportDate')
-        ->whereNotNull('acceptedDateSlaughterHouse')
-        
-        ->orderBy('slaughterTransport_Company_id')
+        ->whereNotNull('acceptedDateSlaughterHouse');
+
+        //if current user is not admin
+        if(!Auth::user()->hasRole('admin'))
+            $OxModel = $OxModel->where('user_id',Auth::user()->id);
+
+        $trasnsportCompanyOxen = $OxModel->orderBy('slaughterTransport_Company_id')
         ->get()
         ->groupBy(function($data) {
             return $data->slaughterTransport_Company_id;
     });
-    $slaughterHouseOxen = Ox::whereNotNull('purchaseDate')
+    $OxModel = Ox::whereNotNull('purchaseDate')
         ->whereNotNull('loadDate')
         ->whereNotNull('unloadDate')
         ->whereNotNull('exportDate')
-        ->whereNotNull('acceptedDateSlaughterHouse')
-        
-        ->orderBy('slaughterHouse_id')
+        ->whereNotNull('acceptedDateSlaughterHouse');
+
+        //if current user is not admin
+        if(!Auth::user()->hasRole('admin'))
+            $OxModel = $OxModel->where('user_id',Auth::user()->id);
+
+        $slaughterHouseOxen=$OxModel->orderBy('slaughterHouse_id')
         ->get()
         ->groupBy(function($data) {
             return $data->slaughterHouse_id;
     });
-    $purchaseDates = Ox::whereNotNull('purchaseDate')
+    $OxModel = Ox::whereNotNull('purchaseDate')
         ->whereNotNull('loadDate')
         ->whereNotNull('unloadDate')
         ->whereNotNull('exportDate')
-        ->whereNotNull('acceptedDateSlaughterHouse')
-        
-        ->orderBy('purchaseDate')
+        ->whereNotNull('acceptedDateSlaughterHouse');
+
+        //if current user is not admin
+        if(!Auth::user()->hasRole('admin'))
+            $OxModel = $OxModel->where('user_id',Auth::user()->id);
+
+        $purchaseDates=$OxModel->orderBy('purchaseDate')
         ->get()
         ->groupBy(function($data) {
             return $data->purchaseDate;

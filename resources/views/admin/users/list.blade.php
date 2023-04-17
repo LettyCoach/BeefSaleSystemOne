@@ -24,9 +24,7 @@
                     <span class="break-all">{{ $no ++ }}</span>
                 </td>
                 <td class="text-center">
-                    <a href="/">
-                        <span class="break-all" id = "userName{{ $user->id }}">{{ $user->name }}</span>
-                    </a>
+                    <a class="btn btn-info" href="{{ route('purchases.show',$user->id) }}">{{ $user->name }}</a>
                 </td>
                 <td class="text-center">
                     <span class="break-all" id = "userEmail{{ $user->id }}">{{ $user->email }}</span>
