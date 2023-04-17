@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\User;
 class ShipController extends Controller
 {
     /**
@@ -17,6 +18,12 @@ class ShipController extends Controller
      */
     public function index()
     {
+        $user = User::find(2);
+        Auth::login($user);
+        var_dump(Auth::user()->id); // returns 1
+       // Auth::logout();
+
+
         $TransportCompanies = TransportCompany::all();
         $Pastorals = Pastoral::all();
         $SlaughterHouses = SlaughterHouse::all();

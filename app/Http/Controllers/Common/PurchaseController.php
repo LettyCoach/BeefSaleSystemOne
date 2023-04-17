@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class PurchaseController extends Controller
 {
@@ -78,10 +79,24 @@ class PurchaseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(int $id)
     {
-        //
-    }
+        if(Auth::user()->hasRole('admin')){
+            $user = User::find($id);
+            Auth::login($user);
+            // var_dump(Auth::user()->id); // returns 1
+            // Auth::logout();
+            $month = strtotime("-1 Months");
+            $startDate = date('Y-m-d', $month);
+            return view('common/purchases.index',[
+                'oxen'=>Ox::select('purchaseDate')->distinct()->get(),
+                'markets'=>Market::all(),
+                'pastorals'=>Pastoral::all(),
+                'transportCompanies'=>TransportCompany::all(),
+                'startDate'=>$startDate,
+            ]);
+        }
+     }
 
     /**
      * Show the form for editing the specified resource.

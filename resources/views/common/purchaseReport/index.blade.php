@@ -13,8 +13,29 @@
         </div>
         <div class="panel-body">
             <div style="width: 100%; padding-left: -10px;">
-                <div class="table-responsive" id="purchaseReportData">
-                   
+                <div class="table-responsive">
+                    <div class="container mt-3">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                          <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#home">牧場統計資料</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#menu1">運送会社統計資料</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#menu2">市場統計資料</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#menu3">日付統計資料</a>
+                          </li>
+                        </ul>
+                      
+                        <!-- Tab panes -->
+                        <div class="tab-content" id="purchaseReportData">
+                          
+                        </div>
+                      </div>
                 </div>
             </div>
         </div>

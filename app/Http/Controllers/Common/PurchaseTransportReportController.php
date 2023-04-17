@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Common;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Common\Ox;
-
+use Auth;
 class PurchaseTransportReportController extends Controller
 {
     /**
@@ -17,26 +17,48 @@ class PurchaseTransportReportController extends Controller
     }
 
     public function getPurchaseTransportReportList(Request $request){
-        $pastoralOxen = Ox::whereNotNull('purchaseDate')
-            ->orderBy('pastoral_id')
+        
+        $OxModel = Ox::whereNotNull('purchaseDate');
+ 
+        //if current user is not admin
+        if(!Auth::user()->hasRole('admin'))
+            $OxModel = $OxModel->where('user_id',Auth::user()->id);
+
+        $pastoralOxen = $OxModel->orderBy('pastoral_id')
             ->get()
             ->groupBy(function($data) {
                 return $data->pastoral_id;
         });
-        $trasnsportCompanyOxen = Ox::whereNotNull('purchaseDate')
-            ->orderBy('purchaseTransport_Company_id')
+
+        $OxModel = Ox::whereNotNull('purchaseDate');
+
+        //if current user is not admin
+        if(!Auth::user()->hasRole('admin'))
+            $OxModel = $OxModel->where('user_id',Auth::user()->id);
+
+        $trasnsportCompanyOxen = $OxModel->orderBy('purchaseTransport_Company_id')
             ->get()
             ->groupBy(function($data) {
                 return $data->purchaseTransport_Company_id;
         });
-        $marketOxen = Ox::whereNotNull('purchaseDate')
-            ->orderBy('market_id')
+        $OxModel = Ox::whereNotNull('purchaseDate');
+
+        //if current user is not admin
+        if(!Auth::user()->hasRole('admin'))
+            $OxModel = $OxModel->where('user_id',Auth::user()->id);
+
+        $marketOxen = $OxModel->orderBy('market_id')
             ->get()
             ->groupBy(function($data) {
                 return $data->market_id;
         });
-        $purchaseDates = Ox::whereNotNull('purchaseDate')
-            ->orderBy('purchaseDate')
+        $OxModel = Ox::whereNotNull('purchaseDate');
+
+        //if current user is not admin
+        if(!Auth::user()->hasRole('admin'))
+        $OxModel = $OxModel->where('user_id',Auth::user()->id);
+
+        $purchaseDates = $OxModel->orderBy('purchaseDate')
             ->get()
             ->groupBy(function($data) {
                 return $data->purchaseDate;

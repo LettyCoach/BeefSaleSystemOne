@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Common;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Common\Ox;
+use Auth;
 class FattenReportController extends Controller
 {
     /**
@@ -15,19 +16,30 @@ class FattenReportController extends Controller
         return view('common/fattenReport.index');
     }
     public function getFattenReportList(Request $request){
-        $pastoralOxen = Ox::whereNotNull('purchaseDate')
+
+        $OxModel = Ox::whereNotNull('purchaseDate')
         ->whereNotNull('loadDate')
-        ->whereNotNull('unloadDate')
-        ->orderBy('pastoral_id')
+        ->whereNotNull('unloadDate');
+          
+        //if current user is not admin
+        if(!Auth::user()->hasRole('admin'))
+            $OxModel = $OxModel->where('user_id',Auth::user()->id);
+
+        $pastoralOxen =$OxModel->orderBy('pastoral_id')
         ->get()
         ->groupBy(function($data) {
             return $data->pastoral_id;
         });
 
-        $purchaseDates = Ox::whereNotNull('purchaseDate')
+        $OxModel= Ox::whereNotNull('purchaseDate')
             ->whereNotNull('loadDate')
-            ->whereNotNull('unloadDate')
-            ->orderBy('purchaseDate')
+            ->whereNotNull('unloadDate');
+
+        //if current user is not admin
+        if(!Auth::user()->hasRole('admin'))
+        $OxModel = $OxModel->where('user_id',Auth::user()->id);
+
+        $purchaseDates = $OxModel->orderBy('purchaseDate')
             ->get()
             ->groupBy(function($data) {
                 return $data->purchaseDate;
