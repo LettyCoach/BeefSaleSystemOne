@@ -65,7 +65,7 @@ class TransportToSlaughterHouseReportController extends Controller
         ->whereNotNull('unloadDate')
         ->whereNotNull('exportDate');
 
-        //if current user is not admin
+        //if current user is not admin  
         if(!Auth::user()->hasRole('admin'))
             $OxModel = $OxModel->where('user_id',Auth::user()->id);
 
