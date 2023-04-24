@@ -7,6 +7,9 @@
                 <!-- <img src="assets/img/logo.png" alt=""> -->
                 <h1>SGDs</h1>
             </a>
+            @if (Auth::user())
+                <span>{{Auth::user()->company->name}}</span>
+            @endif
         </div>      
         <nav id="navbar" class="navbar">
             <ul>

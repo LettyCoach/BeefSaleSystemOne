@@ -27,6 +27,11 @@ return new class extends Migration
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->foreignId('company_id')
+                ->nullable()
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->date('purchaseDate')->nullable();
             $table->bigInt('purchasePrice')->nullable();
             $table->bigInteger('purchasePrice')->nullable();

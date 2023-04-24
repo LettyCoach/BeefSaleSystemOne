@@ -56,6 +56,9 @@ class PurchaseController extends Controller
         ]);
         $validateData = $request->all();
         $currentUser_id = Auth::user()->id;
+        // current user company_id
+        $company_id = User::find($currentUser_id)['company_id'];
+    
         if(Ox::where('registerNumber',$validateData['registerNumber'])->count() == 1){
             return back()->with('info','個人識別番号が重複しています。');
         }else{
@@ -66,6 +69,7 @@ class PurchaseController extends Controller
                 'sex' => (int)$validateData['sex'],
                 'user_id' =>(int)$currentUser_id,
                 'market_id' => (int)$validateData['market_id'],
+                'company_id'=>(int)$company_id,
                 'purchaseTransport_Company_id' => (int)$validateData['purchaseTransport_Company_id'],
                 'pastoral_id' => (int)$validateData['pastoral_id'],
                 'purchasePrice' =>(float)$validateData['purchasePrice'],
@@ -175,9 +179,11 @@ class PurchaseController extends Controller
         $OxModel = Ox::whereNotNull('created_at');
         
         //if current user is not admin
-        if(!Auth::user()->hasRole('admin'))
-        $OxModel = $OxModel->where('user_id',Auth::user()->id);
-
+        if(!Auth::user()->hasRole('admin')){
+            $company_id = User::find(Auth::user()->id)['company_id'];
+            $OxModel = $OxModel->where('company_id',$company_id);  
+        }
+       
         $totalCnt = $OxModel->count();
         if($market_id != NULL){
             $OxModel=$OxModel->where('market_id','=',$market_id);

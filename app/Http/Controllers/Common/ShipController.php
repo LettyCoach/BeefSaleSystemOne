@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
+
 class ShipController extends Controller
 {
     /**
@@ -150,9 +151,11 @@ class ShipController extends Controller
             ->where('exportDate', '<=', $lastDate);
 
 
-         //if current user is not admin
-         if(!Auth::user()->hasRole('admin'))
-         $ships = $ships->where('user_id',Auth::user()->id);
+        //if current user is not admin
+        if(!Auth::user()->hasRole('admin')){
+            $company_id = User::find(Auth::user()->id)['company_id'];
+            $ships = $ships->where('company_id',$company_id);  
+        }
 
         $totalCnt = $ships->count();
 

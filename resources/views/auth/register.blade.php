@@ -41,6 +41,17 @@
                                 <input class="form-control" type="password" name="password_confirmation" id="password_confirmation" placeholder="パスワードを再度入力してください" required>
                             </div>
                         </div>
+                        <div class="form-group row p-2">
+                            <label class="col-lg-4 col-form-label form-control-label d-flex justify-content-end">会社選択</label>
+                            <div class="col-lg-8">
+                                <select name="company_id" class = 'form-select' id="company_id">
+                                    @foreach ($companies as $item)
+                                    <option value="{{$item->id}}">{{$item->name}}</option>    
+                                    @endforeach
+                                    
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group row p-2 d-flex flex-content-center">
                             <div class="col-lg-4"></div>
                             <div class="col-lg-8">

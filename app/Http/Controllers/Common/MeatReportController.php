@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Common\Ox;
 use App\Models\Admin\Part;
+use App\Models\user;
 use Auth;
 class MeatReportController extends Controller
 {
@@ -27,7 +28,8 @@ class MeatReportController extends Controller
 
         //if current user is not admin
         if(!Auth::user()->hasRole('admin')){
-            $OxModel = $OxModel->where('user_id',Auth::user()->id);
+            $company_id = User::find(Auth::user()->id)['company_id'];
+            $OxModel = $OxModel->where('company_id',$company_id);  
         }
         
 
@@ -44,9 +46,11 @@ class MeatReportController extends Controller
             ->whereNotNull('acceptedDateSlaughterHouse')
             ->whereNotNull('slaughterFinishedDate');
 
-        //if current user is not admin
-        if(!Auth::user()->hasRole('admin'))
-        $OxModel = $OxModel->where('user_id',Auth::user()->id);
+            //if current user is not admin
+            if(!Auth::user()->hasRole('admin')){
+                $company_id = User::find(Auth::user()->id)['company_id'];
+                $OxModel = $OxModel->where('company_id',$company_id);  
+            }
 
 
         $trasnsportCompanyOxen=$OxModel->orderBy('slaughterTransport_Company_id')
@@ -62,9 +66,11 @@ class MeatReportController extends Controller
             ->whereNotNull('acceptedDateSlaughterHouse')
             ->whereNotNull('slaughterFinishedDate');
 
-            //if current user is not admin
-        if(!Auth::user()->hasRole('admin'))
-        $OxModel = $OxModel->where('user_id',Auth::user()->id);
+             //if current user is not admin
+             if(!Auth::user()->hasRole('admin')){
+                $company_id = User::find(Auth::user()->id)['company_id'];
+                $OxModel = $OxModel->where('company_id',$company_id);  
+            };
 
         $slaughterHouseOxen = $OxModel->orderBy('slaughterHouse_id')
             ->get()
@@ -78,10 +84,11 @@ class MeatReportController extends Controller
             ->whereNotNull('acceptedDateSlaughterHouse')
             ->whereNotNull('slaughterFinishedDate');
 
-        //if current user is not admin
-        if(!Auth::user()->hasRole('admin'))
-        $OxModel = $OxModel->where('user_id',Auth::user()->id);
-
+            //if current user is not admin
+            if(!Auth::user()->hasRole('admin')){
+                $company_id = User::find(Auth::user()->id)['company_id'];
+                $OxModel = $OxModel->where('company_id',$company_id);  
+            }
         $purchaseDates = $OxModel->orderBy('purchaseDate')
             ->get()
             ->groupBy(function($data) {

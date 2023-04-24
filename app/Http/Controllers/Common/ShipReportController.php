@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Common;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Common\Ox;
+use App\Models\User;
 use Auth;
 class ShipReportController extends Controller
 {
@@ -22,9 +23,11 @@ class ShipReportController extends Controller
             ->whereNotNull('unloadDate')
             ->whereNotNull('exportDate');
 
-            //if current user is not admin
-        if(!Auth::user()->hasRole('admin'))
-        $OxModel = $OxModel->where('user_id',Auth::user()->id);
+        //if current user is not admin
+        if(!Auth::user()->hasRole('admin')){
+            $company_id = User::find(Auth::user()->id)['company_id'];
+            $OxModel = $OxModel->where('company_id',$company_id);  
+        }
 
         $pastoralOxen = $OxModel->orderBy('pastoral_id')
             ->get()
@@ -37,9 +40,11 @@ class ShipReportController extends Controller
             ->whereNotNull('unloadDate')
             ->whereNotNull('exportDate');
 
-            //if current user is not admin
-        if(!Auth::user()->hasRole('admin'))
-        $OxModel = $OxModel->where('user_id',Auth::user()->id);
+        //if current user is not admin
+        if(!Auth::user()->hasRole('admin')){
+            $company_id = User::find(Auth::user()->id)['company_id'];
+            $OxModel = $OxModel->where('company_id',$company_id);  
+        }
 
         $trasnsportCompanyOxen = $OxModel->orderBy('slaughterTransport_Company_id')
             ->get()
@@ -48,8 +53,10 @@ class ShipReportController extends Controller
         });
 
         //if current user is not admin
-        if(!Auth::user()->hasRole('admin'))
-            $OxModel = $OxModel->where('user_id',Auth::user()->id);
+        if(!Auth::user()->hasRole('admin')){
+            $company_id = User::find(Auth::user()->id)['company_id'];
+            $OxModel = $OxModel->where('company_id',$company_id);  
+        }
 
         $OxModel = Ox::whereNotNull('purchaseDate')
             ->whereNotNull('loadDate')
@@ -66,9 +73,11 @@ class ShipReportController extends Controller
             ->whereNotNull('unloadDate')
             ->whereNotNull('exportDate');
         
-            //if current user is not admin
-        if(!Auth::user()->hasRole('admin'))
-        $OxModel = $OxModel->where('user_id',Auth::user()->id);
+        //if current user is not admin
+        if(!Auth::user()->hasRole('admin')){
+            $company_id = User::find(Auth::user()->id)['company_id'];
+            $OxModel = $OxModel->where('company_id',$company_id);  
+        }
 
         $purchaseDates = $OxModel->orderBy('purchaseDate')
             ->get()

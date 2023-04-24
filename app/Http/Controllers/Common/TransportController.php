@@ -7,6 +7,7 @@ use App\Models\Common\Ox;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class TransportController extends Controller {
     /**
@@ -109,8 +110,10 @@ class TransportController extends Controller {
 
         $purchaseTransports =  Ox::whereNotNull( 'purchaseDate' );
         //if current user is not admin
-        if ( !Auth::user()->hasRole( 'admin' ) )
-        $purchaseTransports = $purchaseTransports->where( 'user_id', Auth::user()->id );
+        if(!Auth::user()->hasRole('admin')){
+            $company_id = User::find(Auth::user()->id)['company_id'];
+            $purchaseTransports = $purchaseTransports->where('company_id',$company_id);  
+        }
         
         $totalCnt = $purchaseTransports->count();
 

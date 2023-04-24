@@ -24,6 +24,7 @@ class Ox extends Model
         'sex',
         'user_id',
         'market_id',
+        'company_id',
         'purchaseDate',
         'purchasePrice',
         'purchaseTransport_Company_id',

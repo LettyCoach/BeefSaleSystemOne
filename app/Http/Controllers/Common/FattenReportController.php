@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Common;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Common\Ox;
+use App\Models\User;
 use Auth;
 class FattenReportController extends Controller
 {
@@ -22,8 +23,10 @@ class FattenReportController extends Controller
         ->whereNotNull('unloadDate');
           
         //if current user is not admin
-        if(!Auth::user()->hasRole('admin'))
-            $OxModel = $OxModel->where('user_id',Auth::user()->id);
+        if(!Auth::user()->hasRole('admin')){
+            $company_id = User::find(Auth::user()->id)['company_id'];
+            $OxModel = $OxModel->where('company_id',$company_id);  
+        }
 
         $pastoralOxen =$OxModel->orderBy('pastoral_id')
         ->get()
@@ -36,8 +39,10 @@ class FattenReportController extends Controller
             ->whereNotNull('unloadDate');
 
         //if current user is not admin
-        if(!Auth::user()->hasRole('admin'))
-        $OxModel = $OxModel->where('user_id',Auth::user()->id);
+        if(!Auth::user()->hasRole('admin')){
+            $company_id = User::find(Auth::user()->id)['company_id'];
+            $OxModel = $OxModel->where('company_id',$company_id);  
+        }
 
         $purchaseDates = $OxModel->orderBy('purchaseDate')
             ->get()
