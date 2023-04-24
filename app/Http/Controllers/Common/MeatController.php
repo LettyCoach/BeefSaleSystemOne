@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class MeatController extends Controller
 {
@@ -171,9 +172,11 @@ class MeatController extends Controller
                 ->whereNotNull('acceptedDateSlaughterHouse')
                 ->where('slaughterFinishedDate','<>',NULL);
 
-        //if current user is not admin
-        if(!Auth::user()->hasRole('admin'))
-        $OxModel = $OxModel->where('user_id',Auth::user()->id);
+      //if current user is not admin
+      if(!Auth::user()->hasRole('admin')){
+        $company_id = User::find(Auth::user()->id)['company_id'];
+        $OxModel = $OxModel->where('company_id',$company_id);  
+    }
 
         $totalCnt = $OxModel->count();
 

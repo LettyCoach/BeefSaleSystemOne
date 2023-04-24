@@ -7,6 +7,9 @@
                 <!-- <img src="assets/img/logo.png" alt=""> -->
                 <h1>SGDs</h1>
             </a>
+            @if (Auth::user())
+                <span>{{Auth::user()->company->name}}</span>
+            @endif
         </div>      
         <nav id="navbar" class="navbar">
             <ul>
@@ -15,6 +18,7 @@
                 <li><a href="{{ route('pastorals.index') }}">牧場</a></li>
                 <li><a href="{{ route('slaughterHouses.index') }}">屠殺場</a></li>
                 <li><a href="{{ route('parts.index') }}">部位カット</a></li>
+                <li><a href="{{ route('companies.index') }}">企業</a></li>
                 <li><a href="{{ route('users.index') }}">ユーザー管理</a></li>
                 <li><a href="{{ route('purchases.index') }}">ユーザーページ</a></li>
             </ul>

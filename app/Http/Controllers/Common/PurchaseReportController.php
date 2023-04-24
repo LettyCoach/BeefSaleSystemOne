@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\Common\Ox;
+use App\Models\User;
 
 class PurchaseReportController extends Controller
 {
@@ -22,9 +23,10 @@ class PurchaseReportController extends Controller
         $OxModel = Ox::whereNotNull('purchaseDate');
         
         //if current user is not admin
-        if(!Auth::user()->hasRole('admin'))
-        $OxModel = $OxModel->where('user_id',Auth::user()->id);
-
+        if(!Auth::user()->hasRole('admin')){
+            $company_id = User::find(Auth::user()->id)['company_id'];
+            $OxModel = $OxModel->where('company_id',$company_id);  
+        }
         $pastoralOxen = $OxModel->orderBy('pastoral_id')
             ->get()
             ->groupBy(function($data) {
@@ -34,8 +36,10 @@ class PurchaseReportController extends Controller
         $OxModel = Ox::whereNotNull('purchaseDate');
 
         //if current user is not admin
-        if(!Auth::user()->hasRole('admin'))
-            $OxModel = $OxModel->where('user_id',Auth::user()->id);
+        if(!Auth::user()->hasRole('admin')){
+            $company_id = User::find(Auth::user()->id)['company_id'];
+            $OxModel = $OxModel->where('company_id',$company_id);  
+        }
 
         $trasnsportCompanyOxen =$OxModel->orderBy('purchaseTransport_Company_id')
             ->get()
@@ -46,8 +50,10 @@ class PurchaseReportController extends Controller
         $OxModel = Ox::whereNotNull('purchaseDate');
  
         //if current user is not admin
-        if(!Auth::user()->hasRole('admin'))
-            $OxModel = $OxModel->where('user_id',Auth::user()->id);
+        if(!Auth::user()->hasRole('admin')){
+            $company_id = User::find(Auth::user()->id)['company_id'];
+            $OxModel = $OxModel->where('company_id',$company_id);  
+        }
 
         $marketOxen = $OxModel->orderBy('market_id')
             ->get()
@@ -58,8 +64,10 @@ class PurchaseReportController extends Controller
         $OxModel = Ox::whereNotNull('purchaseDate');
 
         //if current user is not admin
-        if(!Auth::user()->hasRole('admin'))
-        $OxModel = $OxModel->where('user_id',Auth::user()->id);
+        if(!Auth::user()->hasRole('admin')){
+            $company_id = User::find(Auth::user()->id)['company_id'];
+            $OxModel = $OxModel->where('company_id',$company_id);  
+        }
 
         $purchaseDates = $OxModel->orderBy('purchaseDate')
             ->get()

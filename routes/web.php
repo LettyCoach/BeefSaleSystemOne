@@ -18,6 +18,7 @@ use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\Common\OXController;
 use App\Http\Controllers\Admin\PartController;
 use App\Http\Controllers\Admin\MarketController;
+use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\SlaughterHouseController;
 use App\Http\Controllers\Admin\PastoralController;
 use App\Http\Controllers\Admin\TransportCompanyController;
@@ -51,6 +52,9 @@ Route::resource('/chirps',                              ChirpController::class)-
 
 Route::resource('/admin/markets',                       MarketController::class)->only(['index','store','create','edit','update','destroy'])->middleware(['auth','verified']);
 Route::get('/admin/getMarketsList',                     [MarketController::class, 'getMarketsList'])->middleware(['auth','verified']);
+
+Route::resource('/admin/companies',                       CompanyController::class)->only(['index','store','create','edit','update','destroy'])->middleware(['auth','verified']);
+Route::get('/admin/getCompaniesList',                     [CompanyController::class, 'getCompaniesList'])->middleware(['auth','verified']);
 
 Route::resource('/admin/pastorals',                     PastoralController::class)->only(['index','store','create','edit','update','destroy'])->middleware(['auth','verified']);
 Route::get('/admin/getPastoralsList',                   [PastoralController::class,'getPastoralsList'])->middleware(['auth','verified']);

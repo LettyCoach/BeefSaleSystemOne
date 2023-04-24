@@ -7,6 +7,7 @@ use App\Models\Admin\Pastoral;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class FattenController extends Controller
 {
@@ -76,9 +77,11 @@ class FattenController extends Controller
             ->whereNotNull('loadDate')
             ->whereNotNull('unloadDate');
 
-            //if current user is not admin
-            if(!Auth::user()->hasRole('admin'))
-            $OxModel = $OxModel->where('user_id',Auth::user()->id);
+        //if current user is not admin
+        if(!Auth::user()->hasRole('admin')){
+            $company_id = User::find(Auth::user()->id)['company_id'];
+            $OxModel = $OxModel->where('company_id',$company_id);  
+        }
 
         if($pastoralId == 0) {
 

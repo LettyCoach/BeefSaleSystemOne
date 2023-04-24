@@ -9,6 +9,7 @@ use App\Models\Common\Ox;
 use App\Models\Admin\Pastoral;
 use App\Models\Admin\SlaughterHouse ;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 
 class TransportToSlaughterHouseController extends Controller
@@ -56,8 +57,10 @@ class TransportToSlaughterHouseController extends Controller
 
 
         //if current user is not admin
-        if(!Auth::user()->hasRole('admin'))
-        $OxModel = $OxModel->where('user_id',Auth::user()->id);
+        if(!Auth::user()->hasRole('admin')){
+            $company_id = User::find(Auth::user()->id)['company_id'];
+            $OxModel = $OxModel->where('company_id',$company_id);  
+        }
     
         $totalCnt = $OxModel->count();
         
