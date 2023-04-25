@@ -1,6 +1,6 @@
 /*
 SQLyog Community v13.1.6 (64 bit)
-MySQL - 10.4.27-MariaDB : Database - LA04203877-sdgs
+MySQL - 10.4.27-MariaDB : Database - laravel
 *********************************************************************
 */
 
@@ -32,6 +32,26 @@ CREATE TABLE `chirps` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `chirps` */
+
+/*Table structure for table `companies` */
+
+DROP TABLE IF EXISTS `companies`;
+
+CREATE TABLE `companies` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `position` varchar(255) NOT NULL,
+  `note` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `companies` */
+
+insert  into `companies`(`id`,`name`,`position`,`note`,`created_at`,`updated_at`) values 
+(1,'company01','111','111','2023-04-19 23:19:00','2023-04-20 23:19:07'),
+(2,'company02','222','222','2023-04-04 23:19:04','2023-04-19 23:19:11');
 
 /*Table structure for table `failed_jobs` */
 
@@ -94,16 +114,21 @@ CREATE TABLE `meats` (
   KEY `meats_part_id_foreign` (`part_id`),
   CONSTRAINT `meats_ox_id_foreign` FOREIGN KEY (`ox_id`) REFERENCES `oxen` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `meats_part_id_foreign` FOREIGN KEY (`part_id`) REFERENCES `parts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `meats` */
 
 insert  into `meats`(`id`,`ox_id`,`part_id`,`weight`,`price`,`created_at`,`updated_at`) values 
-(50,38,1,2323.00,12334.00,'2023-04-13 16:02:08','2023-04-13 16:02:08'),
-(51,38,2,12323.00,12323.00,'2023-04-13 16:02:08','2023-04-13 16:02:08'),
-(52,38,3,123.00,123.00,'2023-04-13 16:02:08','2023-04-13 16:02:08'),
-(53,38,14,123.00,123.00,'2023-04-13 16:02:08','2023-04-13 16:02:08'),
-(54,38,15,123.00,123.00,'2023-04-13 16:02:08','2023-04-13 16:02:08');
+(80,39,1,22.00,22.00,'2023-04-15 23:42:38','2023-04-16 02:20:42'),
+(81,39,2,22.00,22.00,'2023-04-16 01:33:13','2023-04-16 02:20:46'),
+(82,39,3,22.00,22.00,'2023-04-16 01:33:20','2023-04-16 02:20:50'),
+(88,47,1,22.00,22.00,'2023-04-16 02:21:06','2023-04-16 02:21:06'),
+(89,47,3,22.00,22.00,'2023-04-16 02:21:13','2023-04-16 02:21:13'),
+(90,47,14,22.00,22.00,'2023-04-16 02:21:17','2023-04-16 02:21:17'),
+(91,39,14,100.00,1000.00,'2023-04-16 02:39:56','2023-04-16 02:39:56'),
+(92,39,15,100.00,1000.00,'2023-04-16 02:40:02','2023-04-16 02:40:02'),
+(93,48,1,2.00,2.00,'2023-04-17 13:25:26','2023-04-17 13:25:26'),
+(94,48,3,2.00,2.00,'2023-04-17 13:25:29','2023-04-17 13:25:29');
 
 /*Table structure for table `migrations` */
 
@@ -114,7 +139,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `migrations` */
 
@@ -132,7 +157,8 @@ insert  into `migrations`(`id`,`migration`,`batch`) values
 (11,'2023_03_08_023540_create_oxen_table',1),
 (12,'2023_03_08_055755_create_meats_table',1),
 (13,'2023_03_16_155019_create_roles_table',1),
-(14,'2023_03_16_230757_create_role_users_table',1);
+(14,'2023_03_16_230757_create_role_users_table',1),
+(15,'2023_04_24_205938_create_companies_table',2);
 
 /*Table structure for table `oxen` */
 
@@ -146,6 +172,7 @@ CREATE TABLE `oxen` (
   `sex` int(11) NOT NULL,
   `user_id` bigint(20) unsigned DEFAULT NULL,
   `market_id` bigint(20) unsigned DEFAULT NULL,
+  `company_id` bigint(20) unsigned DEFAULT NULL,
   `purchaseDate` date DEFAULT NULL,
   `purchasePrice` bigint(20) DEFAULT NULL,
   `purchaseTransport_Company_id` bigint(20) unsigned DEFAULT NULL,
@@ -172,20 +199,23 @@ CREATE TABLE `oxen` (
   KEY `oxen_slaughterhouse_id_foreign` (`slaughterHouse_id`),
   KEY `oxen_slaughtertransport_company_id_foreign` (`slaughterTransport_Company_id`),
   KEY `oxen_user_id_foreign` (`user_id`),
+  KEY `oxen_company_id_foreign` (`company_id`),
+  CONSTRAINT `oxen_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `oxen_market_id_foreign` FOREIGN KEY (`market_id`) REFERENCES `markets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `oxen_pastoral_id_foreign` FOREIGN KEY (`pastoral_id`) REFERENCES `pastorals` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `oxen_purchasetransport_company_id_foreign` FOREIGN KEY (`purchaseTransport_Company_id`) REFERENCES `transport_companies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `oxen_slaughterhouse_id_foreign` FOREIGN KEY (`slaughterHouse_id`) REFERENCES `slaughter_houses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `oxen_slaughtertransport_company_id_foreign` FOREIGN KEY (`slaughterTransport_Company_id`) REFERENCES `transport_companies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `oxen_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `oxen` */
 
-insert  into `oxen`(`id`,`registerNumber`,`name`,`birthday`,`sex`,`user_id`,`market_id`,`purchaseDate`,`purchasePrice`,`purchaseTransport_Company_id`,`loadDate`,`unloadDate`,`pastoral_id`,`accessDate`,`exportDate`,`appendInfo`,`slaughterTransport_Company_id`,`slaughterHouse_id`,`acceptedDateSlaughterHouse`,`slaughterFinishedDate`,`acceptedWeight`,`acceptedLevel`,`finishedState`,`created_at`,`updated_at`) values 
-(38,'01','01','2023-04-13',1,2,3,'2023-04-13',12345,1,'2023-04-13','2023-04-13',1,NULL,'2023-04-13',NULL,1,1,'2023-04-18','2023-04-10',123.00,'A5',1,'2023-04-13 15:58:50','2023-04-13 17:46:35'),
-(39,'02','02','2023-04-13',1,3,3,'2023-04-13',3456,1,'2023-04-13','2023-04-13',1,NULL,'2023-04-13',NULL,1,1,'2023-04-04','2023-04-03',123.00,'D2',0,'2023-04-13 15:59:03','2023-04-13 16:01:07'),
-(47,'123','123','2023-04-13',1,1,3,'2023-04-13',123,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2023-04-13 16:39:50','2023-04-13 16:39:50');
+insert  into `oxen`(`id`,`registerNumber`,`name`,`birthday`,`sex`,`user_id`,`market_id`,`company_id`,`purchaseDate`,`purchasePrice`,`purchaseTransport_Company_id`,`loadDate`,`unloadDate`,`pastoral_id`,`accessDate`,`exportDate`,`appendInfo`,`slaughterTransport_Company_id`,`slaughterHouse_id`,`acceptedDateSlaughterHouse`,`slaughterFinishedDate`,`acceptedWeight`,`acceptedLevel`,`finishedState`,`created_at`,`updated_at`) values 
+(39,'02','02','2023-04-13',1,3,3,1,'2023-04-13',3456,1,'2023-04-13','2023-04-13',1,NULL,'2023-04-13',NULL,1,1,'2023-04-04','2023-04-03',123.00,'D2',0,'2023-04-13 15:59:03','2023-04-13 16:01:07'),
+(47,'123','123','2023-04-13',1,1,3,1,'2023-04-13',123,1,'2023-04-28','2023-04-13',1,NULL,'2023-04-16','rwer',1,1,'2023-04-04','2023-04-05',456.00,'A1',0,'2023-04-13 16:39:50','2023-04-16 01:42:38'),
+(48,'234','234','2023-04-17',1,2,3,1,'2023-04-17',23424,1,'2023-04-17','2023-04-17',1,NULL,'2023-04-17','234',1,1,'2023-03-27','2023-04-04',234.00,'B1',0,'2023-04-17 13:24:27','2023-04-17 13:26:02'),
+(49,'123123','123','2023-04-24',1,1,3,2,'2023-04-24',123,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2023-04-24 21:43:08','2023-04-24 21:43:08');
 
 /*Table structure for table `parts` */
 
@@ -289,7 +319,7 @@ CREATE TABLE `role_users` (
   KEY `role_users_role_id_foreign` (`role_id`),
   CONSTRAINT `role_users_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `role_users_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `role_users` */
 
@@ -321,7 +351,13 @@ insert  into `role_users`(`id`,`user_id`,`role_id`,`created_at`,`updated_at`) va
 (40,4,6,'2023-04-13 16:57:02','2023-04-13 16:57:02'),
 (41,4,6,'2023-04-13 16:57:02','2023-04-13 16:57:02'),
 (42,4,7,'2023-04-13 16:57:03','2023-04-13 16:57:03'),
-(43,4,7,'2023-04-13 16:57:03','2023-04-13 16:57:03');
+(43,4,7,'2023-04-13 16:57:03','2023-04-13 16:57:03'),
+(44,5,2,'2023-04-17 11:26:25','2023-04-17 11:26:25'),
+(45,5,3,'2023-04-17 11:26:25','2023-04-17 11:26:25'),
+(46,5,4,'2023-04-17 11:26:26','2023-04-17 11:26:26'),
+(47,5,5,'2023-04-17 11:26:26','2023-04-17 11:26:26'),
+(48,5,6,'2023-04-17 11:26:26','2023-04-17 11:26:26'),
+(49,5,7,'2023-04-17 11:26:26','2023-04-17 11:26:26');
 
 /*Table structure for table `roles` */
 
@@ -413,28 +449,32 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
+  `company_id` bigint(20) unsigned DEFAULT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  UNIQUE KEY `users_email_unique` (`email`),
+  KEY `users_company_id_foreign` (`company_id`),
+  CONSTRAINT `users_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`name`,`email`,`email_verified_at`,`password`,`remember_token`,`created_at`,`updated_at`) values 
-(1,'Admin','example@gmail.com',NULL,'$2y$10$DPbyH/E177TJR8/oqiJIUu1ruW.WKZ0xJlbFDhIZZ.CRWK1p9SNGq',NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
-(2,'一般利用者0','m7tGSvrCyf@gmail.com','2023-03-20 00:00:00','$2y$10$aN8Z4oKmHEz8mOZXOtDmEejOQMWvj40x3C.xBS24LiwZj9K2S3G4S',NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
-(3,'一般利用者1','xcZs9lWzUj@gmail.com','2023-03-20 00:00:00','$2y$10$5L2D7LtDq3bGCClh/r2e2uOnBkFFyWCrcREg/nR0W27kHqjfOCy7u',NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
-(4,'一般利用者2','j9ThJyUKy1@gmail.com','2023-03-20 00:00:00','$2y$10$B.kGdIHsbTzVFZI0qmuZ8.aBuvFs59tTFXZCS5DYfnr5IYQM7Y5uK',NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
-(5,'一般利用者3','avTojWCsGL@gmail.com','2023-03-20 00:00:00','$2y$10$dvsT73u7mTYI4uW.WSG.hOasR6rR.FLcb8rp22VCZnRTlvhi6xA0i',NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
-(6,'一般利用者4','Gay7jD0bOp@gmail.com','2023-03-20 00:00:00','$2y$10$iwsYJWef5KjyE9Fmq4FnLOIpyP2/dexHa93i4O3ihu1YukpYfvfEy',NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
-(7,'一般利用者5','ypVeTao7Or@gmail.com','2023-03-20 00:00:00','$2y$10$q8rGKhsXSO8XqyZXQyUJ8eMGzk05gL4NhQWS2In6VFcuTrx632Fqq',NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
-(8,'一般利用者6','OjR5NvqKOl@gmail.com','2023-03-20 00:00:00','$2y$10$6kg9yDKae5PrQ9930tXF4.oFu1MqdZB9lDJv24GOIukB1UnN5Mo5O',NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
-(9,'一般利用者7','NNkFkUjpeZ@gmail.com','2023-03-20 00:00:00','$2y$10$BBXbMxZSc2o3Xm8fohpmF.Wldt62LI74haQRzlYKV7Vg9mLz8apSK',NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
-(10,'一般利用者8','daZ4dQEriH@gmail.com','2023-03-20 00:00:00','$2y$10$6lVctTFEiwBmfgesO/uv3.es3UOC/6m6ModNpvsw.mZz/VDX4Kpb6',NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
-(11,'一般利用者9','5tErLb5RsN@gmail.com','2023-03-20 00:00:00','$2y$10$kgV9yg1FbaZa6fkiGE7STODu0nxIPCc290MFFSsyl81LMUnYleS0W',NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
-(12,'moriyama','moriyamayukio85@gmail.com',NULL,'$2y$10$Dr3LRRvBvpFXjX04T388zOgCoOJrOkTYzUgTq6TIcrYjo7Oj1Iz42',NULL,'2023-03-21 14:56:33','2023-03-21 14:56:33');
+insert  into `users`(`id`,`name`,`email`,`email_verified_at`,`password`,`company_id`,`remember_token`,`created_at`,`updated_at`) values 
+(1,'Admin','example@gmail.com',NULL,'$2y$10$DPbyH/E177TJR8/oqiJIUu1ruW.WKZ0xJlbFDhIZZ.CRWK1p9SNGq',1,NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
+(2,'一般利用者0','m7tGSvrCyf@gmail.com','2023-03-20 00:00:00','$2y$10$aN8Z4oKmHEz8mOZXOtDmEejOQMWvj40x3C.xBS24LiwZj9K2S3G4S',1,NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
+(3,'一般利用者1','xcZs9lWzUj@gmail.com','2023-03-20 00:00:00','$2y$10$5L2D7LtDq3bGCClh/r2e2uOnBkFFyWCrcREg/nR0W27kHqjfOCy7u',2,NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
+(4,'一般利用者2','j9ThJyUKy1@gmail.com','2023-03-20 00:00:00','$2y$10$B.kGdIHsbTzVFZI0qmuZ8.aBuvFs59tTFXZCS5DYfnr5IYQM7Y5uK',1,NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
+(5,'一般利用者3','avTojWCsGL@gmail.com','2023-03-20 00:00:00','$2y$10$dvsT73u7mTYI4uW.WSG.hOasR6rR.FLcb8rp22VCZnRTlvhi6xA0i',2,NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
+(6,'一般利用者4','Gay7jD0bOp@gmail.com','2023-03-20 00:00:00','$2y$10$iwsYJWef5KjyE9Fmq4FnLOIpyP2/dexHa93i4O3ihu1YukpYfvfEy',2,NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
+(7,'一般利用者5','ypVeTao7Or@gmail.com','2023-03-20 00:00:00','$2y$10$q8rGKhsXSO8XqyZXQyUJ8eMGzk05gL4NhQWS2In6VFcuTrx632Fqq',1,NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
+(8,'一般利用者6','OjR5NvqKOl@gmail.com','2023-03-20 00:00:00','$2y$10$6kg9yDKae5PrQ9930tXF4.oFu1MqdZB9lDJv24GOIukB1UnN5Mo5O',1,NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
+(9,'一般利用者7','NNkFkUjpeZ@gmail.com','2023-03-20 00:00:00','$2y$10$BBXbMxZSc2o3Xm8fohpmF.Wldt62LI74haQRzlYKV7Vg9mLz8apSK',1,NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
+(10,'一般利用者8','daZ4dQEriH@gmail.com','2023-03-20 00:00:00','$2y$10$6lVctTFEiwBmfgesO/uv3.es3UOC/6m6ModNpvsw.mZz/VDX4Kpb6',1,NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
+(11,'一般利用者9','5tErLb5RsN@gmail.com','2023-03-20 00:00:00','$2y$10$kgV9yg1FbaZa6fkiGE7STODu0nxIPCc290MFFSsyl81LMUnYleS0W',2,NULL,'2023-03-20 00:00:00','2023-03-20 00:00:00'),
+(12,'moriyama','moriyamayukio85@gmail.com',NULL,'$2y$10$Dr3LRRvBvpFXjX04T388zOgCoOJrOkTYzUgTq6TIcrYjo7Oj1Iz42',2,NULL,'2023-03-21 14:56:33','2023-03-21 14:56:33'),
+(18,'111','admin@raynguyen.net',NULL,'$2y$10$ei3HZNmtfICWNSDQs7vZu.D7jy.TSPOoeWNi9OtfteUZiBPUZJccu',2,NULL,'2023-04-24 21:35:59','2023-04-24 21:35:59');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
