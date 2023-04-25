@@ -3,6 +3,7 @@
         <tr>
             <th class="text-center">番号</th>
             <th class="text-center">名前</th>
+            <th class="text-center">企業名</th>
             <th class="text-center">Eメール</th>
             <th class="text-center">権限設定</th>
             <th class="text-center">削除</th>
@@ -25,6 +26,9 @@
                 </td>
                 <td class="text-center">
                     <a class="btn btn-info" href="{{ route('purchases.show',$user->id) }}">{{ $user->name }}</a>
+                </td>
+                <td class="text-center">
+                    <span>{{$user->company->name}}</span>
                 </td>
                 <td class="text-center">
                     <span class="break-all" id = "userEmail{{ $user->id }}">{{ $user->email }}</span>
